@@ -54,13 +54,13 @@ export class ClienteComponent implements OnInit {
     console.log(this.dadosForm.controls)
   }
 
-  verificaValidTouched(field, form){
-    if(form == 'cadastro'){
+  verificaValidTouched(field, form){    
+    if(form == 'cadastroForm'){
       if(this.cadastroForm.get(field).touched){
         return this.cadastroForm.get(field).valid ? 'is-valid' : 'is-invalid';      
       }
     }
-    if(form == 'step2'){
+    if(form == 'dadosForm'){
       if(this.dadosForm.get(field).touched){
         return this.dadosForm.get(field).valid ? 'is-valid' : 'is-invalid';      
       }
