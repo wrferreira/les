@@ -32,5 +32,9 @@
             <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
           </select>
       </div>
-    </div>
+    </div>    
   </form>
+  <div class="d-flex justify-content-end" hidden>
+    <button class="btn btn-dark btn-sm mr-2">Voltar</button>
+    <button class="btn btn-dark btn-sm" (click)="onEmit()">Cadastrar</button>
+  </div>

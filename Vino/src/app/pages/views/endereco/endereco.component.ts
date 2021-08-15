@@ -52,6 +52,7 @@ export class EnderecoComponent implements OnInit {
   }
 
   onEmit(){
-    this.dadosEndereco.emit(this.dadosEndereco);
+    this.dadosEndereco.emit(this.enderecoForm);
   }
+  
 }

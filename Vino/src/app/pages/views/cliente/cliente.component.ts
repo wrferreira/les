@@ -31,6 +31,7 @@ export class ClienteComponent implements OnInit {
     this.dadosForm = this.formBuilder.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
+      tipoTelefone: ['0', Validators.required],
       telefone: ['', Validators.required],
       sexo: ['0', Validators.required]
     });
@@ -77,6 +78,7 @@ export class ClienteComponent implements OnInit {
   }
 
   getDadosEndereco(event){
+    console.log(event)
     this.endereco = event;
   }
 }

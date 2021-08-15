@@ -38,25 +38,41 @@
                     Nome obrigatório.
                   </div>
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="cpf"  placeholder="CPF" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf','dadosForm')">
-                  <div class="invalid-feedback">
-                    CPF obrigatório.
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" formControlName="cpf"  placeholder="CPF" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf','dadosForm')">
+                    <div class="invalid-feedback">
+                      CPF obrigatório.
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55" mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','dadosForm')">
-                  <div class="invalid-feedback">
-                    Telefone obrigatório.
+                  <div class="form-group col-md-6">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','dadosForm')">
+                      <option value="0">Selecione</option>
+                      <option value="M">Masculino</option>
+                      <option value="F">Feminino</option>
+                      <option value="O">Outros</option>
+                    </select>
                   </div>
-                </div>
-                <div class="form-group">
-                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','dadosForm')">
-                    <option value="0">Selecione</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Feminino</option>
-                  </select>
-                </div>
+                </div>                
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <select class="custom-select mr-sm-2" formControlName="tipoTelefone" [ngClass]="aplicaCssErro('tipoTelefone','dadosForm')">
+                      <option value="0">Selecione</option>
+                      <option value="CA">Casa</option>
+                      <option value="CE">Celular</option>
+                      <option value="CO">Comercial</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Tipo obrigatório.
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55" mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','dadosForm')">
+                    <div class="invalid-feedback">
+                      Telefone obrigatório.
+                    </div>
+                  </div>
+                </div>                
               </form>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-dark btn-sm mr-2" matStepperPrevious>Voltar</button>
