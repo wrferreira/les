@@ -12,9 +12,9 @@ export class ClienteService {
   constructor(
     private http: HttpClient
   ) { }
-
-  getViaCep(cep){
-    return this.http.get(this.baseUrl + 'api/v1../' + cep );
+  
+  getViaCep(cep: String) {
+    return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
   
 }

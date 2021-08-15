@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { countryList } from 'src/app/shared/models/country.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-cliente',
@@ -12,215 +14,42 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 })
 export class ClienteComponent implements OnInit {
 
-  public step1Form: FormGroup;
-  public step2Form: FormGroup;
-  
-  public countryList: Array<String> = [
-  "África do Sul",
-  "Albânia",
-  "Alemanha",
-  "Andorra",
-  "Angola",
-  "Anguilla",
-  "Antigua",
-  "Arábia Saudita",
-  "Argentina",
-  "Armênia",
-  "Aruba",
-  "Austrália",
-  "Áustria",
-  "Azerbaijão",
-  "Bahamas",
-  "Bahrein",
-  "Bangladesh",
-  "Barbados",
-  "Bélgica",
-  "Benin",
-  "Bermudas",
-  "Botsuana",
-  "Brasil",
-  "Brunei",
-  "Bulgária",
-  "Burkina Fasso",
-  "Butão",
-  "Cabo Verde",
-  "Camarões",
-  "Camboja",
-  "Canadá",
-  "Cazaquistão",
-  "Chade",
-  "Chile",
-  "China",
-  "Cidade do Vaticano",
-  "Colômbia",
-  "Congo",
-  "Coréia do Sul",
-  "Costa do Marfim",
-  "Costa Rica",
-  "Croácia",
-  "Dinamarca",
-  "Djibuti",
-  "Dominica",
-  "EUA",
-  "Egito",
-  "El Salvador",
-  "Emirados Árabes",
-  "Equador",
-  "Eritréia",
-  "Escócia",
-  "Eslováquia",
-  "Eslovênia",
-  "Espanha",
-  "Estônia",
-  "Etiópia",
-  "Fiji",
-  "Filipinas",
-  "Finlândia",
-  "França",
-  "Gabão",
-  "Gâmbia",
-  "Gana",
-  "Geórgia",
-  "Gibraltar",
-  "Granada",
-  "Grécia",
-  "Guadalupe",
-  "Guam",
-  "Guatemala",
-  "Guiana",
-  "Guiana Francesa",
-  "Guiné-bissau",
-  "Haiti",
-  "Holanda",
-  "Honduras",
-  "Hong Kong",
-  "Hungria",
-  "Iêmen",
-  "Ilhas Cayman",
-  "Ilhas Cook",
-  "Ilhas Curaçao",
-  "Ilhas Marshall",
-  "Ilhas Turks & Caicos",
-  "Ilhas Virgens (brit.)",
-  "Ilhas Virgens(amer.)",
-  "Ilhas Wallis e Futuna",
-  "Índia",
-  "Indonésia",
-  "Inglaterra",
-  "Irlanda",
-  "Islândia",
-  "Israel",
-  "Itália",
-  "Jamaica",
-  "Japão",
-  "Jordânia",
-  "Kuwait",
-  "Latvia",
-  "Líbano",
-  "Liechtenstein",
-  "Lituânia",
-  "Luxemburgo",
-  "Macau",
-  "Macedônia",
-  "Madagascar",
-  "Malásia",
-  "Malaui",
-  "Mali",
-  "Malta",
-  "Marrocos",
-  "Martinica",
-  "Mauritânia",
-  "Mauritius",
-  "México",
-  "Moldova",
-  "Mônaco",
-  "Montserrat",
-  "Nepal",
-  "Nicarágua",
-  "Niger",
-  "Nigéria",
-  "Noruega",
-  "Nova Caledônia",
-  "Nova Zelândia",
-  "Omã",
-  "Palau",
-  "Panamá",
-  "Papua-nova Guiné",
-  "Paquistão",
-  "Peru",
-  "Polinésia Francesa",
-  "Polônia",
-  "Porto Rico",
-  "Portugal",
-  "Qatar",
-  "Quênia",
-  "Rep. Dominicana",
-  "Rep. Tcheca",
-  "Reunion",
-  "Romênia",
-  "Ruanda",
-  "Rússia",
-  "Saipan",
-  "Samoa Americana",
-  "Senegal",
-  "Serra Leone",
-  "Seychelles",
-  "Singapura",
-  "Síria",
-  "Sri Lanka",
-  "St. Kitts & Nevis",
-  "St. Lúcia",
-  "St. Vincent",
-  "Sudão",
-  "Suécia",
-  "Suiça",
-  "Suriname",
-  "Tailândia",
-  "Taiwan",
-  "Tanzânia",
-  "Togo",
-  "Trinidad & Tobago",
-  "Tunísia",
-  "Turquia",
-  "Ucrânia",
-  "Uganda",
-  "Uruguai",
-  "Venezuela",
-  "Vietnã",
-  "Zaire",
-  "Zâmbia",
-  "Zimbábue"];
+  public cadastroForm: FormGroup;
+  public dadosForm: FormGroup;
+  public enderecoForm: FormGroup;
+  public countryList: Array<String>;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private clienteService: ClienteService
   ) { }
 
   ngOnInit(): void {
-    this.step1Form = this.formBuilder.group({
+    this.cadastroForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       confirmaSenha: ['', Validators.required]
     })
 
-    this.step2Form = this.formBuilder.group({
+    this.dadosForm = this.formBuilder.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
       telefone: ['', Validators.required],
       sexo: ['0', Validators.required]
     })
 
-    console.log(this.step2Form.controls)
+    console.log(this.dadosForm.controls)
   }
 
   verificaValidTouched(field, form){
-    if(form == 'step1'){
-      if(this.step1Form.get(field).touched){
-        return this.step1Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+    if(form == 'cadastro'){
+      if(this.cadastroForm.get(field).touched){
+        return this.cadastroForm.get(field).valid ? 'is-valid' : 'is-invalid';      
       }
     }
     if(form == 'step2'){
-      if(this.step2Form.get(field).touched){
-        return this.step2Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+      if(this.dadosForm.get(field).touched){
+        return this.dadosForm.get(field).valid ? 'is-valid' : 'is-invalid';      
       }
     }
     return '';
@@ -231,7 +60,7 @@ export class ClienteComponent implements OnInit {
   }
 
   verificarErro(field){
-    const listErros = this.step1Form.get(field).errors;
+    const listErros = this.cadastroForm.get(field).errors;
     if(listErros){
       if(listErros['required']){
         return listErros['required'] ? 'Senha obrigatória' : '';
@@ -242,11 +71,25 @@ export class ClienteComponent implements OnInit {
     }
   }
 
+  onCEPChange() {
+    let cep = this.enderecoForm.get('cep');
+    console.log(cep.errors);
+    if(cep.valid) {
+      this.clienteService.getViaCep(cep.value.toString().replace('-','')).subscribe((dados) => {
+        this.enderecoForm.get('endereco').setValue(dados['logradouro']);
+        this.enderecoForm.get('cidade').setValue(dados['localidade']);
+        this.enderecoForm.get('bairro').setValue(dados['bairro']);
+        this.enderecoForm.get('complemento').setValue(dados['complemento']);
+        this.enderecoForm.get('uf').setValue(dados['uf']);
+      });
+    }
+  }
+
   onPasswordChange() {
-    if (this.step1Form.get('senha').value === this.step1Form.get('confirmaSenha').value) {
-      this.step1Form.get('confirmaSenha').setErrors(null);
+    if (this.cadastroForm.get('senha').value === this.cadastroForm.get('confirmaSenha').value) {
+      this.cadastroForm.get('confirmaSenha').setErrors(null);
     } else {
-      this.step1Form.get('confirmaSenha').setErrors({ mismatch: true });      
+      this.cadastroForm.get('confirmaSenha').setErrors({ mismatch: true });      
     }
   }
 }
