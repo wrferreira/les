@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente',
@@ -21,16 +21,39 @@ export class ClienteComponent implements OnInit {
   ngOnInit(): void {
     this.step1Form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', Validators.required]
+      senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      confirmaSenha: ['', Validators.required]
     })
   }
 
   verificaValidTouched(field){
-    return !this.step1Form.get(field).valid && this.step1Form.get(field).touched;
+    if(this.step1Form.get(field).touched){
+      return this.step1Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+    }
+    return '';
   }
 
   aplicaCssErro(field){
-    const isValid = this.verificaValidTouched(field);
-    return isValid ? 'is-invalid' : '';
+    return this.verificaValidTouched(field);
+  }
+
+  verificarErro(field){
+    const listErros = this.step1Form.get(field).errors;
+    if(listErros){
+      if(listErros['required']){
+        return listErros['required'] ? 'Senha obrigatória' : '';
+      }
+      if(listErros['pattern']){
+        return listErros['pattern'] ? 'Senha inválida' : '';
+      }
+    }
+  }
+
+  onPasswordChange() {
+    if (this.step1Form.get('senha').value === this.step1Form.get('confirmaSenha').value) {
+      this.step1Form.get('confirmaSenha').setErrors(null);
+    } else {
+      this.step1Form.get('confirmaSenha').setErrors({ mismatch: true });      
+    }
   }
 }
