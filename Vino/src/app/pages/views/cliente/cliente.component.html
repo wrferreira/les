@@ -6,19 +6,28 @@
         <div class="card-body">          
           <mat-horizontal-stepper labelPosition="bottom">
             <mat-step label="Step 1">              
-              <form>
+              <form [formGroup]="step1Form">
                 <div class="form-group">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
-                </div>
+                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email')">
+                  <div class="invalid-feedback">
+                    E-mail inválido.
+                  </div>
+                </div>                
                 <div class="form-group">
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+                  <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="aplicaCssErro('senha')">
+                  <div class="invalid-feedback">
+                    Senha obrigatória.
+                  </div>
                 </div>                
                 <div class="form-group">
                   <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmar senha">
+                  <div class="invalid-feedback">
+                    Senhas não conferem.
+                  </div>
                 </div>                
               </form>
               <div class="d-flex justify-content-end">
-                <button class="btn btn-dark btn-sm" matStepperNext>Avançar</button>
+                <button type="submit" class="btn btn-dark btn-sm" matStepperNext [disabled]="step1Form.invalid">Avançar</button>
               </div>
             </mat-step>
             <mat-step label="Step 2">
