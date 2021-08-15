@@ -11,7 +11,6 @@ import { countryList } from 'src/app/shared/models/country.model';
 export class EnderecoComponent implements OnInit {
 
   @Output() dadosEndereco = new EventEmitter();
-  @Input() dadosEntrada;
   public enderecoForm: FormGroup;
   public countryList: Array<String>;
   
@@ -25,7 +24,7 @@ export class EnderecoComponent implements OnInit {
     this.countryList = countryList;
 
     this.enderecoForm = this.formBuilder.group({
-      cep: ['', Validators.required],
+      cep: ['', [Validators.required]],
       numero: ['', Validators.required],
       endereco: ['', Validators.required],
       complemento: [''],
@@ -33,13 +32,31 @@ export class EnderecoComponent implements OnInit {
       cidade: ['', Validators.required],
       uf: ['', Validators.required],
       pais: ['Brasil', Validators.required],
-
+      descricaoEndereco: ['', Validators.required],
+      tipoEndereco: ['', Validators.required]
     });
+  }
+
+  aplicaCssErro(field, form){  
+    let touched = this[form].get(field).touched;
+    let isValid = touched ? this[form].get(field).valid ? 'is-valid' : 'is-invalid' : '';
+    return field ? isValid : '';
+  }
+
+  verificarErro(field){
+    const listErros = this.enderecoForm.get(field).errors;
+    if(listErros){
+      if(listErros['required']){
+        return listErros['required'] ? 'CEP obrigatório' : '';
+      }
+      if(listErros['pattern']){
+        return listErros['pattern'] ? 'CEP inválido' : '';
+      }
+    }
   }
 
   onCEPChange() {
     let cep = this.enderecoForm.get('cep');
-    console.log(cep.errors);
     if(cep.valid) {
       this.clienteService.getViaCep(cep.value.toString().replace('-','')).subscribe((dados) => {
         this.enderecoForm.get('endereco').setValue(dados['logradouro']);

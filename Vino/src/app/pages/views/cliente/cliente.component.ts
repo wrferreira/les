@@ -15,7 +15,6 @@ export class ClienteComponent implements OnInit {
   public cadastroForm: FormGroup;
   public dadosForm: FormGroup;   
   public endereco: FormGroup;
-  public teste;
 
   constructor(
     private formBuilder: FormBuilder,

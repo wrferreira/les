@@ -1,15 +1,24 @@
 <form [formGroup]="enderecoForm">
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()">
+        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()" [ngClass]="aplicaCssErro('cep','enderecoForm')">
+        <div class="invalid-feedback">
+          {{verificarErro('cep')}}
+        </div>
       </div>
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número">
+        <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número" [ngClass]="aplicaCssErro('numero','enderecoForm')">
+        <div class="invalid-feedback">
+          Número obrigatório.
+        </div>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-8">
-        <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço">
+        <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço" [ngClass]="aplicaCssErro('endereco','enderecoForm')">
+        <div class="invalid-feedback">
+          Endereço inválido.
+        </div>
       </div>
       <div class="form-group col-md-4">
         <input type="text" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
@@ -17,24 +26,48 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
+        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro" [ngClass]="aplicaCssErro('bairro','enderecoForm')">
+        <div class="invalid-feedback">
+          Bairro obrigatório.
+        </div>
       </div>
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade">
+        <input type="text" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade" [ngClass]="aplicaCssErro('cidade','enderecoForm')">
+        <div class="invalid-feedback">
+          Cidade obrigatório.
+        </div>
       </div>                               
     </div>
     <div class="form-row">
-      <div class="form-group col-md-8">
-        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="UF">
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="UF" [ngClass]="aplicaCssErro('uf','enderecoForm')">
+        <div class="invalid-feedback">
+          UF Obrigatório.
+        </div>
       </div>      
-        <div class="form-group col-md-4">
-          <select class="form-control" id="pais" name="pais" formControlName="pais">
+        <div class="form-group col-md-8">
+          <select class="form-control" id="pais" name="pais" formControlName="pais" [ngClass]="aplicaCssErro('pais','enderecoForm')">
             <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
           </select>
       </div>
-    </div>    
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <input type="text" class="form-control" id="descricaoEndereco" formControlName="descricaoEndereco" placeholder="Descrição do Endereço" [ngClass]="aplicaCssErro('descricaoEndereco','enderecoForm')">
+        <div class="invalid-feedback">
+          Descrição do Endereço Obrigatório
+        </div>
+      </div>      
+        <div class="form-group col-md-4">
+          <select class="form-control" id="tipoEndereco" name="tipoEndereco" formControlName="tipoEndereco" [ngClass]="aplicaCssErro('tipoEndereco','enderecoForm')">
+            <option value="residencial">Residencial</option>
+            <option value="comercial">Comercial</option>
+            <option value="outro">Outro</option>
+          </select>
+      </div>
+    </div>
   </form>
-  <div class="d-flex justify-content-end" hidden>
+  <div class="d-flex justify-content-end">
     <button class="btn btn-dark btn-sm mr-2">Voltar</button>
     <button class="btn btn-dark btn-sm" (click)="onEmit()">Cadastrar</button>
   </div>
