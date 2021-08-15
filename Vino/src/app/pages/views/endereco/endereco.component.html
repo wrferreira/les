@@ -1,0 +1,36 @@
+<form [formGroup]="enderecoForm">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()">
+      </div>
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço">
+      </div>
+      <div class="form-group col-md-4">
+        <input type="text" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
+      </div>
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade">
+      </div>                               
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-8">
+        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="UF">
+      </div>      
+        <div class="form-group col-md-4">
+          <select class="form-control" id="pais" name="pais" formControlName="pais">
+            <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
+          </select>
+      </div>
+    </div>
+  </form>

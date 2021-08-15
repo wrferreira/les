@@ -7,9 +7,13 @@ import { ClienteComponent } from './cliente.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
+import { EnderecoComponent } from '../endereco/endereco.component';
 
 @NgModule({
-  declarations: [ClienteComponent],
+  declarations: [
+    ClienteComponent,
+    EnderecoComponent
+  ],
   imports: [
     CommonModule,    
     FormsModule,
