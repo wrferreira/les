@@ -6,52 +6,52 @@
         <div class="card-body">          
           <mat-horizontal-stepper labelPosition="bottom">
             <mat-step label="Cadastro">              
-              <form [formGroup]="step1Form">
+              <form [formGroup]="cadastroForm">
                 <div class="form-group">
-                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email','step1Form')">
+                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email','cadastroForm')">
                   <div class="invalid-feedback">
                     E-mail inválido.
                   </div>
                 </div>                
                 <div class="form-group">
-                  <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="aplicaCssErro('senha','step1Form')" (change)="onPasswordChange()">
+                  <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="aplicaCssErro('senha','cadastroForm')" (change)="onPasswordChange()">
                   <div class="invalid-feedback">
                     {{ verificarErro('senha') }}
                   </div>                  
                 </div>                
                 <div class="form-group">
-                  <input type="password" class="form-control" formControlName="confirmaSenha" placeholder="Confirmar senha" [ngClass]="aplicaCssErro('confirmaSenha','step1Form')" (change)="onPasswordChange()">
+                  <input type="password" class="form-control" formControlName="confirmaSenha" placeholder="Confirmar senha" [ngClass]="aplicaCssErro('confirmaSenha','cadastroForm')" (change)="onPasswordChange()">
                   <div class="invalid-feedback">
                     Senhas não conferem.
                   </div>
                 </div>                
               </form>
               <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-dark btn-sm" matStepperNext [disabled]="step1Form.invalid">Avançar</button>
+                <button type="submit" class="btn btn-dark btn-sm" matStepperNext [disabled]="cadastroForm.invalid">Avançar</button>
               </div>
             </mat-step>
             <mat-step label="Dados Pessoais">
-              <form [formGroup]="step2Form">
+              <form [formGroup]="dadosForm">
                 <div class="form-group">
-                  <input type="text" class="form-control" formControlName="nome" placeholder="Nome" [ngClass]="aplicaCssErro('nome','step2Form')">
+                  <input type="text" class="form-control" formControlName="nome" placeholder="Nome" [ngClass]="aplicaCssErro('nome','dadosForm')">
                   <div class="invalid-feedback">
                     Nome obrigatório.
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" formControlName="cpf"  placeholder="CPF" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf','step2Form')">
+                  <input type="text" class="form-control" formControlName="cpf"  placeholder="CPF" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf','dadosForm')">
                   <div class="invalid-feedback">
                     CPF obrigatório.
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55" mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','step2Form')">
+                  <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55" mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','dadosForm')">
                   <div class="invalid-feedback">
                     Telefone obrigatório.
                   </div>
                 </div>
                 <div class="form-group">
-                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','step2Form')">
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','dadosForm')">
                     <option value="0">Selecione</option>
                     <option value="M">Masculino</option>
                     <option value="F">Feminino</option>
@@ -60,14 +60,14 @@
               </form>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-dark btn-sm mr-2" matStepperPrevious>Voltar</button>
-                <button class="btn btn-dark btn-sm" matStepperNext [disabled]="step2Form.invalid">Avançar</button>
+                <button class="btn btn-dark btn-sm" matStepperNext [disabled]="dadosForm.invalid">Avançar</button>
               </div>
             </mat-step>
             <mat-step label="Endereço">
-              <form [formGroup]="step3Form">
+              <form [formGroup]="enderecoForm">
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control" id="cep" formControlName="cep" placeholder="Cep" (change)="onCEPChange()">
+                    <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()">
                   </div>
                   <div class="form-group col-md-6">
                     <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número">
@@ -95,14 +95,14 @@
                   </div>      
                     <div class="form-group col-md-4">
                       <select class="form-control" id="pais" name="pais" formControlName="pais">
-                        <option *ngFor="let country of countryList" [value]="country" [selected]="country == 'Brasil' ? true : null">{{country}}</option>
+                        <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
                       </select>
                   </div>
                 </div>
               </form>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-dark btn-sm mr-2" matStepperPrevious>Voltar</button>
-                <button class="btn btn-dark btn-sm" matStepperNext>Enviar</button>
+                <button class="btn btn-dark btn-sm" matStepperNext [disabled]="enderecoForm.invalid || dadosForm.invalid || cadastroForm.invalid">Cadastrar</button>
               </div>
             </mat-step>          
           </mat-horizontal-stepper>

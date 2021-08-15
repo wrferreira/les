@@ -22,7 +22,9 @@ export class ClienteComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService
-  ) { }
+  ) { 
+    this.countryList = countryList;
+  }
 
   ngOnInit(): void {
     this.cadastroForm = this.formBuilder.group({
@@ -38,6 +40,17 @@ export class ClienteComponent implements OnInit {
       sexo: ['0', Validators.required]
     })
 
+    this.enderecoForm = this.formBuilder.group({
+      cep: ['', Validators.required],
+      numero: ['', Validators.required],
+      endereco: ['', Validators.required],
+      complemento: [''],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      uf: ['', Validators.required],
+      pais: ['Brasil', Validators.required],
+
+    });
     console.log(this.dadosForm.controls)
   }
 
