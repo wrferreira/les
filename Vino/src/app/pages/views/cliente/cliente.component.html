@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">          
           <mat-horizontal-stepper labelPosition="bottom">
-            <mat-step label="Step 1">
+            <mat-step label="Cadastro">              
               <form [formGroup]="step1Form">
                 <div class="form-group">
                   <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email')">
@@ -30,7 +30,7 @@
                 <button type="submit" class="btn btn-dark btn-sm" matStepperNext [disabled]="step1Form.invalid">Avançar</button>
               </div>
             </mat-step>
-            <mat-step label="Step 2">
+            <mat-step label="Dados Pessoais">
               <form>
                 <div class="form-group">
                   <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nome">
@@ -54,29 +54,41 @@
                 <button class="btn btn-dark btn-sm" matStepperNext>Avançar</button>
               </div>
             </mat-step>
-            <mat-step label="Step 3">
+            <mat-step label="Endereço">
               <form>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control" id="Cep" placeholder="Cep">
+                    <input type="text" class="form-control" id="cep" placeholder="Cep">
                   </div>
                   <div class="form-group col-md-6">
-                    <input type="text" class="form-control" id="Cep" placeholder="Telefone">
+                    <input type="text" class="form-control" id="numero" placeholder="Número">
                   </div>
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" id="inputAddress2" placeholder="Endereço">
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-4">
-                    <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+                  <div class="form-group col-md-8">
+                    <input type="text" class="form-control" id="endereco" placeholder="Endereço">
                   </div>
                   <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="complemento" placeholder="Complemento">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+                  </div>
+                  <div class="form-group col-md-6">
                     <input type="text" class="form-control" id="cidade" placeholder="Cidade">
-                  </div>                  
-                  <div class="form-group col-md-4">
+                  </div>                               
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-8">
                     <input type="text" class="form-control" id="uf" placeholder="UF">
-                  </div>                  
+                  </div>      
+                    <div class="form-group col-md-4">
+                      <select class="form-control" id="pais" name="pais">
+                        <option *ngFor="let country of countryList" [value]="country" [selected]="country == 'Brasil' ? true : null">{{country}}</option>
+                      </select>
+                  </div>
                 </div>
               </form>
               <div class="d-flex justify-content-end">
