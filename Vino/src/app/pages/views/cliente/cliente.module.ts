@@ -6,7 +6,7 @@ import { ClienteComponent } from './cliente.component';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [ClienteComponent],
@@ -16,6 +16,7 @@ import { BrowserModule } from '@angular/platform-browser';
     ReactiveFormsModule,
     ClienteRoutingModule,
     MatStepperModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class ClienteModule { }

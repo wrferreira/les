@@ -8,19 +8,19 @@
             <mat-step label="Cadastro">              
               <form [formGroup]="step1Form">
                 <div class="form-group">
-                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email')">
+                  <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [ngClass]="aplicaCssErro('email','step1Form')">
                   <div class="invalid-feedback">
                     E-mail inválido.
                   </div>
                 </div>                
                 <div class="form-group">
-                  <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="aplicaCssErro('senha')" (change)="onPasswordChange()">
+                  <input type="password" class="form-control" formControlName="senha" placeholder="Senha" [ngClass]="aplicaCssErro('senha','step1Form')" (change)="onPasswordChange()">
                   <div class="invalid-feedback">
                     {{ verificarErro('senha') }}
                   </div>                  
                 </div>                
                 <div class="form-group">
-                  <input type="password" class="form-control" formControlName="confirmaSenha" placeholder="Confirmar senha" [ngClass]="aplicaCssErro('confirmaSenha')" (change)="onPasswordChange()">
+                  <input type="password" class="form-control" formControlName="confirmaSenha" placeholder="Confirmar senha" [ngClass]="aplicaCssErro('confirmaSenha','step1Form')" (change)="onPasswordChange()">
                   <div class="invalid-feedback">
                     Senhas não conferem.
                   </div>
@@ -31,19 +31,28 @@
               </div>
             </mat-step>
             <mat-step label="Dados Pessoais">
-              <form>
+              <form [formGroup]="step2Form">
                 <div class="form-group">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nome">
+                  <input type="text" class="form-control" formControlName="nome" placeholder="Nome" [ngClass]="aplicaCssErro('nome','step2Form')">
+                  <div class="invalid-feedback">
+                    Nome obrigatório.
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CPF">
+                  <input type="text" class="form-control" formControlName="cpf"  placeholder="CPF" mask="000.000.000-00" [ngClass]="aplicaCssErro('cpf','step2Form')">
+                  <div class="invalid-feedback">
+                    CPF obrigatório.
+                  </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Telefone">
+                  <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55" mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','step2Form')">
+                  <div class="invalid-feedback">
+                    Telefone obrigatório.
+                  </div>
                 </div>
                 <div class="form-group">
-                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                    <option selected>Selecione</option>
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','step2Form')">
+                    <option value="0">Selecione</option>
                     <option value="M">Masculino</option>
                     <option value="F">Feminino</option>
                   </select>
@@ -51,7 +60,7 @@
               </form>
               <div class="d-flex justify-content-end">
                 <button class="btn btn-dark btn-sm mr-2" matStepperPrevious>Voltar</button>
-                <button class="btn btn-dark btn-sm" matStepperNext>Avançar</button>
+                <button class="btn btn-dark btn-sm" matStepperNext [disabled]="step2Form.invalid">Avançar</button>
               </div>
             </mat-step>
             <mat-step label="Endereço">

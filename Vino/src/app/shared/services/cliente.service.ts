@@ -13,5 +13,8 @@ export class ClienteService {
     private http: HttpClient
   ) { }
 
+  getViaCep(cep){
+    return this.http.get(this.baseUrl + 'api/v1../' + cep );
+  }
   
 }

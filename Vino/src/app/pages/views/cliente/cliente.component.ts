@@ -13,7 +13,8 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 export class ClienteComponent implements OnInit {
 
   public step1Form: FormGroup;
-
+  public step2Form: FormGroup;
+  
   public countryList: Array<String> = [
   "África do Sul",
   "Albânia",
@@ -200,17 +201,33 @@ export class ClienteComponent implements OnInit {
       senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       confirmaSenha: ['', Validators.required]
     })
+
+    this.step2Form = this.formBuilder.group({
+      nome: ['', Validators.required],
+      cpf: ['', Validators.required],
+      telefone: ['', Validators.required],
+      sexo: ['0', Validators.required]
+    })
+
+    console.log(this.step2Form.controls)
   }
 
-  verificaValidTouched(field){
-    if(this.step1Form.get(field).touched){
-      return this.step1Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+  verificaValidTouched(field, form){
+    if(form == 'step1'){
+      if(this.step1Form.get(field).touched){
+        return this.step1Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+      }
+    }
+    if(form == 'step2'){
+      if(this.step2Form.get(field).touched){
+        return this.step2Form.get(field).valid ? 'is-valid' : 'is-invalid';      
+      }
     }
     return '';
   }
 
-  aplicaCssErro(field){
-    return this.verificaValidTouched(field);
+  aplicaCssErro(field, form){    
+    return field ? this.verificaValidTouched(field, form) : '';
   }
 
   verificarErro(field){
