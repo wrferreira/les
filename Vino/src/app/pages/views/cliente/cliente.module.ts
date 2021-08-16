@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { ClienteComponent } from './cliente.component';
+import { EnderecoComponent } from '../endereco/endereco.component';
 
-import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
-import { EnderecoComponent } from '../endereco/endereco.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EnderecoComponent } from '../endereco/endereco.component';
     ReactiveFormsModule,
     ClienteRoutingModule,
     MatStepperModule,
+    MatIconModule,
     NgxMaskModule.forRoot(),
   ]
 })

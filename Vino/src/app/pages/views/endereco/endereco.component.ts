@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
 import { countryList } from 'src/app/shared/models/country.model';
@@ -8,9 +8,11 @@ import { countryList } from 'src/app/shared/models/country.model';
   templateUrl: './endereco.component.html',
   styleUrls: ['./endereco.component.scss']
 })
-export class EnderecoComponent implements OnInit {
+export class EnderecoComponent implements OnInit, OnChanges {
 
   @Output() dadosEndereco = new EventEmitter();
+  @Input() resetEndereco = 0;
+  @Input() loadData;
   public enderecoForm: FormGroup;
   public countryList: Array<String>;
   
@@ -20,6 +22,31 @@ export class EnderecoComponent implements OnInit {
   ) { }  
 
   ngOnInit(): void {
+    this.loadForm();
+  }
+
+  ngOnChanges(){    
+    if(this.resetEndereco){      
+      this.resetForm();
+    }
+    if(this.loadData){
+      this.enderecoForm.patchValue({
+        cep: this.loadData.cep,
+        numero: this.loadData.numero,
+        endereco: this.loadData.endereco,
+        complemento: this.loadData.complemento,
+        bairro: this.loadData.bairro,
+        cidade: this.loadData.cidade,
+        uf: this.loadData.uf,
+        pais: this.loadData.pais,
+        descricaoEndereco: this.loadData.descricaoEndereco,
+        tipoEndereco: this.loadData.tipoEndereco
+      });
+    }
+    
+  }
+
+  loadForm(){
     this.countryList = countryList;
 
     this.enderecoForm = this.formBuilder.group({
@@ -34,6 +61,13 @@ export class EnderecoComponent implements OnInit {
       descricaoEndereco: ['', Validators.required],
       tipoEndereco: ['', Validators.required]
     });
+  }
+
+  resetForm(){    
+    if(this.enderecoForm){
+      this.enderecoForm.reset();
+      this.loadForm();
+    }
   }
  
   aplicaCssErro(field, form){  

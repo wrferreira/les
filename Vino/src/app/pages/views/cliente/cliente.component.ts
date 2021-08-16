@@ -14,8 +14,10 @@ export class ClienteComponent implements OnInit {
 
   public cadastroForm: FormGroup;
   public dadosForm: FormGroup;   
+  public endereco: FormGroup;
   public enderecoValid: boolean;  
-  public endereco = {};
+  public resetEndereco = 0;
+  public loadData:FormGroup;
   public listaEnderecos = [];
 
   constructor(
@@ -66,15 +68,25 @@ export class ClienteComponent implements OnInit {
 
   getDadosEndereco(event){
     if(event.valid){
-      this.endereco = event.value;
-      console.log(this.endereco)
+      this.endereco = event;
     }
     this.enderecoValid = event.valid ? false : true;
   }
 
-  addEndereco(){    
-    if(this.endereco == null){
-      this.listaEnderecos.push(this.endereco);
-    }    
+  addEndereco(){
+    if(this.endereco?.valid){
+      this.listaEnderecos.push(this.endereco.value);
+
+      this.resetEndereco += 1;
+    }
+  }
+
+  editEndereco(enderecoIdx){
+    this.loadData = this.listaEnderecos[enderecoIdx];
+    console.log(this.loadData)
+  }
+
+  removeEndereco(enderecoIdx){
+    this.listaEnderecos.splice(enderecoIdx, 1);
   }
 }
