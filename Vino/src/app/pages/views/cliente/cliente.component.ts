@@ -14,7 +14,9 @@ export class ClienteComponent implements OnInit {
 
   public cadastroForm: FormGroup;
   public dadosForm: FormGroup;   
-  public endereco: FormGroup;
+  public enderecoValid: boolean;  
+  public endereco = {};
+  public listaEnderecos = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,8 +36,6 @@ export class ClienteComponent implements OnInit {
       telefone: ['', Validators.required],
       sexo: ['0', Validators.required]
     });
-    
-    console.log(this.dadosForm.controls)
   }
 
   aplicaCssErro(field, form){  
@@ -65,7 +65,16 @@ export class ClienteComponent implements OnInit {
   }
 
   getDadosEndereco(event){
-    console.log(event)
-    this.endereco = event;
+    if(event.valid){
+      this.endereco = event.value;
+      console.log(this.endereco)
+    }
+    this.enderecoValid = event.valid ? false : true;
+  }
+
+  addEndereco(){    
+    if(this.endereco == null){
+      this.listaEnderecos.push(this.endereco);
+    }    
   }
 }

@@ -1,13 +1,13 @@
 <form [formGroup]="enderecoForm">
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()" [ngClass]="aplicaCssErro('cep','enderecoForm')">
+        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()" [ngClass]="aplicaCssErro('cep','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           {{verificarErro('cep')}}
         </div>
       </div>
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número" [ngClass]="aplicaCssErro('numero','enderecoForm')">
+        <input type="text" class="form-control" id="numero" formControlName="numero" placeholder="Número" [ngClass]="aplicaCssErro('numero','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           Número obrigatório.
         </div>
@@ -15,7 +15,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-8">
-        <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço" [ngClass]="aplicaCssErro('endereco','enderecoForm')">
+        <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço" [ngClass]="aplicaCssErro('endereco','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           Endereço inválido.
         </div>
@@ -26,13 +26,13 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro" [ngClass]="aplicaCssErro('bairro','enderecoForm')">
+        <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro" [ngClass]="aplicaCssErro('bairro','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           Bairro obrigatório.
         </div>
       </div>
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade" [ngClass]="aplicaCssErro('cidade','enderecoForm')">
+        <input type="text" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade" [ngClass]="aplicaCssErro('cidade','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           Cidade obrigatório.
         </div>
@@ -40,34 +40,31 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="UF" [ngClass]="aplicaCssErro('uf','enderecoForm')">
+        <input type="text" class="form-control" id="uf" formControlName="uf" placeholder="UF" [ngClass]="aplicaCssErro('uf','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           UF Obrigatório.
         </div>
       </div>      
         <div class="form-group col-md-8">
-          <select class="form-control" id="pais" name="pais" formControlName="pais" [ngClass]="aplicaCssErro('pais','enderecoForm')">
+          <select class="form-control" id="pais" name="pais" formControlName="pais" [ngClass]="aplicaCssErro('pais','enderecoForm')" (change)="onChange()">
             <option *ngFor="let country of countryList" [value]="country">{{country}}</option>
           </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-8">
-        <input type="text" class="form-control" id="descricaoEndereco" formControlName="descricaoEndereco" placeholder="Descrição do Endereço" [ngClass]="aplicaCssErro('descricaoEndereco','enderecoForm')">
+        <input type="text" class="form-control" id="descricaoEndereco" formControlName="descricaoEndereco" placeholder="Descrição do Endereço" [ngClass]="aplicaCssErro('descricaoEndereco','enderecoForm')" (change)="onChange()">
         <div class="invalid-feedback">
           Descrição do Endereço Obrigatório
         </div>
       </div>      
         <div class="form-group col-md-4">
-          <select class="form-control" id="tipoEndereco" name="tipoEndereco" formControlName="tipoEndereco" [ngClass]="aplicaCssErro('tipoEndereco','enderecoForm')">
-            <option value="residencial">Residencial</option>
-            <option value="comercial">Comercial</option>
-            <option value="outro">Outro</option>
+          <select class="form-control" id="tipoEndereco" name="tipoEndereco" formControlName="tipoEndereco" 
+          [ngClass]="aplicaCssErro('tipoEndereco','enderecoForm')" (change)="onChange()">
+            <option value="">Selecione</option>
+            <option value="cobranca">Cobrança</option>
+            <option value="entrega">Entrega</option>
           </select>
       </div>
     </div>
-  </form>
-  <div class="d-flex justify-content-end">
-    <button class="btn btn-dark btn-sm mr-2">Voltar</button>
-    <button class="btn btn-dark btn-sm" (click)="onEmit()">Cadastrar</button>
-  </div>
+  </form>  

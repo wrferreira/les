@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
 import { countryList } from 'src/app/shared/models/country.model';
@@ -17,8 +17,7 @@ export class EnderecoComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService
-  ) { }
-
+  ) { }  
 
   ngOnInit(): void {
     this.countryList = countryList;
@@ -36,7 +35,7 @@ export class EnderecoComponent implements OnInit {
       tipoEndereco: ['', Validators.required]
     });
   }
-
+ 
   aplicaCssErro(field, form){  
     let touched = this[form].get(field).touched;
     let isValid = touched ? this[form].get(field).valid ? 'is-valid' : 'is-invalid' : '';
@@ -68,8 +67,7 @@ export class EnderecoComponent implements OnInit {
     }
   }
 
-  onEmit(){
+  onChange(){
     this.dadosEndereco.emit(this.enderecoForm);
-  }
-  
+  }  
 }
