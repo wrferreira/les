@@ -1,10 +1,21 @@
-<div class="container-fluid d-flex m-4">
-    <div class="card" style="width: 18rem;" *ngFor="let card of cards">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{ card.title }}</h5>
-          <p class="card-text">{{ card.text }}</p>
-          <button type="button" class="btn btn-outline-dark btn-sm">Comprar</button>
-        </div>
+<section class="productList">
+  <h1>Nossos Produtos</h1>
+<div class="container">
+  <div *ngFor="let produto of produtos" class="card">
+    <div class="produtoImagem">
+      <img [src]="produto.imagem">
     </div>
+    <div class="titulo"><img src="https://www.countryflags.io/{{produto.paisCodigo}}/flat/24.png"><h4>{{produto.titulo}}</h4></div>
+    <p class="descricao">
+      {{produto.classificacao}}
+    </p>
+    <div class="linha-valor">
+      <p>De: </p>
+      <h4 class="valorDe font-weight-normal">{{produto.precoDe | currency: 'BRL'}}</h4>
+      <p>Por:</p>
+      <h3 class="valorPor font-weight-bold">{{produto.precoPor | currency: 'BRL'}}</h3>
+    </div>
+    <a href="#" class="btn btn-dark">Comprar</a>
+  </div>
 </div>
+</section>

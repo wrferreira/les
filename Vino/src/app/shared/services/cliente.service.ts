@@ -16,5 +16,4 @@ export class ClienteService {
   getViaCep(cep: String) {
     return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
-  
 }
