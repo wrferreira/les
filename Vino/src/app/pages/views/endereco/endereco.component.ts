@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
-import { countryList } from 'src/app/shared/models/country.model';
+import { listaPaises } from 'src/app/shared/models/paises.model';
 
 @Component({
   selector: 'app-endereco',
@@ -48,7 +48,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
   }
 
   loadForm(){
-    this.countryList = countryList;
+    this.countryList = listaPaises;
 
     this.enderecoForm = this.formBuilder.group({
       id: [''],

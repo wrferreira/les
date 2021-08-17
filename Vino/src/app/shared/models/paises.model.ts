@@ -1,4 +1,4 @@
-export let countryList: Array<String> = [
+export let listaPaises: Array<String> = [
     "África do Sul",
     "Albânia",
     "Alemanha",
