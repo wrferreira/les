@@ -34,7 +34,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
         id: this.loadData.id,
         cep: this.loadData.cep,
         numero: this.loadData.numero,
-        logradouro: this.loadData.endereco,
+        logradouro: this.loadData.logradouro,
         complemento: this.loadData.complemento,
         bairro: this.loadData.bairro,
         cidade: this.loadData.cidade,

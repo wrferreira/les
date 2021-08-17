@@ -29,7 +29,7 @@ export class ClienteComponent implements OnInit {
     private router: Router,
     ) {
     this.cliente = new Cliente();
-    this.cliente.endereco = []
+    this.cliente.endereco = [];
   }
 
   ngOnInit(): void {
@@ -118,39 +118,15 @@ export class ClienteComponent implements OnInit {
     this.cliente.senha = this.cadastroForm.get('senha').value;
     this.cliente.confirmaSenha = this.cadastroForm.get('confirmaSenha').value;
 
-    if(!this.listaEnderecos.length){
-      this.cliente.endereco[0] = this.endereco.value;
+    if(!this.listaEnderecos.length){      
+      this.cliente.endereco.push(this.endereco.value);
     }else{
       this.cliente.endereco = this.listaEnderecos;
     }
   }
 
-  onSubmit(){
-    this.cliente = {
-      confirmaSenha: "AAAaaa@123",
-      cpf: "12312312312",
-      email: "aaa@gmail.com",
-      endereco: [{
-      bairro: "Sé",
-      cep: "01001000",
-      cidade: "São Paulo",
-      complemento: "lado ímpar",
-      descricaoEndereco: "casa 1",
-      logradouro: "Praça da Sé",
-      id: 0,
-      numero: "21",
-      pais: "Brasil",
-      tipoEndereco: "cobranca",
-      uf: "SP"
-      }],
-      nome: "João",
-      senha: "AAAaaa@123",
-      sexo: "M",
-      telefone: "21315654655",
-      tipoTelefone: "CA"
-    }
-    
-    //this.loadDadosCliente();
+  onSubmit(){    
+    this.loadDadosCliente();
     this.router.navigate(['home/produto']);
   }
 }

@@ -1,7 +1,7 @@
 <form [formGroup]="enderecoForm">
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()" [ngClass]="aplicaCssErro('cep','enderecoForm')" (change)="onChange()">
+        <input type="text" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep" (change)="onCEPChange()" [ngClass]="aplicaCssErro('cep','enderecoForm')">
         <div class="invalid-feedback">
           {{verificarErro('cep')}}
         </div>
