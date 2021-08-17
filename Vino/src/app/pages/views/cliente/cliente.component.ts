@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/shared/models/cliente.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente',
@@ -22,11 +22,12 @@ export class ClienteComponent implements OnInit {
   public resetEndereco = 0;
   public listaEnderecos = [];
   public cliente: Cliente;
+  public clienteComponent = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: Router    
-  ) {
+    private router: Router,
+    ) {
     this.cliente = new Cliente();
     this.cliente.endereco = []
   }
@@ -46,7 +47,7 @@ export class ClienteComponent implements OnInit {
       sexo: ['0', Validators.required]
     });
   }
-
+ 
   aplicaCssErro(field, form){  
     let touched = this[form].get(field).touched;
     let isValid = touched ? this[form].get(field).valid ? 'is-valid' : 'is-invalid' : '';
@@ -125,7 +126,31 @@ export class ClienteComponent implements OnInit {
   }
 
   onSubmit(){
-    this.loadDadosCliente();
-    this.route.navigate(['/home/signin'], { state: this.cliente });
+    this.cliente = {
+      confirmaSenha: "AAAaaa@123",
+      cpf: "12312312312",
+      email: "aaa@gmail.com",
+      endereco: [{
+      bairro: "Sé",
+      cep: "01001000",
+      cidade: "São Paulo",
+      complemento: "lado ímpar",
+      descricaoEndereco: "casa 1",
+      logradouro: "Praça da Sé",
+      id: 0,
+      numero: "21",
+      pais: "Brasil",
+      tipoEndereco: "cobranca",
+      uf: "SP"
+      }],
+      nome: "João",
+      senha: "AAAaaa@123",
+      sexo: "M",
+      telefone: "21315654655",
+      tipoTelefone: "CA"
+    }
+    
+    //this.loadDadosCliente();
+    this.router.navigate(['home/produto']);
   }
 }

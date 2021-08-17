@@ -34,7 +34,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
         id: this.loadData.id,
         cep: this.loadData.cep,
         numero: this.loadData.numero,
-        endereco: this.loadData.endereco,
+        logradouro: this.loadData.endereco,
         complemento: this.loadData.complemento,
         bairro: this.loadData.bairro,
         cidade: this.loadData.cidade,
@@ -54,7 +54,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
       id: [''],
       cep: ['', [Validators.required]],
       numero: ['', Validators.required],
-      endereco: ['', Validators.required],
+      logradouro: ['', Validators.required],
       complemento: [''],
       bairro: ['', Validators.required],
       cidade: ['', Validators.required],
@@ -94,7 +94,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
     let cep = this.enderecoForm.get('cep');
     if(cep.valid) {
       this.clienteService.getViaCep(cep.value.toString().replace('-','')).subscribe((dados) => {
-        this.enderecoForm.get('endereco').setValue(dados['logradouro']);
+        this.enderecoForm.get('logradouro').setValue(dados['logradouro']);
         this.enderecoForm.get('cidade').setValue(dados['localidade']);
         this.enderecoForm.get('bairro').setValue(dados['bairro']);
         this.enderecoForm.get('complemento').setValue(dados['complemento']);

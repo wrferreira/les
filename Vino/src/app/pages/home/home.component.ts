@@ -9,25 +9,23 @@ import { Cliente } from 'src/app/shared/models/cliente.model';
 })
 export class HomeComponent implements OnInit {
   
-  public dadosCliente:Cliente;
-  public isLogado = false;
+  public dadosCliente: Cliente;
+  public logado = false;
+  private storage;
 
-  constructor(
-    private route: Router
+  constructor(    
   ) {
-    this.dadosCliente = this.route.getCurrentNavigation().extras.state as Cliente;
+    this.storage = window.localStorage;
   }
+  
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    console.log(this.dadosCliente);
-    console.log(this.isLogado);
+  componentRemoved(event){    
+    if(event.clienteComponent){
+      this.logado = true;
+      this.dadosCliente = event.cliente;
 
-    if(this.dadosCliente?.nome != '' && this.dadosCliente?.nome){
-      console.log(this.dadosCliente?.nome)
-      console.log('logado')
-      this.isLogado = true;
+      this.storage.setItem('cliente', JSON.stringify(event.cliente));
     }
-
-    this.route.navigate(['/home/produto']);
   }
 }

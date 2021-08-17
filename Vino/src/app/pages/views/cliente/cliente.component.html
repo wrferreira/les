@@ -116,7 +116,8 @@
 
               <div class="d-flex justify-content-end">
                 <button class="btn btn-dark btn-sm mr-2" matStepperPrevious>Voltar</button>
-                <button class="btn btn-dark btn-sm" matStepperNext [disabled]="enderecoValid || dadosForm.invalid || cadastroForm.invalid" (click)="onSubmit()">Cadastrar</button>
+                <!-- <button class="btn btn-dark btn-sm" matStepperNext (click)="onSubmit()" [disabled]="enderecoValid || dadosForm.invalid || cadastroForm.invalid">Cadastrar</button>                 -->
+                <button class="btn btn-dark btn-sm" matStepperNext (click)="onSubmit()">Cadastrar</button>
               </div>              
             </mat-step>                      
           </mat-horizontal-stepper>

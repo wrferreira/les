@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PerfilComponent implements OnInit {
 
-  constructor() { }
+  private storage;
+  public dadosCliente;
+
+  constructor() {
+    this.storage = window.localStorage;
+   }
 
   ngOnInit(): void {
+    let cliente = JSON.parse(this.storage.getItem('cliente'));    
+    this.dadosCliente = cliente;
+    console.log(this.dadosCliente)
   }
-
-}
+} 

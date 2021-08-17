@@ -4,7 +4,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navb" class="navbar-collapse collapse hide">
-      <ul class="nav navbar-nav ml-auto" *ngIf="!isLogado">
+      <ul class="nav navbar-nav ml-auto" *ngIf="!logado">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/home/cadastro'"><span class="fas fa-user"></span>Cadastre-se</a>
         </li>
@@ -12,9 +12,13 @@
           <a class="nav-link" [routerLink]="'/home/perfil'"><span class="fas fa-sign-in-alt"></span>Login</a>
         </li>
       </ul>
-      <ul class="nav navbar-nav ml-auto"  *ngIf="isLogado">
+      <ul class="nav navbar-nav ml-auto"  *ngIf="logado">
         <li class="nav-item">
-          <a><span class="fas fa-sign-in-alt"></span>Bem-vindo {{ dadosCliente?.nome }}</a>
+          <a>
+            <span class="fas fa-sign-in-alt"></span>            
+            <span>Bem-vindo</span>
+            <span>{{ dadosCliente?.nome }}</span>            
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/home/perfil'"><span class="fas fa-sign-in-alt"></span>Conta</a>
@@ -22,4 +26,4 @@
       </ul>
     </div>
 </nav>
-<router-outlet></router-outlet>
+<router-outlet (deactivate)="componentRemoved($event)"></router-outlet>
