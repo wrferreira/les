@@ -25,10 +25,27 @@
       </nav>
       <section class="conteudo">
         <h1>Dados Pessoais</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nihil neque laudantium accusantium dolores veritatis non earum, aperiam quidem provident magni facilis qui assumenda, voluptas maxime dolorem repudiandae eveniet ea.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nihil neque laudantium accusantium dolores veritatis non earum, aperiam quidem provident magni facilis qui assumenda, voluptas maxime dolorem repudiandae eveniet ea.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nihil neque laudantium accusantium dolores veritatis non earum, aperiam quidem provident magni facilis qui assumenda, voluptas maxime dolorem repudiandae eveniet ea.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nihil neque laudantium accusantium dolores veritatis non earum, aperiam quidem provident magni facilis qui assumenda, voluptas maxime dolorem repudiandae eveniet ea.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia nihil neque laudantium accusantium dolores veritatis non earum, aperiam quidem provident magni facilis qui assumenda, voluptas maxime dolorem repudiandae eveniet ea.</p>
+        <h3>Email:</h3><p>{{dadosCliente?.email}}</p>
+        <h3>Telefone:</h3><p>{{dadosCliente?.telefone}}</p>
+        <h3>Sexo:</h3><p>{{dadosCliente?.sexo}}</p>
+      </section>
+      <section class="conteudo">
+        <h1>Endereços</h1>
+        <div class="accordion" id="accordionExample">
+          <div class="card" *ngFor="let endereco of dadosCliente?.endereco">
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  {{dadosCliente?.nome}}
+                </button>
+              </h2>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                {{endereco.logradouro}}, {{endereco.numero}} 
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 </div>
