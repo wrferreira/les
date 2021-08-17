@@ -7,7 +7,8 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: 'cadastro', loadChildren: () => import('../views/cliente/cliente.module').then( m => m.ClienteModule) },
-      { path: 'produto', loadChildren: () => import('../views/produto/produto.module').then( m => m.ProdutoModule) }
+      { path: 'produto', loadChildren: () => import('../views/produto/produto.module').then( m => m.ProdutoModule) },
+      { path: 'signin', component: HomeComponent }
     ]
   } 
 ];

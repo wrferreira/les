@@ -25,14 +25,13 @@ export class ClienteComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: Router
+    private route: Router    
   ) {
     this.cliente = new Cliente();
     this.cliente.endereco = []
   }
 
   ngOnInit(): void {
-    console.log(this.cliente)
     this.cadastroForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
@@ -127,9 +126,6 @@ export class ClienteComponent implements OnInit {
 
   onSubmit(){
     this.loadDadosCliente();
-    //this.cliente; Cliente carregado com os dados;
-    console.log(this.cliente);
-
-    this.route.navigate(['/home']);
+    this.route.navigate(['/home/signin'], { state: this.cliente });
   }
 }

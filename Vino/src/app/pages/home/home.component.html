@@ -4,12 +4,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navb" class="navbar-collapse collapse hide">
-      <ul class="nav navbar-nav ml-auto">
+      <ul class="nav navbar-nav ml-auto" *ngIf="!isLogado">
         <li class="nav-item">
           <a class="nav-link" [routerLink]="'/home/cadastro'"><span class="fas fa-user"></span>Cadastre-se</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="''"><span class="fas fa-sign-in-alt"></span>Login</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav ml-auto"  *ngIf="isLogado">
+        <li class="nav-item">
+          <a><span class="fas fa-sign-in-alt"></span>Bem-vindo {{ dadosCliente?.nome }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="'/home/perfil'"><span class="fas fa-sign-in-alt"></span>Conta</a>
         </li>
       </ul>
     </div>
