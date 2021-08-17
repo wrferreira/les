@@ -19,18 +19,19 @@ export class EnderecoComponent implements OnInit, OnChanges {
   constructor(
     private formBuilder: FormBuilder,
     private clienteService: ClienteService
-  ) { }  
+  ) { }
 
   ngOnInit(): void {
     this.loadForm();
   }
 
-  ngOnChanges(){    
-    if(this.resetEndereco){      
+  ngOnChanges(){
+    if(this.resetEndereco != -1){      
       this.resetForm();
     }
-    if(this.loadData){
+    if(this.loadData && this.resetEndereco == -1){
       this.enderecoForm.patchValue({
+        id: this.loadData.id,
         cep: this.loadData.cep,
         numero: this.loadData.numero,
         endereco: this.loadData.endereco,
@@ -42,14 +43,15 @@ export class EnderecoComponent implements OnInit, OnChanges {
         descricaoEndereco: this.loadData.descricaoEndereco,
         tipoEndereco: this.loadData.tipoEndereco
       });
-    }
-    
+      this.onChange(); 
+    }    
   }
 
   loadForm(){
     this.countryList = countryList;
 
     this.enderecoForm = this.formBuilder.group({
+      id: [''],
       cep: ['', [Validators.required]],
       numero: ['', Validators.required],
       endereco: ['', Validators.required],
@@ -101,7 +103,7 @@ export class EnderecoComponent implements OnInit, OnChanges {
     }
   }
 
-  onChange(){
+  onChange(){    
     this.dadosEndereco.emit(this.enderecoForm);
   }  
 }
