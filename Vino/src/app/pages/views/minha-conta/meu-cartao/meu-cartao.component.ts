@@ -13,10 +13,13 @@ export class MeuCartaoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    console.log(this.cartao)
+
     this.meuCartaoForm = this.formBuilder.group({
-      titular: ['', Validators.required],
-      numero: ['', Validators.required],
-      cvv: ['', Validators.required],
+      titular: [this.cartao.titular ?? '', Validators.required],
+      numero: [this.cartao.numero ?? '', Validators.required],
+      cvv: [this.cartao.cvv ?? '', Validators.required],
+      validade: [this.cartao.validade ?? '', Validators.required],
     });
   }
 }

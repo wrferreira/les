@@ -9,9 +9,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AlterarSenhaComponent implements OnInit {
 
   alterarSenhaForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  private storage;
+  public senha;
 
-  }
+  constructor(
+    private formBuilder: FormBuilder,
+    ) {
+      this.storage = window.localStorage;
+      this.senha = JSON.parse(this.storage.getItem('cliente'))?.senha;
+    }
 
   ngOnInit(): void {
     this.alterarSenhaForm = this.formBuilder.group({
@@ -20,5 +26,4 @@ export class AlterarSenhaComponent implements OnInit {
       confirmaSenha: ['', Validators.required]
     });
   }
-
 }

@@ -21,16 +21,16 @@ export class MeuEnderecoComponent implements OnInit {
 
   ngOnInit(): void {
     this.meuEnderecoForm = this.formBuilder.group({
-      cep: ['', [Validators.required]],
-      numero: ['', Validators.required],
-      logradouro: ['', Validators.required],
-      complemento: [''],
-      bairro: ['', Validators.required],
-      cidade: ['', Validators.required],
-      uf: ['', Validators.required],
-      pais: ['Brasil', Validators.required],
-      descricaoEndereco: ['', Validators.required],
-      tipoEndereco: ['', Validators.required]
+      cep: [this.endereco.cep ?? '', [Validators.required]],
+      numero: [this.endereco.numero ?? '', Validators.required],
+      logradouro: [this.endereco.logradouro ?? '', Validators.required],
+      complemento: [this.endereco.complemento ?? ''],
+      bairro: [this.endereco.bairro ?? '', Validators.required],
+      cidade: [this.endereco.cidade ?? '', Validators.required],
+      uf: [this.endereco.uf ?? '', Validators.required],
+      pais: [this.endereco.pais ?? 'Brasil', Validators.required],
+      descricaoEndereco: [this.endereco.descricaoEndereco ?? '', Validators.required],
+      tipoEndereco: [this.endereco.tipoEndereco ?? '', Validators.required]
     });
   }
 

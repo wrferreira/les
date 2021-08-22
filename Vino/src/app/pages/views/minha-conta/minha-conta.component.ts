@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cartao } from 'src/app/shared/models/cartao.model';
+import { Cliente } from 'src/app/shared/models/cliente.model';
+import { Endereco } from 'src/app/shared/models/endereco.model';
 
 @Component({
   selector: 'app-minha-conta',
@@ -9,7 +11,7 @@ import { Cartao } from 'src/app/shared/models/cartao.model';
 export class MinhaContaComponent implements OnInit {
 
   private storage;
-  public dadosCliente;
+  public dadosCliente: Cliente;
   public listaCartoes: Array<Cartao> = [
     new Cartao(0, 'ALEXANDRE L CUNHA', '5186 6193 8671 2238', '212', 'mastercard', new Date('Fri Dec 08 2032 07:44:57')),
     new Cartao(0, 'ALEXANDRE L CUNHA', '5371 6958 9184 6294', '121', 'mastercard', new Date('Fri Dec 08 2032 07:44:57')),
@@ -33,5 +35,9 @@ export class MinhaContaComponent implements OnInit {
   ngOnInit(): void {
     let cliente = JSON.parse(this.storage.getItem('cliente'));    
     this.dadosCliente = cliente;
+  }
+
+  addEndereco(){
+    this.dadosCliente.endereco.push(new Endereco);
   }
 } 

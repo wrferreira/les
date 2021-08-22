@@ -43,8 +43,8 @@ export class EnderecoComponent implements OnInit, OnChanges {
         descricaoEndereco: this.loadData.descricaoEndereco,
         tipoEndereco: this.loadData.tipoEndereco
       });
-      this.onChange(); 
-    }    
+      this.onChange();
+    }
   }
 
   loadForm(){

@@ -1,3 +1,4 @@
+import { Cartao } from "./cartao.model";
 import { Endereco } from "./endereco.model";
 
 export class Cliente {    
@@ -10,4 +11,5 @@ export class Cliente {
     telefone: string;
     sexo: string;
     endereco: Endereco[];
+    cartao: Cartao[];
 }

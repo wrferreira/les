@@ -51,7 +51,7 @@
         <section class="conteudo" id="endereco">
           <div class="d-flex justify-content-between mb-2">
             <h1>Endereços</h1>
-            <button type="button" class="btn btn-outline-primary">Adicionar</button>
+            <button type="button" class="btn btn-outline-primary" (click)="addEndereco()">Adicionar</button>
           </div>
           <div class="accordion" id="accordionEndereco">
             <div class="card" *ngFor="let endereco of dadosCliente?.endereco; index as i">
