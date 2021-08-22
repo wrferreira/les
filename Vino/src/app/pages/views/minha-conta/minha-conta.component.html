@@ -1,114 +1,116 @@
-<div class="card blocoPerfil">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light tituloUsuario">
-        <a class="navbar-brand" ><div class="profileImage">
-            <img src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"/>
-        </div></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <h1>{{ dadosCliente?.nome }} •</h1>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link">Meus Dados<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/home/minha-conta#endereco">Endereço</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/home/minha-conta#pagamento">Método de Pagamento</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/home/minha-conta#configuracoes">Configurações da Conta</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <section class="conteudo">
-        <div class="card">
-          <div class="card-header">
-            <h1>Meus Dados</h1>
+<div class="principal d-flex justify-content-center align-items-center">
+  <div class="card blocoPerfil">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light tituloUsuario">
+          <a class="navbar-brand" ><div class="profileImage">
+              <img src="https://icon-library.com/images/avatar-icon-images/avatar-icon-images-4.jpg"/>
+          </div></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <h1>{{ dadosCliente?.nome }} •</h1>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link">Meus Dados<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home/minha-conta#endereco">Endereço</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home/minha-conta#pagamento">Método de Pagamento</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home/minha-conta#configuracoes">Configurações da Conta</a>
+              </li>
+            </ul>
           </div>
-          <div class="card-body col-md-4">
-            <div class="d-flex flex-column">
-              <h3 class="mr-2">Email:</h3>
-              <input type="text" class="form-control" [value]="dadosCliente?.email" disabled />
+        </nav>
+        <section class="conteudo">
+          <div class="card">
+            <div class="card-header">
+              <h1>Meus Dados</h1>
             </div>
-            <div class="d-flex flex-column">
-              <h3 class="mr-2">Telefone:</h3>
-              <input type="text" class="form-control" [value]="dadosCliente?.telefone" disabled />
-            </div>
-            <div class="d-flex flex-column">
-              <h3 class="mr-2">Sexo:</h3>
-              <input type="text" class="form-control" [value]="sexoLista[dadosCliente?.sexo]" disabled />
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="conteudo" id="endereco">
-        <div class="d-flex justify-content-between mb-2">
-          <h1>Endereços</h1>
-          <button type="button" class="btn btn-outline-primary">Adicionar</button>
-        </div>
-        <div class="accordion" id="accordionEndereco">
-          <div class="card" *ngFor="let endereco of dadosCliente?.endereco; index as i">
-            <div class="card-header" [id]="'heading'+i">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" aria-controls="collapseOne">
-                  {{endereco.descricaoEndereco}}
-                </button>
-              </h2>
-            </div>
-            <div [id]="'collapse'+i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionEndereco">
-              <div class="card-body">
-                <app-meu-endereco [endereco]="endereco"></app-meu-endereco>
+            <div class="card-body col-md-4">
+              <div class="d-flex flex-column">
+                <h3 class="mr-2">Email:</h3>
+                <input type="text" class="form-control" [value]="dadosCliente?.email" disabled />
+              </div>
+              <div class="d-flex flex-column">
+                <h3 class="mr-2">Telefone:</h3>
+                <input type="text" class="form-control" [value]="dadosCliente?.telefone" disabled />
+              </div>
+              <div class="d-flex flex-column">
+                <h3 class="mr-2">Sexo:</h3>
+                <input type="text" class="form-control" [value]="sexoLista[dadosCliente?.sexo]" disabled />
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="conteudo" id="pagamento">
-        <div class="d-flex justify-content-between mb-2">
-          <h1>Método de Pagamento</h1>
-          <button type="button" class="btn btn-outline-primary">Adicionar</button>
-        </div>
-        <div class="accordion" id="accordionPagamento">
-          <div class="card" *ngFor="let cartao of listaCartoes; index as i">
-            <div class="card-header" [id]="'heading'+i">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
-                  {{ bandeiras[cartao.bandeira] }}
-                </button>
-              </h2>
-            </div>
-            <div [id]="'collapseCartao'+i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionPagamento">
-              <div class="card-body">
-                <app-meu-cartao [cartao]="cartao"></app-meu-cartao>
+        </section>
+        <section class="conteudo" id="endereco">
+          <div class="d-flex justify-content-between mb-2">
+            <h1>Endereços</h1>
+            <button type="button" class="btn btn-outline-primary">Adicionar</button>
+          </div>
+          <div class="accordion" id="accordionEndereco">
+            <div class="card" *ngFor="let endereco of dadosCliente?.endereco; index as i">
+              <div class="card-header" [id]="'heading'+i">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" aria-controls="collapseOne">
+                    {{endereco.descricaoEndereco}}
+                  </button>
+                </h2>
+              </div>
+              <div [id]="'collapse'+i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionEndereco">
+                <div class="card-body">
+                  <app-meu-endereco [endereco]="endereco"></app-meu-endereco>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section class="conteudo" id="configuracoes">
-        <h1>Configurações da Conta</h1>
-        <div class="accordion" id="accordionAlterarSenha">
-          <div class="card mb-5">
-            <div class="card-header" id="headingAlterarSenha">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAlterarSenha" aria-expanded="true" aria-controls="collapseOne">
-                  Alterar a Senha
-                </button>
-              </h2>
-            </div>
-            <div id="collapseAlterarSenha" class="collapse" aria-labelledby="headingOne" data-parent="#accordionAlterarSenha">
-              <div class="card-body">
-                <app-alterar-senha></app-alterar-senha>
+        </section>
+        <section class="conteudo" id="pagamento">
+          <div class="d-flex justify-content-between mb-2">
+            <h1>Método de Pagamento</h1>
+            <button type="button" class="btn btn-outline-primary">Adicionar</button>
+          </div>
+          <div class="accordion" id="accordionPagamento">
+            <div class="card" *ngFor="let cartao of listaCartoes; index as i">
+              <div class="card-header" [id]="'heading'+i">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
+                    {{ bandeiras[cartao.bandeira] }}
+                  </button>
+                </h2>
+              </div>
+              <div [id]="'collapseCartao'+i" class="collapse" aria-labelledby="headingOne" data-parent="#accordionPagamento">
+                <div class="card-body">
+                  <app-meu-cartao [cartao]="cartao"></app-meu-cartao>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <button type="button" class="btn btn-danger">Excluir a conta</button>
-      </section>
+        </section>
+        <section class="conteudo" id="configuracoes">
+          <h1>Configurações da Conta</h1>
+          <div class="accordion" id="accordionAlterarSenha">
+            <div class="card mb-5">
+              <div class="card-header" id="headingAlterarSenha">
+                <h2 class="mb-0">
+                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAlterarSenha" aria-expanded="true" aria-controls="collapseOne">
+                    Alterar a Senha
+                  </button>
+                </h2>
+              </div>
+              <div id="collapseAlterarSenha" class="collapse" aria-labelledby="headingOne" data-parent="#accordionAlterarSenha">
+                <div class="card-body">
+                  <app-alterar-senha></app-alterar-senha>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-danger">Excluir a conta</button>
+        </section>
+  </div>
 </div>
