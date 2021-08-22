@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Endereco } from 'src/app/shared/models/endereco.model';
 import { listaPaises } from 'src/app/shared/models/paises.model';
@@ -11,6 +11,9 @@ import { listaPaises } from 'src/app/shared/models/paises.model';
 export class MeuEnderecoComponent implements OnInit {
 
   @Input('endereco') endereco: Endereco;
+  @Output() deleteEvent = new EventEmitter();
+  @Output() alterarEvent = new EventEmitter();
+
   public countryList: Array<String>;
 
   public meuEnderecoForm: FormGroup;
@@ -38,6 +41,14 @@ export class MeuEnderecoComponent implements OnInit {
     let touched = this[form].get(field).touched;
     let isValid = touched ? this[form].get(field).valid ? 'is-valid' : 'is-invalid' : '';
     return field ? isValid : '';
+  }
+
+  onDelete() {
+    this.deleteEvent.emit(this.endereco?.id);
+  }
+
+  onAlterar() {
+    this.alterarEvent.emit(this.endereco);
   }
 
 }

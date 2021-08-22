@@ -10,4 +10,10 @@ export class Endereco {
     pais: string;
     descricaoEndereco: string;
     tipoEndereco: string;
+
+    constructor(id: number, descricaoEndereco: string, pais: string) {
+        this.id = id;
+        this.descricaoEndereco = descricaoEndereco;
+        this.pais = pais;
+    }
 }
