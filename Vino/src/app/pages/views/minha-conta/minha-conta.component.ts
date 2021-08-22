@@ -84,4 +84,10 @@ export class MinhaContaComponent implements OnInit {
   onEnderecoAlterado(dados: Endereco) {
     
   }
-} 
+
+  onAlteraSenha(event){
+    if(event){      
+      this.dadosCliente.senha = event.controls['senhaNova'].value;      
+    }
+  }
+}
