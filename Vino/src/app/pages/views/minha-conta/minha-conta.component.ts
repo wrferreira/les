@@ -15,9 +15,9 @@ export class MinhaContaComponent implements OnInit {
   public dadosCliente: Cliente;
   public perfilForm: FormGroup;
 
-  public listaCartoes: Array<Cartao> = [
-    new Cartao(0, 'ALEXANDRE L CUNHA', '5186 6193 8671 2238', '212', 'mastercard', new Date('Fri Dec 08 2032 07:44:57')),
-    new Cartao(0, 'ALEXANDRE L CUNHA', '5371 6958 9184 6294', '121', 'mastercard', new Date('Fri Dec 08 2032 07:44:57')),
+  public listaCartoes: Cartao[] = [
+    new Cartao(0, 'ALEXANDRE L CUNHA', '5186 6193 8671 2238', '212', 'mastercard', '01/2022'),
+    new Cartao(1, 'JOAO', '5371 6958 9184 6294', '121', 'mastercard', '06/2023'),
   ];
 
   public sexoLista = {
@@ -28,7 +28,8 @@ export class MinhaContaComponent implements OnInit {
 
   public bandeiras = {
     mastercard: 'Master Card',
-    visa: 'Visa'
+    visa: 'Visa',
+    novo: 'Novo Cartão'
   }
 
   constructor(private formBuilder: FormBuilder) {
@@ -76,18 +77,37 @@ export class MinhaContaComponent implements OnInit {
     this.dadosCliente.endereco.push(new Endereco(index, 'Novo Endereço', 'Brasil'));
   }
 
-  onEnderecoDeleted(id: number) {
-    console.log('id do endereco: ' + id);
-    this.dadosCliente.endereco = this.dadosCliente.endereco.filter((endereco) => endereco.id !== id);
-    //this.dadosCliente.endereco.pop();
-  }
-  onEnderecoAlterado(dados: Endereco) {
-    
+  onEnderecoDeleted(id: number) {    
+    let endereco = this.dadosCliente.endereco.findIndex(c => c.id == id);
+    this.dadosCliente.endereco.splice(endereco, 1);
   }
 
+  onEnderecoAlterado(dados: Endereco) {
+
+  }
+
+    /** SENHA */
   onAlteraSenha(event){
     if(event){      
       this.dadosCliente.senha = event.controls['senhaNova'].value;      
     }
+  }
+
+  /** CARTÃO */
+  addCartao(){
+    let index = this.dadosCliente.cartao.length;
+    this.dadosCliente.cartao.push(new Cartao(index, null, null, null, 'novo', null));
+  }
+
+  onCartaoDeleted(cartaoId){
+    let cartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoId);
+    this.dadosCliente.cartao.splice(cartao, 1);
+  }
+  
+  onCartaoAlterado(cartaoAlterado){
+    let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);
+    console.log(this.dadosCliente.cartao[idxCartao])
+
+    //this.dadosCliente.cartao[idxCartao] = cartaoAlterado;
   }
 }

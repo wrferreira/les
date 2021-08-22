@@ -1,12 +1,12 @@
 export class Cartao {
-    id: Number;
-    titular: String;
-    numero: String;
-    cvv: String;
-    bandeira: String;
-    dataValidade: Date;
+    id: number;
+    titular: string;
+    numero: string;
+    cvv: string;
+    bandeira: string;
+    dataValidade: string;
 
-    constructor(id: Number, titular: String, numero: String, cvv: String, bandeira: String, dataValidade: Date) {
+    constructor(id: number, titular: string, numero: string, cvv: string, bandeira: string, dataValidade: string) {
         this.id = id;
         this.titular = titular;
         this.numero = numero;

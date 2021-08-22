@@ -1,24 +1,36 @@
 <form [formGroup]="meuCartaoForm">
     <div class="form-row">
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" formControlName="titular" placeholder="Titular"/>
+            <input type="text" class="form-control" formControlName="titular" placeholder="Titular" [ngClass]="aplicaCssErro('titular','meuCartaoForm')"/>
+            <div class="invalid-feedback">
+                Nome obrigatório
+            </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" formControlName="numero" placeholder="Número do Cartão" mask="0000 0000 0000 0000"/>
+            <input type="text" class="form-control" formControlName="numero" placeholder="Número do Cartão" mask="0000 0000 0000 0000" [ngClass]="aplicaCssErro('numero','meuCartaoForm')"/>
+            <div class="invalid-feedback">
+                Favor informar o número do cartão
+            </div>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <input type="month" class="form-control" placeholder="Data de validade"/>
+            <input type="text" class="form-control" formControlName="dataValidade" placeholder="Data de validade" mask="00/0000" [ngClass]="aplicaCssErro('dataValidade','meuCartaoForm')"/>
+            <div class="invalid-feedback">
+                Favor informar a data de validade
+            </div>
         </div>
         <div class="form-group col-md-6">
-            <input type="text" class="form-control" formControlName="cvv" placeholder="CVV" mask="0000"/>
+            <input type="text" class="form-control" formControlName="cvv" placeholder="CVV" mask="000" [ngClass]="aplicaCssErro('cvv','meuCartaoForm')"/>
+            <div class="invalid-feedback">
+                Código obrigatório
+            </div>
         </div>
     </div>
 </form>
 <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-outline-danger mr-2">Excluir</button>
-    <button type="button" class="btn btn-primary">Alterar</button>
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="onDelete()" >Excluir</button>
+    <button type="button" class="btn btn-primary" (click)="onAltera()">Alterar</button>
 </div>   
