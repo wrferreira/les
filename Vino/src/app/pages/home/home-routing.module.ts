@@ -8,8 +8,9 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: '', loadChildren: () => import('../views/produto/produto.module').then( m => m.ProdutoModule) },
-      { path: 'cadastro', loadChildren: () => import('../views/cliente/cliente.module').then( m => m.ClienteModule) },
-      { path: 'perfil', loadChildren: () => import('../views/perfil/perfil.module').then( m => m.PerfilModule) }
+      { path: 'cadastro', loadChildren: () => import('../views/cadastro/cadastro.module').then( m => m.CadastroModule) },
+      { path: 'login', loadChildren: () => import('../views/login/login.module').then( m => m.LoginModule) },
+      { path: 'minha-conta', loadChildren: () => import('../views/minha-conta/minha-conta.module').then( m => m.MinhaContaModule) }
     ]
   }  
 ];

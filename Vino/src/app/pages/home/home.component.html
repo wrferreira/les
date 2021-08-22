@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-md bg-vino navbar-dark sticky-top">
+<main class="principal">
+  <nav class="header navbar navbar-expand-md bg-vino navbar-dark">
     <a class="navbar-brand" [routerLink]="'/home/produto'">Vino</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navb" aria-expanded="true">
       <span class="navbar-toggler-icon"></span>
@@ -9,7 +10,7 @@
           <a class="nav-link" [routerLink]="'/home/cadastro'"><span class="fas fa-user"></span>Cadastre-se</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/home/perfil'"><span class="fas fa-sign-in-alt"></span>Login</a>
+          <a class="nav-link" [routerLink]="'/home/login'"><span class="fas fa-sign-in-alt"></span>Login</a>
         </li>
       </ul>
       <ul class="nav navbar-nav ml-auto"  *ngIf="logado">
@@ -17,9 +18,13 @@
           <a class="nav-link"><span class="fas fa-user"></span>Bem-Vindo, {{dadosCliente?.nome}}</a>       
         </li>
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="'/home/perfil'"><span class="fas fa-sign-in-alt"></span>Conta</a>
+          <a class="nav-link" [routerLink]="'/home/minha-conta'"><span class="fas fa-sign-in-alt"></span>Conta</a>
         </li>
       </ul>
     </div>
 </nav>
-<router-outlet (deactivate)="componentRemoved($event)"></router-outlet>
+<section class="conteudo">
+  <router-outlet (deactivate)="componentRemoved($event)"></router-outlet>
+</section>
+<footer class="rodape"></footer>
+</main>

@@ -1,0 +1,24 @@
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <input type="text" class="form-control" formControlName="titular" placeholder="Titular" [value]="cartao.titular"/>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <input type="text" class="form-control" formControlName="numero" placeholder="Número do Cartão" mask="0000 0000 0000 0000" [value]="cartao.numero"/>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="month" class="form-control" placeholder="Data de validade" [value]="cartao.dataValidade" />
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" formControlName="cvv" placeholder="CVV" mask="0000" [value]="cartao.cvv"/>
+        </div>
+    </div>
+</form>
+<div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-outline-danger mr-2">Excluir</button>
+    <button type="button" class="btn btn-primary">Alterar</button>
+</div>   

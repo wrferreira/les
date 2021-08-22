@@ -1,5 +1,12 @@
+.cadastroContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .cadastro {
-    width: 800px;
+    min-width: 800px;
     padding: 0;
     margin-top: 30px;
 }

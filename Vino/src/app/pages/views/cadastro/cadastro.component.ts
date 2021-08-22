@@ -5,14 +5,14 @@ import { Cliente } from 'src/app/shared/models/cliente.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.scss'],
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.scss'],
   providers: [{
     provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
   }]
 })
-export class ClienteComponent implements OnInit {
+export class CadastroComponent implements OnInit {
 
   public cadastroForm: FormGroup;
   public dadosForm: FormGroup;   
