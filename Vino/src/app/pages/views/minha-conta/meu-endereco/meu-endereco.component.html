@@ -1,44 +1,44 @@
-<form>
+<form [formGroup]="meuEnderecoForm">
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" [value]="endereco.cep" class="form-control" id="cep" formControlName="cep" mask="00000-000" placeholder="Cep">
+        <input type="text" class="form-control" formControlName="cep" id="cep" mask="00000-000" placeholder="Cep">
       </div>
       <div class="form-group col-md-6">
-        <input type="text" [value]="endereco.numero" class="form-control" id="numero" formControlName="numero" placeholder="Número">
+        <input type="text" class="form-control" formControlName="numero" id="numero" placeholder="Número">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-8">
-        <input type="text" [value]="endereco.logradouro" class="form-control" id="logradouro" formControlName="logradouro" placeholder="Endereço">
+        <input type="text" class="form-control" formControlName="logradouro" id="logradouro" placeholder="Endereço">
       </div>
       <div class="form-group col-md-4">
-        <input type="text" [value]="endereco.complemento" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
+        <input type="text" class="form-control" formControlName="complemento" id="complemento" placeholder="Complemento">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <input type="text" [value]="endereco.bairro" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
+        <input type="text" class="form-control" formControlName="bairro" id="bairro" placeholder="Bairro">
       </div>
       <div class="form-group col-md-6">
-        <input type="text" [value]="endereco.cidade" class="form-control" id="cidade" formControlName="cidade" placeholder="Cidade">
+        <input type="text" class="form-control" formControlName="cidade" id="cidade" placeholder="Cidade">
       </div>                               
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <input type="text" [value]="endereco.uf" class="form-control" id="uf" formControlName="uf" placeholder="UF">
+        <input type="text" class="form-control" formControlName="uf" id="uf" placeholder="UF">
       </div>      
         <div class="form-group col-md-8">
-          <select class="form-control" id="pais" name="pais" formControlName="pais">
+          <select class="form-control" id="pais" name="pais">
             <option [selected]="country == endereco.pais ? true : false" *ngFor="let country of countryList" [value]="country">{{country}}</option>
           </select>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-8">
-        <input type="text" [value]="endereco.descricaoEndereco" class="form-control" id="descricaoEndereco" formControlName="descricaoEndereco" placeholder="Descrição do Endereço">
+        <input type="text" class="form-control" formControlName="descricaoEndereco" id="descricaoEndereco" placeholder="Descrição do Endereço">
       </div>      
         <div class="form-group col-md-4">
-          <select class="form-control" id="tipoEndereco" name="tipoEndereco" formControlName="tipoEndereco">
+          <select class="form-control" id="tipoEndereco" name="tipoEndereco">
             <option value="">Selecione</option>
             <option value="cobranca">Cobrança</option>
             <option value="entrega">Entrega</option>

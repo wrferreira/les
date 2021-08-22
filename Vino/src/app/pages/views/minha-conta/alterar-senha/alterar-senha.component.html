@@ -1,17 +1,17 @@
-<form>
+<form [formGroup]="alterarSenhaForm">
     <div class="form-row">
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" placeholder="Senha atual"/>
+            <input type="text" class="form-control" formControlName="atual" placeholder="Senha atual"/>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" placeholder="Nova Senha"/>
+            <input type="text" class="form-control" formControlName="senhaNova" placeholder="Nova Senha"/>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-12">
-            <input type="text" class="form-control" placeholder="Confirmar Senha"/>
+            <input type="text" class="form-control" formControlName="confirmaSenha" placeholder="Confirmar Senha"/>
         </div>
     </div>
 </form>

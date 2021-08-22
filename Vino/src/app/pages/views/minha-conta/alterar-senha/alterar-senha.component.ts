@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlterarSenhaComponent implements OnInit {
 
-  constructor() { }
+  alterarSenhaForm: FormGroup;
+  constructor(private formBuilder: FormBuilder) {
+
+  }
 
   ngOnInit(): void {
+    this.alterarSenhaForm = this.formBuilder.group({
+      atual: ['', Validators.required],
+      senhaNova: ['', Validators.required],
+      confirmaSenha: ['', Validators.required]
+    });
   }
 
 }

@@ -9,20 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MeuCartaoComponent implements OnInit {
 
   @Input('cartao') cartao; 
+  public meuCartaoForm: FormGroup;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    // this.cartaoForm = this.formBuilder.group({
-    //   titular: ['', [Validators.required, Validators.name]],
-    //   numero: ['', [Validators.required]],
-    //   cvv: ['', Validators.maxLength(4), Validators.minLength(3)]
-    // });
+    this.meuCartaoForm = this.formBuilder.group({
+      titular: ['', Validators.required],
+      numero: ['', Validators.required],
+      cvv: ['', Validators.required],
+    });
   }
-
-  // aplicaCssErro(field){  
-  //   let touched = this.cartaoForm.get(field).touched;
-  //   let isValid = touched ? this.cartaoForm.get(field).valid ? 'is-valid' : 'is-invalid' : '';
-  //   return field ? isValid : '';
-  // }
-
 }
