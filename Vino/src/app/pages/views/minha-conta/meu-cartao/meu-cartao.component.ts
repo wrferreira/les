@@ -35,12 +35,6 @@ export class MeuCartaoComponent implements OnInit {
     return field ? isValid : '';
   }
 
-  // verifyValidade(){
-  //   let atual = this.meuCartaoForm.get('validade').value;
-
-  //   return atual == this.senha ? true : false;
-  // }
-
   onDelete(){    
     this.deleteEvent.emit(this.meuCartaoForm.controls['id'].value);
   }
