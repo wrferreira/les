@@ -105,9 +105,7 @@ export class MinhaContaComponent implements OnInit {
   }
   
   onCartaoAlterado(cartaoAlterado){
-    let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);
-    console.log(this.dadosCliente.cartao[idxCartao])
-
-    //this.dadosCliente.cartao[idxCartao] = cartaoAlterado;
+    let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);    
+    this.dadosCliente.cartao[idxCartao] = cartaoAlterado;
   }
 }

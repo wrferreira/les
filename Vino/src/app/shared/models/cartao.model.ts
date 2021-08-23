@@ -12,6 +12,6 @@ export class Cartao {
         this.numero = numero;
         this.cvv = cvv;
         this.bandeira = bandeira;
-        this.dataValidade;
+        this.dataValidade = dataValidade;
     }
 }
