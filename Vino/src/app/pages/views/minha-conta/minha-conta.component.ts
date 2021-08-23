@@ -23,6 +23,11 @@ export class MinhaContaComponent implements OnInit {
   public bandeiras = {
     mastercard: 'Master Card',
     visa: 'Visa',
+    diners: 'DinersClub',
+    amex: 'American Express',
+    discover: "Discover",
+    hipercard: 'Hipercard',
+    elo: 'Elo',
     novo: 'Novo Cartão'
   }
 
@@ -87,7 +92,8 @@ export class MinhaContaComponent implements OnInit {
   }
 
   onEnderecoAlterado(dados: Endereco) {
-
+    let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == dados.id); 
+    this.dadosCliente.endereco[indexEnd] = dados;
   }
 
   onSubmitPerfil(){

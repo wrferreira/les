@@ -1,14 +1,20 @@
 .principal { 
     width: 100%;
     height: 100%;
-    
 }
 .blocoPerfil {
     min-width: 900px;
     background-color: #f1f1f1;
     margin: 100px;
 }
-
+.bandeiraWrapper {
+    width: 32px;
+    height: 32px;
+}
+.bandeiraWrapper > img {
+    width: 100%;
+    height: 100%;
+}
 .profileImage {
     width: 100px;
     height: 100px;

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Endereco } from 'src/app/shared/models/endereco.model';
 import { listaPaises } from 'src/app/shared/models/paises.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-meu-endereco',
@@ -18,12 +19,13 @@ export class MeuEnderecoComponent implements OnInit {
 
   public meuEnderecoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private clienteService: ClienteService) {
     this.countryList = listaPaises;
    }
 
   ngOnInit(): void {
     this.meuEnderecoForm = this.formBuilder.group({
+      id: [this.endereco.id],
       cep: [this.endereco.cep ?? '', [Validators.required]],
       numero: [this.endereco.numero ?? '', Validators.required],
       logradouro: [this.endereco.logradouro ?? '', Validators.required],
@@ -37,18 +39,32 @@ export class MeuEnderecoComponent implements OnInit {
     });
   }
 
-  aplicaCssErro(field, form){  
-    let touched = this[form].get(field).touched;
-    let isValid = touched ? this[form].get(field).valid ? 'is-valid' : 'is-invalid' : '';
+  aplicaCssErro(field, form){
+    let touched = this[form].get(field).touched;      
+    let isValid = touched ? ( this[form].get(field).valid ? 'is-valid' : 'is-invalid' ) : '';
+    
     return field ? isValid : '';
+  }
+
+  onCEPChange() {
+    let cep = this.meuEnderecoForm.get('cep');
+    if(cep.valid) {
+      this.clienteService.getViaCep(cep.value.toString().replace('-','')).subscribe((dados) => {
+        this.meuEnderecoForm.get('logradouro').setValue(dados['logradouro']);
+        this.meuEnderecoForm.get('cidade').setValue(dados['localidade']);
+        this.meuEnderecoForm.get('bairro').setValue(dados['bairro']);
+        this.meuEnderecoForm.get('complemento').setValue(dados['complemento']);
+        this.meuEnderecoForm.get('uf').setValue(dados['uf']);
+      });
+    }
   }
 
   onDelete() {
     this.deleteEvent.emit(this.endereco?.id);
   }
 
-  onAlterar() {
-    this.alterarEvent.emit(this.endereco);
+  onSubmit() {
+    this.alterarEvent.emit(this.meuEnderecoForm.value);
   }
 
 }
