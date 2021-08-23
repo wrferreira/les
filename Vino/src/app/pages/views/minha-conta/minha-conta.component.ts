@@ -14,6 +14,7 @@ export class MinhaContaComponent implements OnInit {
   private storage;
   public dadosCliente: Cliente;
   public perfilForm: FormGroup;
+  public cardAtivo = 1;
 
   public listaCartoes: Cartao[] = [
     new Cartao(0, 'ALEXANDRE L CUNHA', '5186 6193 8671 2238', '212', 'mastercard', '01/2022'),
@@ -71,7 +72,7 @@ export class MinhaContaComponent implements OnInit {
       sexo: [cliente.sexo ?? '0', Validators.required],
       nascimento: [cliente.nascimento ?? '', Validators.required]
     });
-    this.dadosCliente = cliente;
+    this.dadosCliente = cliente;    
   }
 
   aplicaCssErro(field, form){

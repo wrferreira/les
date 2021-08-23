@@ -13,21 +13,21 @@
                 <h1>{{ dadosCliente?.nome }} •</h1>
               </li>
               <li class="nav-item active">
-                <a class="nav-link">Meus Dados<span class="sr-only">(current)</span></a>
+                <a class="nav-link" (click)="cardAtivo = 1">Meus Dados<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home/minha-conta#endereco">Endereço</a>
+                <a class="nav-link" (click)="cardAtivo = 2">Endereço</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home/minha-conta#pagamento">Método de Pagamento</a>
+                <a class="nav-link" (click)="cardAtivo = 3">Método de Pagamento</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/home/minha-conta#configuracoes">Configurações da Conta</a>
+                <a class="nav-link" (click)="cardAtivo = 4">Configurações da Conta</a>
               </li>
             </ul>
           </div>
         </nav>
-        <section class="conteudo">
+        <section class="conteudo" *ngIf="cardAtivo == 1">
           <form [formGroup]="perfilForm">
             <div class="card">
               <div class="card-header">
@@ -99,67 +99,83 @@
             </div>            
           </form>          
         </section>
-        <section class="conteudo" id="endereco">
-          <div class="d-flex justify-content-between mb-2">
-            <h1>Endereços</h1>
-            <button type="button" class="btn btn-outline-primary" (click)="addEndereco()">Adicionar</button>
-          </div>
-          <div class="accordion" id="accordionEndereco">
-            <div class="card" *ngFor="let endereco of dadosCliente?.endereco; index as i">
-              <div class="card-header" [id]="'heading'+i">
-                <h2 class="mb-0">
-                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" aria-controls="collapseOne">
-                    {{ endereco.descricaoEndereco }}
-                  </button>
-                </h2>
+        <section class="conteudo" id="endereco" *ngIf="cardAtivo == 2">
+          <div class="card">
+            <div class="card-header">
+              <h1>Endereço</h1>
+            </div>
+            <div class="card-body"> 
+              <div class="d-flex justify-content-end mb-2">                
+                <button type="button" class="btn btn-outline-primary" (click)="addEndereco()">Adicionar</button>
               </div>
-              <div [id]="'collapse'+i" class="collapse" aria-labelledby="headingOne" [ngClass]="endereco?.cep == undefined ? 'show' : ''" data-parent="#accordionEndereco">
-                <div class="card-body">
-                  <app-meu-endereco [endereco]="endereco" (deleteEvent)="onEnderecoDeleted($event)" (alterarEvent)="onEnderecoAlterado($event)"></app-meu-endereco>
+              <div class="accordion" id="accordionEndereco">
+                <div class="card" *ngFor="let endereco of dadosCliente?.endereco; index as i">
+                  <div class="card-header" [id]="'heading'+i">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" [attr.data-target]="'#collapse'+i" aria-expanded="true" aria-controls="collapseOne">
+                        {{ endereco.descricaoEndereco }}
+                      </button>
+                    </h2>
+                  </div>
+                  <div [id]="'collapse'+i" class="collapse" aria-labelledby="headingOne" [ngClass]="endereco?.cep == undefined ? 'show' : ''" data-parent="#accordionEndereco">
+                    <div class="card-body">
+                      <app-meu-endereco [endereco]="endereco" (deleteEvent)="onEnderecoDeleted($event)" (alterarEvent)="onEnderecoAlterado($event)"></app-meu-endereco>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section class="conteudo" id="pagamento">
-          <div class="d-flex justify-content-between mb-2">
-            <h1>Método de Pagamento</h1>
-            <button type="button" class="btn btn-outline-primary" (click)="addCartao()">Adicionar</button>
-          </div>
-          <div class="accordion" id="accordionPagamento">
-            <div class="card" *ngFor="let cartao of listaCartoes; index as i">              
-              <div class="card-header" [id]="'heading'+i">
-                <h2 class="mb-0">
-                  <button class="btn btn-link btn-block text-left d-flex align-items-center" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
-                    <div class="bandeiraWrapper mr-2"><img [src]="'/assets/' + cartao.bandeira + '.svg'" /></div> {{ bandeiras[cartao.bandeira] }}
-                  </button>
-                </h2>
+        <section class="conteudo" id="pagamento" *ngIf="cardAtivo == 3">
+          <div class="card">
+            <div class="card-header">
+              <h1>Pagamento</h1>
+            </div>
+            <div class="card-body"> 
+              <div class="d-flex justify-content-end mb-2">
+                <button type="button" class="btn btn-outline-primary" (click)="addCartao()">Adicionar</button>
               </div>
-              <div [id]="'collapseCartao'+i" class="collapse" aria-labelledby="headingOne" [ngClass]="cartao?.titular == undefined ? 'show' : ''" data-parent="#accordionPagamento">
-                <div class="card-body">
-                  <app-meu-cartao [cartao]="cartao" (deleteEvent)="onCartaoDeleted($event)" (alterarEvent)="onCartaoAlterado($event)"></app-meu-cartao>
+              <div class="accordion" id="accordionPagamento">
+                <div class="card" *ngFor="let cartao of listaCartoes; index as i">              
+                  <div class="card-header" [id]="'heading'+i">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left d-flex align-items-center" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="bandeiraWrapper mr-2"><img [src]="'/assets/' + cartao.bandeira + '.svg'" /></div> {{ bandeiras[cartao.bandeira] }}
+                      </button>
+                    </h2>
+                  </div>
+                  <div [id]="'collapseCartao'+i" class="collapse" aria-labelledby="headingOne" [ngClass]="cartao?.titular == undefined ? 'show' : ''" data-parent="#accordionPagamento">
+                    <div class="card-body">
+                      <app-meu-cartao [cartao]="cartao" (deleteEvent)="onCartaoDeleted($event)" (alterarEvent)="onCartaoAlterado($event)"></app-meu-cartao>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
         </section>
-        <section class="conteudo" id="configuracoes">
-          <h1>Configurações da Conta</h1>
-          <div class="accordion" id="accordionAlterarSenha">
-            <div class="card mb-5">
-              <div class="card-header" id="headingAlterarSenha">
-                <h2 class="mb-0">
-                  <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAlterarSenha" aria-expanded="true" aria-controls="collapseOne">
-                    Alterar a Senha
-                  </button>
-                </h2>
-              </div>
-              <div id="collapseAlterarSenha" class="collapse" aria-labelledby="headingOne" data-parent="#accordionAlterarSenha">
-                <div class="card-body">
-                  <app-alterar-senha (alteraSenha)="onAlteraSenha($event)" ></app-alterar-senha>
-                </div>
-              </div>
+        <section class="conteudo" id="configuracoes" *ngIf="cardAtivo == 4">
+          <div class="card">
+            <div class="card-header">
+              <h1>Configurações da Conta</h1>
             </div>
+            <div class="card-body"> 
+              <div class="accordion" id="accordionAlterarSenha">
+                <div class="card mb-5">
+                  <div class="card-header" id="headingAlterarSenha">                    
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseAlterarSenha" aria-expanded="true" aria-controls="collapseOne">
+                      Alterar a Senha
+                    </button>                    
+                  </div>
+                  <div id="collapseAlterarSenha" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionAlterarSenha">
+                    <div class="card-body">
+                      <app-alterar-senha (alteraSenha)="onAlteraSenha($event)" ></app-alterar-senha>
+                    </div>
+                  </div>
+                </div>
+              </div>  
+            </div>  
           </div>
           <button type="button" class="btn btn-danger">Excluir a conta</button>
         </section>
