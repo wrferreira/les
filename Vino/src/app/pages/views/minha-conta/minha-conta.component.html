@@ -33,40 +33,71 @@
               <div class="card-header">
                 <h1>Meus Dados</h1>
               </div>
-              <div class="card-body">
-                <div class="col-md-6">
-                  <div class="d-flex flex-column mb-2">
-                    <h3>Nome:</h3>
-                    <input type="text" class="form-control" formControlName="nome" disabled />
+              <div class="card-body">                
+                <div class="form-row">
+                  <div class="form-group col-md-12">   
+                    <label>Nome Completo</label>
+                    <input type="text" class="form-control" formControlName="nome" placeholder="Nome completo" [ngClass]="aplicaCssErro('nome','perfilForm')"/>                
+                    <div class="invalid-feedback">
+                      Nome obrigatório
+                    </div>
+                  </div>                  
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">                    
+                    <label>Nascimento</label>
+                    <input type="text" class="form-control" formControlName="nascimento" placeholder="Data de nascimento" mask="00/00/0000" [ngClass]="aplicaCssErro('nascimento','perfilForm')"/>    
+                    <div class="invalid-feedback">
+                      Data de nascimento inválida
+                    </div>
                   </div>
-                  <div class="d-flex flex-column mb-2">
-                    <h3>Sobrenome:</h3>
-                    <input type="text" class="form-control" disabled />
+                  <div class="form-group col-md-6">
+                    <label>Sexo</label>
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="sexo" [ngClass]="aplicaCssErro('sexo','perfilForm')" [ngClass]="aplicaCssErro('sexo','perfilForm')">
+                      <option value="0">Selecione</option>
+                      <option value="M">Masculino</option>
+                      <option value="F">Feminino</option>
+                      <option value="O">Prefiro não informar</option>
+                    </select>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="d-flex flex-column mb-2">
-                    <h3>CPF:</h3>
-                    <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" disabled />
-                  </div>
-                  <div class="d-flex flex-column mb-2">
-                    <h3>Email:</h3>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>Tipo Telefone</label>
+                    <select class="custom-select mr-sm-2" formControlName="tipoTelefone" [ngClass]="aplicaCssErro('tipoTelefone','perfilForm')">
+                      <option value="0">Selecione</option>
+                      <option value="CA">Casa</option>
+                      <option value="CE">Celular</option>
+                      <option value="CO">Comercial</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Tipo obrigatório.
+                    </div>
+                  </div> 
+                  <div class="form-group col-md-6">
+                    <label>Telefone</label>
+                    <input type="text" class="form-control" formControlName="telefone" placeholder="Telefone" prefix="+55 " mask="(00) 0000-0000||(00) 0 0000-0000" [ngClass]="aplicaCssErro('telefone','perfilForm')"/>                    
+                    <div class="invalid-feedback">
+                      Telefone obrigatório
+                    </div>
+                  </div> 
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label>E-mail</label>
                     <input type="text" class="form-control" [value]="dadosCliente?.email" disabled />
                   </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex flex-column mb-2">
-                    <h3>Telefone:</h3>
-                    <input type="text" class="form-control" mask="(00) 0 0000-0000" formControlName="telefone" disabled />
-                  </div>
-                  <div class="d-flex flex-column mb-2">
-                    <h3 class="mr-2">Sexo:</h3>
-                    <input type="text" class="form-control" [value]="sexoLista[dadosCliente?.sexo]" disabled />
+                  <div class="form-group col-md-6">                    
+                    <label>CPF</label>
+                    <input type="text" class="form-control" mask="000.000.000-00" formControlName="cpf" disabled />
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
+              <div class="d-flex justify-content-end btn-perfil">          
+                <button type="button" class="btn btn-primary" (click)="onSubmitPerfil()" [disabled]="perfilForm.invalid">Alterar</button>
+              </div>   
+            </div>            
+          </form>          
         </section>
         <section class="conteudo" id="endereco">
           <div class="d-flex justify-content-between mb-2">

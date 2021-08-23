@@ -16,8 +16,6 @@ export class MeuCartaoComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    console.log(this.cartao)
-
     this.meuCartaoForm = this.formBuilder.group({
       id: [this.cartao.id ?? ''],
       bandeira: [this.cartao.bandeira ?? '', Validators.required],
@@ -40,7 +38,6 @@ export class MeuCartaoComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.meuCartaoForm.value)
     let numero = this.meuCartaoForm.get('numero').value;
     this.meuCartaoForm.get('bandeira').setValue(this.getCardFlag(numero));
 

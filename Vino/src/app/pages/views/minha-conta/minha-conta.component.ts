@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cartao } from 'src/app/shared/models/cartao.model';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
@@ -19,13 +19,7 @@ export class MinhaContaComponent implements OnInit {
     new Cartao(0, 'ALEXANDRE L CUNHA', '5186 6193 8671 2238', '212', 'mastercard', '01/2022'),
     new Cartao(1, 'JOAO', '5371 6958 9184 6294', '121', 'mastercard', '06/2023'),
   ];
-
-  public sexoLista = {
-    M: 'Masculino',
-    F: 'Feminino',
-    O: 'Prefiro não informar'
-  }
-
+ 
   public bandeiras = {
     mastercard: 'Master Card',
     visa: 'Visa',
@@ -56,6 +50,7 @@ export class MinhaContaComponent implements OnInit {
       uf: "SP"
       }],
       nome: "João",
+      nascimento: '12/05/2000',
       senha: "AAAaaa@123",
       cartao: this.listaCartoes,
       sexo: "M",
@@ -63,13 +58,22 @@ export class MinhaContaComponent implements OnInit {
       tipoTelefone: "CA"
     }
     this.perfilForm = this.formBuilder.group({
-      nome: [cliente.nome],
+      nome: [cliente.nome ?? '', Validators.required],
       cpf: [cliente.cpf],
       email: [cliente.email],
-      telefone: [cliente.telefone],
-      sexo: [cliente.sexo]
+      telefone: [cliente.telefone ?? '', Validators.required],
+      tipoTelefone: [cliente.tipoTelefone ?? '', Validators.required],
+      sexo: [cliente.sexo ?? '0', Validators.required],
+      nascimento: [cliente.nascimento ?? '', Validators.required]
     });
     this.dadosCliente = cliente;
+  }
+
+  aplicaCssErro(field, form){
+    let touched = this[form].get(field).touched;      
+    let isValid = touched ? ( this[form].get(field).valid ? 'is-valid' : 'is-invalid' ) : '';
+    
+    return field ? isValid : '';
   }
 
   addEndereco(){
@@ -86,9 +90,20 @@ export class MinhaContaComponent implements OnInit {
 
   }
 
-    /** SENHA */
+  onSubmitPerfil(){
+    if(this.perfilForm.valid){
+      this.dadosCliente.nome = this.perfilForm.get('nome').value;
+      this.dadosCliente.sexo = this.perfilForm.get('sexo').value;
+      this.dadosCliente.telefone = this.perfilForm.get('telefone').value;
+      this.dadosCliente.tipoTelefone = this.perfilForm.get('tipoTelefone').value;
+      this.dadosCliente.nascimento = this.perfilForm.get('nascimento').value;
+    }
+  }
+
+
+  /** SENHA */
   onAlteraSenha(event){
-    if(event){      
+    if(event){
       this.dadosCliente.senha = event.controls['senhaNova'].value;      
     }
   }
