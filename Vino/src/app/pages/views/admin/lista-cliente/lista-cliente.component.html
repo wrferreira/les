@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Ativo</th>
+        <th scope="col">Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of listaClientes; index as i">
+        <th scope="row">{{i+1}}</th>
+        <td>{{cliente?.nome}}</td>
+        <td>{{cliente?.email}}</td>
+        <td><input type="checkbox" checked data-toggle="toggle" data-onstyle="primary"></td>
+        <td><input type="checkbox" checked data-toggle="toggle" data-onstyle="primary"></td>
+      </tr>
+    </tbody>
+  </table>

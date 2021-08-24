@@ -12,16 +12,16 @@
               <li class="nav-item">
                 <h1>{{ dadosCliente?.nome }} •</h1>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item" [ngClass]="cardAtivo == 1 ? 'active' : ''">
                 <a class="nav-link" (click)="cardAtivo = 1">Meus Dados<span class="sr-only">(current)</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" [ngClass]="cardAtivo == 2 ? 'active' : ''">
                 <a class="nav-link" (click)="cardAtivo = 2">Endereço</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" [ngClass]="cardAtivo == 3 ? 'active' : ''">
                 <a class="nav-link" (click)="cardAtivo = 3">Método de Pagamento</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" [ngClass]="cardAtivo == 4 ? 'active' : ''">
                 <a class="nav-link" (click)="cardAtivo = 4">Configurações da Conta</a>
               </li>
             </ul>
@@ -141,7 +141,7 @@
                   <div class="card-header" [id]="'heading'+i">
                     <h2 class="mb-0">
                       <button class="btn btn-link btn-block text-left d-flex align-items-center" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="bandeiraWrapper mr-2"><img [src]="'/assets/' + cartao.bandeira + '.svg'" /></div> {{ bandeiras[cartao.bandeira] }}
+                        <div class="bandeiraWrapper mr-2"><img [src]="'/assets/credit_card/' + cartao.bandeira + '.svg'" /></div> {{ bandeiras[cartao.bandeira] }}
                       </button>
                     </h2>
                   </div>
