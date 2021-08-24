@@ -119,11 +119,10 @@ export class CadastroComponent implements OnInit {
     this.cliente.senha = this.cadastroForm.get('senha').value;
     this.cliente.confirmaSenha = this.cadastroForm.get('confirmaSenha').value;
 
-    if(!this.listaEnderecos.length){
-      let index = this.listaEnderecos.length;
+    if(!this.listaEnderecos.length){      
       this.cliente.endereco.push(
         new Endereco(
-          index, 
+          this.listaEnderecos.length, 
           this.endereco.get('descricaoEndereco').value, 
           this.endereco.get('pais').value,
           this.endereco.get('logradouro').value,
@@ -137,9 +136,9 @@ export class CadastroComponent implements OnInit {
       ));
     }else{
       let lista = []      
-      console.log(this.listaEnderecos)
+      
       this.listaEnderecos.forEach(e => {        
-        this.listaEnderecos.push(new Endereco(
+        lista.push(new Endereco(
           lista.length,
           e.descricaoEndereco, 
           e.pais,
@@ -154,8 +153,7 @@ export class CadastroComponent implements OnInit {
         ));
       });
 
-
-      this.cliente.endereco = this.listaEnderecos;
+      this.cliente.endereco = lista;
     }
   }
 
