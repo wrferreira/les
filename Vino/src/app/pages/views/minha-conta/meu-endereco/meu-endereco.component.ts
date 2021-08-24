@@ -24,6 +24,8 @@ export class MeuEnderecoComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    console.log(this.endereco)
+
     this.meuEnderecoForm = this.formBuilder.group({
       id: [this.endereco.id],
       cep: [this.endereco.cep ?? '', [Validators.required]],

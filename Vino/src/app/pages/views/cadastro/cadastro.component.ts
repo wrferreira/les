@@ -3,6 +3,7 @@ import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Endereco } from 'src/app/shared/models/endereco.model';
 
 @Component({
   selector: 'app-cadastro',
@@ -94,7 +95,7 @@ export class CadastroComponent implements OnInit {
         const newId = this.listaEnderecos.length + 1;
         this.endereco.patchValue({id: newId});
         this.listaEnderecos.push(this.endereco.value);
-      } 
+      }
     }
   }
 
@@ -118,9 +119,42 @@ export class CadastroComponent implements OnInit {
     this.cliente.senha = this.cadastroForm.get('senha').value;
     this.cliente.confirmaSenha = this.cadastroForm.get('confirmaSenha').value;
 
-    if(!this.listaEnderecos.length){      
-      this.cliente.endereco.push(this.endereco.value);
+    if(!this.listaEnderecos.length){
+      let index = this.listaEnderecos.length;
+      this.cliente.endereco.push(
+        new Endereco(
+          index, 
+          this.endereco.get('descricaoEndereco').value, 
+          this.endereco.get('pais').value,
+          this.endereco.get('logradouro').value,
+          this.endereco.get('cep').value,
+          this.endereco.get('numero').value,
+          this.endereco.get('complemento').value,
+          this.endereco.get('bairro').value,
+          this.endereco.get('cidade').value,
+          this.endereco.get('uf').value,
+          this.endereco.get('tipoEndereco').value
+      ));
     }else{
+      let lista = []      
+      console.log(this.listaEnderecos)
+      this.listaEnderecos.forEach(e => {        
+        this.listaEnderecos.push(new Endereco(
+          lista.length,
+          e.descricaoEndereco, 
+          e.pais,
+          e.logradouro,
+          e.cep,
+          e.numero,
+          e.complemento,
+          e.bairro,
+          e.cidade,
+          e.uf,
+          e.tipoEndereco
+        ));
+      });
+
+
       this.cliente.endereco = this.listaEnderecos;
     }
   }

@@ -137,7 +137,7 @@
                 <button type="button" class="btn btn-outline-primary" (click)="addCartao()">Adicionar</button>
               </div>
               <div class="accordion" id="accordionPagamento">
-                <div class="card" *ngFor="let cartao of listaCartoes; index as i">              
+                <div class="card" *ngFor="let cartao of dadosCliente?.cartao index as i">              
                   <div class="card-header" [id]="'heading'+i">
                     <h2 class="mb-0">
                       <button class="btn btn-link btn-block text-left d-flex align-items-center" type="button" data-toggle="collapse" [attr.data-target]="'#collapseCartao'+i" aria-expanded="true" aria-controls="collapseOne">
