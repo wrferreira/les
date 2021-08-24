@@ -8,14 +8,23 @@ import { MeuCartaoComponent } from './meu-cartao/meu-cartao.component';
 import { AlterarSenhaComponent } from './alterar-senha/alterar-senha.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 
 @NgModule({
-  declarations: [MinhaContaComponent, MeuEnderecoComponent, MeuCartaoComponent, AlterarSenhaComponent],
+  declarations: [
+    MinhaContaComponent, 
+    MeuEnderecoComponent, 
+    MeuCartaoComponent, 
+    AlterarSenhaComponent,
+    ConfirmacaoDialog
+  ],
   imports: [
     CommonModule,
     MinhaContaRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     NgxMaskModule.forRoot(),
   ]
 })

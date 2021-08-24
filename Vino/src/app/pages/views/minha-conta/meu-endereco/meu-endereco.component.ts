@@ -68,5 +68,4 @@ export class MeuEnderecoComponent implements OnInit {
   onSubmit() {
     this.alterarEvent.emit(this.meuEnderecoForm.value);
   }
-
 }

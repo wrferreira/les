@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AvisoDialog } from 'src/app/shared/dialogs/aviso/aviso-dialog';
+import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 import { Cartao } from 'src/app/shared/models/cartao.model';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
@@ -26,7 +29,8 @@ export class MinhaContaComponent implements OnInit {
     novo: 'Novo Cartão'
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+    private dialog: MatDialog) {
     this.storage = window.localStorage;
    }
 
@@ -65,11 +69,20 @@ export class MinhaContaComponent implements OnInit {
   }
 
   onEnderecoDeleted(id: number) {
-    console.log(id);
-    console.log(this.dadosCliente.endereco)
-
-    let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == id);
-    this.dadosCliente.endereco.splice(indexEnd, 1);
+    
+    let modal = this.dialog.open(ConfirmacaoDialog, {
+      data: {
+        title: 'Exclusão',
+        message: 'Deseja realmente excluir esse endereço?'        
+      }
+    });
+    
+    modal.afterClosed().subscribe( ret => {
+      if(ret){        
+        let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == id);
+        this.dadosCliente.endereco.splice(indexEnd, 1);
+      }
+    })   
   }
 
   onEnderecoAlterado(dados: Endereco) {
@@ -119,11 +132,17 @@ export class MinhaContaComponent implements OnInit {
     this.updateStorage();
   }
   
-  onCartaoAlterado(cartaoAlterado){
+  onCartaoAlterado(cartaoAlterado){    
     let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);    
-    this.dadosCliente.cartao[idxCartao] = cartaoAlterado;
-    
+    this.dadosCliente.cartao[idxCartao] = cartaoAlterado;    
     this.updateStorage();
+
+    this.dialog.open(AvisoDialog,{
+      data: {
+        title: 'Atenção',
+        message: 'Cartão cadastrado com sucesso!'
+      }
+    });
   }
 
   /** STORAGE */

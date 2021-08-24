@@ -31,6 +31,6 @@
     </div>
 </form>
 <div class="d-flex justify-content-end">
-    <button type="button" class="btn btn-outline-danger mr-2" (click)="onDelete()" >Excluir</button>
+    <button type="button" class="btn btn-outline-danger mr-2" (click)="onDelete()">Excluir</button>
     <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="meuCartaoForm.invalid">{{ meuCartaoForm.get('bandeira').value == 'novo' ? 'Cadastrar' : 'Alterar' }}</button>
-</div>   
+</div>

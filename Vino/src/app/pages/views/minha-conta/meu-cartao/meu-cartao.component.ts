@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 
 @Component({
   selector: 'app-meu-cartao',
@@ -13,7 +15,10 @@ export class MeuCartaoComponent implements OnInit {
   @Output() alterarEvent = new EventEmitter();
 
   public meuCartaoForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
     this.meuCartaoForm = this.formBuilder.group({
@@ -33,8 +38,19 @@ export class MeuCartaoComponent implements OnInit {
     return field ? isValid : '';
   }
 
-  onDelete(){    
-    this.deleteEvent.emit(this.meuCartaoForm.controls['id'].value);
+  onDelete(){
+    let modal = this.dialog.open(ConfirmacaoDialog, {
+      data: {
+        title: 'Exclusão',
+        message: 'Deseja realmente excluir esse cartão?'        
+      }
+    });
+    
+    modal.afterClosed().subscribe( ret => {
+      if(ret){        
+        this.deleteEvent.emit(this.meuCartaoForm.controls['id'].value);
+      }
+    })
   }
 
   onSubmit(){
