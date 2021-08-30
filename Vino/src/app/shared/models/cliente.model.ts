@@ -11,6 +11,8 @@ export class Cliente {
     tipoTelefone: string;    
     telefone: string;
     sexo: string;
+    inativado?: boolean;
+    classificacao?: number;
     endereco: Endereco[];
     cartao: Cartao[];
 }

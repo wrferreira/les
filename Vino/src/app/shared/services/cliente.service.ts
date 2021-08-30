@@ -17,6 +17,17 @@ export class ClienteService {
     return this.http.get(`https://viacep.com.br/ws/${cep}/json/`);
   }
 
+  // Admin Cliente
+  getListaCliente(){
+    return this.http.get(this.baseUrl + `/cliente/todos`);
+  }
+  // Alterar status cliente ativado ou desativado
+  setClienteDisabled(clienteId: number, isChecked: boolean) {
+    return this.http.post(this.baseUrl + `/cliente/${clienteId}/alterar-status`, {
+      inativado: isChecked
+    });
+  }
+
 
   //CLIENTE
   getCliente(clienteId: number){

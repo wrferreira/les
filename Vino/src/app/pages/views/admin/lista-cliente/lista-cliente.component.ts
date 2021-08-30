@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/shared/models/cliente.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 import { LocalStorageService } from 'src/app/shared/services/localStorage.service';
 
 @Component({
@@ -12,10 +13,22 @@ export class ListaClienteComponent implements OnInit {
   public listaClientes: Array<Cliente> = [
   ];
 
-  constructor(private localStorage: LocalStorageService) { }
+  constructor(private clienteService: ClienteService) { }
 
   ngOnInit(): void {
-    this.listaClientes.push(JSON.parse(localStorage.getItem('cliente')) as Cliente);
+    this.getListaClientes();
+  }
+
+  getListaClientes() {
+    this.clienteService.getListaCliente().subscribe( (result:any) => {
+      this.listaClientes = result.listaClientes;
+    });
+  }
+
+  onInativoChange(event) {
+    this.clienteService.setClienteDisabled(event.target.id, event.target.checked).subscribe((result: any) => {
+      console.log(result);
+    });
   }
 
 }

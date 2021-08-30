@@ -4,17 +4,17 @@
         <th scope="col">#</th>
         <th scope="col">Nome</th>
         <th scope="col">Email</th>
-        <th scope="col">Ativo</th>
-        <th scope="col">Admin</th>
+        <th scope="col">Desativado</th>
+        <th scope="col">Classificação</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let cliente of listaClientes; index as i">
-        <th scope="row">{{i+1}}</th>
+        <th scope="row">{{cliente?.id}}</th>
         <td>{{cliente?.nome}}</td>
         <td>{{cliente?.email}}</td>
-        <td><input type="checkbox" checked data-toggle="toggle" data-onstyle="primary"></td>
-        <td><input type="checkbox" checked data-toggle="toggle" data-onstyle="primary"></td>
+        <td><input type="checkbox" [id]="cliente?.id" checked data-toggle="toggle" [checked]="cliente?.inativado" (change)="onInativoChange($event)" data-onstyle="primary"></td>
+        <td><img *ngFor="let n of [].constructor(cliente?.classificacao)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/FA_star.svg/768px-FA_star.svg.png" width="16"></td>
       </tr>
     </tbody>
   </table>
