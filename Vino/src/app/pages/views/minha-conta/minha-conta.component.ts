@@ -63,8 +63,8 @@ export class MinhaContaComponent implements OnInit {
     this.clienteService.getCartao(this.clienteId).subscribe( (result:any) => {
       result.cartao.forEach(c => {
         c.bandeira = this.getCardFlag(c.numero);
+        this.dadosCliente.cartao.push(new Cartao(c.id, c.titular, c.numero, c.cvv, c.bandeira, c.dataValidade));
       });
-      this.dadosCliente.cartao = result.cartao;
     });
   }
 
