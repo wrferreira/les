@@ -17,7 +17,7 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <input type="text" class="form-control" formControlName="dataValidade" placeholder="Data de validade" mask="00/0000" [ngClass]="aplicaCssErro('dataValidade','meuCartaoForm')"/>
+            <input type="text" class="form-control" formControlName="dataValidade" [dropSpecialCharacters]="false" placeholder="Data de validade" mask="00/0000" [ngClass]="aplicaCssErro('dataValidade','meuCartaoForm')"/>
             <div class="invalid-feedback">
                 Favor informar a data de validade
             </div>
@@ -32,5 +32,6 @@
 </form>
 <div class="d-flex justify-content-end">
     <button type="button" class="btn btn-outline-danger mr-2" (click)="onDelete()">Excluir</button>
-    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="meuCartaoForm.invalid">{{ meuCartaoForm.get('bandeira').value == 'novo' ? 'Cadastrar' : 'Alterar' }}</button>
+    <button type="button" class="btn btn-primary" (click)="onUpdate()" [disabled]="meuCartaoForm.invalid" *ngIf="meuCartaoForm.get('bandeira').value != 'novo'">Alterar</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="meuCartaoForm.invalid" *ngIf="meuCartaoForm.get('bandeira').value == 'novo'">Cadastrar</button>
 </div>

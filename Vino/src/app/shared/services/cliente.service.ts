@@ -49,9 +49,22 @@ export class ClienteService {
   }
 
   //CARTÃO
-  cadastrarCartao(clienteId: number){
-    return this.http.get(this.baseUrl + `/cliente/${clienteId}/cartao`)
+  getCartao(clienteId: number){
+    return this.http.get(this.baseUrl + `/cliente/${clienteId}/cartoes`)
   }
+  setCartao(clienteId: number, cartao){    
+    delete cartao.id;
+    delete cartao.bandeira;
+    return this.http.post(this.baseUrl + `/cliente/${clienteId}/cartoes`, cartao);
+  }
+  updateCartao(cartao, cartaoId){
+    delete cartao.bandeira;
+    return this.http.put(this.baseUrl + `/cliente/cartoes/${cartaoId}`, cartao)
+  }
+  deleteCartao(cartaoId){
+    return this.http.delete(this.baseUrl + `/cliente/cartoes/${cartaoId}`)
+  }
+
   
   //SENHA
   setSenha(clienteId, senhaAtual, novaSenha){

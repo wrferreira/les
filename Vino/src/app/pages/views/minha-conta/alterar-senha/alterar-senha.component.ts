@@ -71,9 +71,7 @@ export class AlterarSenhaComponent implements OnInit {
     return nova == confirma ? true : false;
   }
 
-  submit(){
-    console.log(this.alterarSenhaForm.get('atual').value)
-    console.log(this.alterarSenhaForm.get('senhaNova').value)
+  submit(){    
     this.clienteService.setSenha(this.clienteId, this.alterarSenhaForm.get('atual').value, this.alterarSenhaForm.get('senhaNova').value).subscribe( (result:any) => {      
       this.showModalSucesso('Info', result.message);
     })

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { AvisoDialog } from 'src/app/shared/dialogs/aviso/aviso-dialog';
 import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-meu-cartao',
@@ -11,23 +13,33 @@ import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-di
 export class MeuCartaoComponent implements OnInit {
 
   @Input('cartao') cartao;
-  @Output() deleteEvent = new EventEmitter();
-  @Output() alterarEvent = new EventEmitter();
+  @Output() deleteEvent = new EventEmitter();  
+  public clienteId: number;
+  public storage;
 
   public meuCartaoForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    public dialog: MatDialog
-    ) { }
+    private dialog: MatDialog,
+    private clienteService: ClienteService 
+    ) {
+      this.storage = window.localStorage;
+     }
 
   ngOnInit(): void {
+    console.log(this.cartao)
+    this.clienteId = JSON.parse(this.storage.getItem('clienteId'))[0];    
+    this.carregaForm();
+  }
+    
+  carregaForm(){
     this.meuCartaoForm = this.formBuilder.group({
       id: [this.cartao.id ?? ''],
       bandeira: [this.cartao.bandeira ?? '', Validators.required],
       titular: [this.cartao.titular ?? '', Validators.required],
       numero: [this.cartao.numero ?? '', Validators.required],
       cvv: [this.cartao.cvv ?? '', Validators.required],
-      dataValidade: [this.cartao.dataValidade ?? '', Validators.required],
+      dataValidade: [this.cartao.dataValidade ?? '', Validators.required]      
     });
   }
 
@@ -39,6 +51,7 @@ export class MeuCartaoComponent implements OnInit {
   }
 
   onDelete(){
+    console.log(this.meuCartaoForm.get('id').value);
     let modal = this.dialog.open(ConfirmacaoDialog, {
       data: {
         title: 'Exclusão',
@@ -47,18 +60,42 @@ export class MeuCartaoComponent implements OnInit {
     });
     
     modal.afterClosed().subscribe( ret => {
-      if(ret){        
-        this.deleteEvent.emit(this.meuCartaoForm.controls['id'].value);
+      if(ret){
+        this.clienteService.deleteCartao(this.meuCartaoForm.get('id').value).subscribe( result => {            
+          this.emitDelete();
+        });
       }
-    })
+    })   
+  }
+
+  emitDelete(){
+    this.deleteEvent.emit(this.meuCartaoForm.controls['id'].value);
+  }
+
+  onUpdate(){
+    this.clienteService.updateCartao(this.meuCartaoForm.value, this.clienteId).subscribe( result => {      
+      this.showModalSucesso('Info','Cartão alterado com sucesso!')
+    });
   }
 
   onSubmit(){
     let numero = this.meuCartaoForm.get('numero').value;
     this.meuCartaoForm.get('bandeira').setValue(this.getCardFlag(numero));
 
-    this.alterarEvent.emit(this.meuCartaoForm.value);
+    this.clienteService.setCartao(this.clienteId, this.meuCartaoForm.value).subscribe( result => {      
+      this.showModalSucesso('Info', 'Cartão cadastrado com sucesso!');
+    });    
   }
+
+  showModalSucesso(title, message){
+    this.dialog.open(AvisoDialog,{
+      data: {
+        title: title,
+        message: message
+      }
+    });
+  }  
+
 
   getCardFlag(cardnumber){    
     cardnumber.replace(/[^0-9]+/g, '');
