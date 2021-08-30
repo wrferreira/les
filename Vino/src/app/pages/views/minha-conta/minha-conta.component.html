@@ -1,4 +1,4 @@
-<div class="principal d-flex justify-content-center align-items-center">
+<div class="principal d-flex justify-content-center align-items-center" *ngIf="!showLoad">
   <div class="card blocoPerfil">
       <nav class="navbar navbar-expand-lg navbar-light bg-light tituloUsuario">
           <a class="navbar-brand" ><div class="profileImage">
@@ -46,7 +46,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">                    
                     <label>Nascimento</label>
-                    <input type="text" class="form-control" formControlName="nascimento" placeholder="Data de nascimento" mask="00/00/0000" [ngClass]="aplicaCssErro('nascimento','perfilForm')"/>    
+                    <input type="text" class="form-control" formControlName="dataNasc" [dropSpecialCharacters]="false" placeholder="Data de nascimento" mask="00/00/0000" [ngClass]="aplicaCssErro('dataNasc','perfilForm')"/>    
                     <div class="invalid-feedback">
                       Data de nascimento inválida
                     </div>
@@ -66,9 +66,9 @@
                     <label>Tipo Telefone</label>
                     <select class="custom-select mr-sm-2" formControlName="tipoTelefone" [ngClass]="aplicaCssErro('tipoTelefone','perfilForm')">
                       <option value="0">Selecione</option>
-                      <option value="CA">Casa</option>
-                      <option value="CE">Celular</option>
-                      <option value="CO">Comercial</option>
+                      <option value="casa">Casa</option>
+                      <option value="celular">Celular</option>
+                      <option value="comercial">Comercial</option>
                     </select>
                     <div class="invalid-feedback">
                       Tipo obrigatório.
@@ -180,4 +180,8 @@
           <button type="button" class="btn btn-danger">Excluir a conta</button>
         </section>
   </div>
+</div>
+
+<div *ngIf="showLoad" class="loader-ctn">
+  <mat-spinner></mat-spinner>
 </div>

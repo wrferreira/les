@@ -3,7 +3,7 @@ import { Endereco } from "./endereco.model";
 
 export class Cliente {    
     nome: string;
-    nascimento: string;
+    dataNasc: string;
     cpf: string;
     email: string;
     senha: string;

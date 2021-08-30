@@ -1,5 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AvisoDialog } from 'src/app/shared/dialogs/aviso/aviso-dialog';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-alterar-senha',
@@ -8,16 +11,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AlterarSenhaComponent implements OnInit {
 
-  @Output() alteraSenha = new EventEmitter();
+  //@Output() alteraSenha = new EventEmitter();
   alterarSenhaForm: FormGroup;
   private storage;
   public senha;
+  public clienteId: number;
 
   constructor(
     private formBuilder: FormBuilder,
+    private clienteService: ClienteService,
+    private dialog: MatDialog
     ) {
       this.storage = window.localStorage;
-      this.senha = JSON.parse(this.storage.getItem('cliente'))?.senha;
+      //this.senha = JSON.parse(this.storage.getItem('clienteId'))?.senha;      
+      this.clienteId = JSON.parse(this.storage.getItem('clienteId'));      
     }
 
   ngOnInit(): void {
@@ -33,7 +40,7 @@ export class AlterarSenhaComponent implements OnInit {
     let isValid;
 
     if(field != 'confirmaSenha'){
-      isValid = touched ? ( this[form].get(field).valid && this.verifyAtual() ? 'is-valid' : 'is-invalid' ) : '';
+      isValid = touched ? ( this[form].get(field).valid ? 'is-valid' : 'is-invalid' ) : '';
     }else{
       isValid = touched ? ( this[form].get(field).valid && this.verifyConfirma() ? 'is-valid' : 'is-invalid' ) : '';
     }
@@ -65,6 +72,20 @@ export class AlterarSenhaComponent implements OnInit {
   }
 
   submit(){
-    this.alteraSenha.emit(this.alterarSenhaForm);
+    console.log(this.alterarSenhaForm.get('atual').value)
+    console.log(this.alterarSenhaForm.get('senhaNova').value)
+    this.clienteService.setSenha(this.clienteId, this.alterarSenhaForm.get('atual').value, this.alterarSenhaForm.get('senhaNova').value).subscribe( (result:any) => {      
+      this.showModalSucesso('Info', result.message);
+    })
   }
+
+  showModalSucesso(title, message){
+    this.dialog.open(AvisoDialog,{
+      data: {
+        title: title,
+        message: message
+      }
+    });
+  }
+
 }

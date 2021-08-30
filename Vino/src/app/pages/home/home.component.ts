@@ -11,26 +11,22 @@ export class HomeComponent implements OnInit {
   
   public dadosCliente: Cliente;
   public logado = false;
-  private storage;
 
   constructor(    
   ) {
-    this.storage = window.localStorage;
   }
   
   ngOnInit(): void {}
 
-  componentRemoved(event){    
+  componentRemoved(event){
     console.log(event)
     if(event.clienteComponent && event.cadastroForm?.valid){
       this.logado = true;
       this.dadosCliente = event.cliente;
-
-      this.storage.setItem('cliente', JSON.stringify(event.cliente));
     }
   }
 
-  onLogout(){    
+  onLogout(){
     this.logado = false;
   }
 }

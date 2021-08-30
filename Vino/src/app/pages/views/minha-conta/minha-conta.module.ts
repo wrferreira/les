@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-di
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     NgxMaskModule.forRoot(),
   ]
 })

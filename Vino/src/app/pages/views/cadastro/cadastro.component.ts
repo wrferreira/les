@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Endereco } from 'src/app/shared/models/endereco.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -24,13 +25,19 @@ export class CadastroComponent implements OnInit {
   public listaEnderecos = [];
   public cliente: Cliente;
   public clienteComponent = true;
+  public storage;
+
+  public dadosCliente;
+  public dadosEndereco = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private service: ClienteService,    
     ) {
     this.cliente = new Cliente();
     this.cliente.endereco = [];
+    this.storage = window.localStorage;
   }
 
   ngOnInit(): void {
@@ -45,7 +52,8 @@ export class CadastroComponent implements OnInit {
       cpf: ['', Validators.required],
       tipoTelefone: ['0', Validators.required],
       telefone: ['', Validators.required],
-      sexo: ['0', Validators.required]
+      sexo: ['0', Validators.required],
+      dataNasc: ['', Validators.required],
     });
   }
  
@@ -108,57 +116,69 @@ export class CadastroComponent implements OnInit {
     this.listaEnderecos.splice(enderecoIdx, 1);
   }
 
-  loadDadosCliente(){
-    this.cliente.nome = this.dadosForm.get('nome').value;
-    this.cliente.cpf = this.dadosForm.get('cpf').value;
-    this.cliente.tipoTelefone = this.dadosForm.get('tipoTelefone').value;
-    this.cliente.telefone = this.dadosForm.get('telefone').value;
-    this.cliente.sexo = this.dadosForm.get('sexo').value;
-    
-    this.cliente.email = this.cadastroForm.get('email').value;
-    this.cliente.senha = this.cadastroForm.get('senha').value;
-    this.cliente.confirmaSenha = this.cadastroForm.get('confirmaSenha').value;
+  preparaDados(){
+    this.dadosCliente = {
+      nome : this.dadosForm.get('nome').value,
+      cpf : this.dadosForm.get('cpf').value,
+      tipoTelefone : this.dadosForm.get('tipoTelefone').value,
+      telefone : this.dadosForm.get('telefone').value,
+      sexo : this.dadosForm.get('sexo').value,
+      dataNasc : this.dadosForm.get('dataNasc').value,
+      email : this.cadastroForm.get('email').value,
+      senha : this.cadastroForm.get('senha').value,
+    }    
+  }
 
-    if(!this.listaEnderecos.length){      
-      this.cliente.endereco.push(
-        new Endereco(
-          this.listaEnderecos.length, 
-          this.endereco.get('descricaoEndereco').value, 
-          this.endereco.get('pais').value,
-          this.endereco.get('logradouro').value,
-          this.endereco.get('cep').value,
-          this.endereco.get('numero').value,
-          this.endereco.get('complemento').value,
-          this.endereco.get('bairro').value,
-          this.endereco.get('cidade').value,
-          this.endereco.get('uf').value,
-          this.endereco.get('tipoEndereco').value
-      ));
-    }else{
-      let lista = []      
-      
-      this.listaEnderecos.forEach(e => {        
-        lista.push(new Endereco(
-          lista.length,
-          e.descricaoEndereco, 
-          e.pais,
-          e.logradouro,
-          e.cep,
-          e.numero,
-          e.complemento,
-          e.bairro,
-          e.cidade,
-          e.uf,
-          e.tipoEndereco
-        ));
+  preparaEndereco(){    
+    if(!this.listaEnderecos.length){
+      this.dadosEndereco.push({
+        descricaoEndereco: this.endereco.get('descricaoEndereco').value, 
+        pais: this.endereco.get('pais').value,
+        logradouro: this.endereco.get('logradouro').value,
+        cep: this.endereco.get('cep').value,
+        numero: this.endereco.get('numero').value,
+        complemento: this.endereco.get('complemento').value,
+        bairro: this.endereco.get('bairro').value,
+        cidade: this.endereco.get('cidade').value,
+        uf: this.endereco.get('uf').value,
+        tipoEndereco: this.endereco.get('tipoEndereco').value,
+        tipoLogradouro: 1,
+        tipoResidencia: 1
       });
-
-      this.cliente.endereco = lista;
+    }else{
+      this.listaEnderecos.forEach(e => {
+        this.dadosEndereco.push({
+          descricaoEndereco: e.descricaoEndereco, 
+          pais: e.pais,
+          logradouro: e.logradouro,
+          cep: e.cep,
+          numero: e.numero,
+          complemento: e.complemento,
+          bairro: e.bairro,
+          cidade: e.cidade,
+          uf: e.uf,
+          tipoEndereco: e.tipoEndereco,
+          tipoLogradouro: 1,
+          tipoResidencia: 1
+        });
+      });      
     }
   }
 
-  onSubmit(){    
-    this.loadDadosCliente();
-    this.router.navigate(['home/produto']);
+  onSubmit(){
+    this.preparaDados();
+    this.preparaEndereco();
+
+    console.log(this.dadosCliente)
+    console.log(this.dadosEndereco)
+
+    this.service.setCliente(this.dadosCliente).subscribe( (result:any) => {
+      this.storage.setItem('clienteId', JSON.stringify(result.message));
+      this.dadosEndereco.forEach( e => {
+        this.service.setEndereco(result.message, e).subscribe( result => {
+        });
+      })
+      this.router.navigate(['home/produto']);
+    });
   }
 }

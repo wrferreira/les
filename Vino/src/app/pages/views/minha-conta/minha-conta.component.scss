@@ -36,3 +36,15 @@
 .nav-link {
     cursor: pointer;
 }
+.loader-ctn {
+    position: absolute;
+    width: 100%;
+    background-color: #ffffff52;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 7;
+    display: flex!important;
+  }

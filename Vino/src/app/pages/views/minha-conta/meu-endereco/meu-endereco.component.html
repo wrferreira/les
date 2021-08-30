@@ -61,13 +61,14 @@
         <div class="form-group col-md-4">
           <select class="form-control" id="tipoEndereco" name="tipoEndereco" formControlName="tipoEndereco" [ngClass]="aplicaCssErro('tipoEndereco','meuEnderecoForm')">
             <option value="">Selecione</option>
-            <option value="cobranca">Cobrança</option>
-            <option value="entrega">Entrega</option>
+            <option value="1">Cobrança</option>
+            <option value="2">Entrega</option>
           </select>
       </div>
     </div>
   </form>
 <div class="d-flex justify-content-end">
     <button type="button" class="btn btn-outline-danger mr-2" (click)="onDelete()">Excluir</button>
-    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="meuEnderecoForm.invalid">{{ endereco?.cep == undefined ? 'Cadastrar' : 'Alterar' }}</button>
+    <button type="button" class="btn btn-primary" (click)="onUpdate()" [disabled]="meuEnderecoForm.invalid" *ngIf="endereco?.cep != undefined">Alterar</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="meuEnderecoForm.invalid" *ngIf="endereco?.cep == undefined">Cadastrar</button>
 </div>              

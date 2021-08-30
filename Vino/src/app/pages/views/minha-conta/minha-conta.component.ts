@@ -6,6 +6,7 @@ import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-di
 import { Cartao } from 'src/app/shared/models/cartao.model';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 
 @Component({
   selector: 'app-minha-conta',
@@ -15,9 +16,11 @@ import { Endereco } from 'src/app/shared/models/endereco.model';
 export class MinhaContaComponent implements OnInit {
 
   private storage;
-  public dadosCliente: Cliente;
-  public perfilForm: FormGroup;
+  public dadosCliente: Cliente = new Cliente();
+  public perfilForm: FormGroup;  
   public cardAtivo = 1;
+  public showLoad: boolean;
+  public clienteId: number;
   public bandeiras = {
     mastercard: 'Master Card',
     visa: 'Visa',
@@ -29,25 +32,58 @@ export class MinhaContaComponent implements OnInit {
     novo: 'Novo Cartão'
   }
 
-  constructor(private formBuilder: FormBuilder,
-    private dialog: MatDialog) {
-    this.storage = window.localStorage;
-   }
+  constructor(
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private clienteService: ClienteService
+    ) {
+      this.storage = window.localStorage;
+      this.clienteId = JSON.parse(this.storage.getItem('clienteId'));
+    }
 
   ngOnInit(): void {
-    let cliente = JSON.parse(this.storage.getItem('cliente'));
-    
-    this.perfilForm = this.formBuilder.group({
-      nome: [cliente.nome ?? '', Validators.required],
-      cpf: [cliente.cpf],
-      email: [cliente.email],
-      telefone: [cliente.telefone ?? '', Validators.required],
-      tipoTelefone: [cliente.tipoTelefone ?? '', Validators.required],
-      sexo: [cliente.sexo ?? '0', Validators.required],
-      nascimento: [cliente.nascimento ?? '', Validators.required]
+    this.showLoad = true;
+    this.getCliente();  
+    this.getEndereco();
+  }
+
+  getCliente(){
+    this.clienteService.getCliente(this.clienteId).subscribe( (result:any) => {
+      this.carregaObjCliente(result.cliente);
+      console.log(result.cliente)
     });
-    this.dadosCliente = cliente;    
+  }
+  getEndereco(){
+    this.clienteService.getEndereco(this.clienteId).subscribe( (result:any) => {
+      this.dadosCliente.endereco = result.endereco;
+    });
+  }
+
+  carregaForm(){
+    this.perfilForm = this.formBuilder.group({
+      nome: [this.dadosCliente.nome ?? '', Validators.required],
+      cpf: [this.dadosCliente.cpf],
+      email: [this.dadosCliente.email],
+      telefone: [this.dadosCliente.telefone ?? '', Validators.required],
+      tipoTelefone: [this.dadosCliente.tipoTelefone ?? '', Validators.required],
+      sexo: [this.dadosCliente.sexo ?? '0', Validators.required],
+      dataNasc: [this.dadosCliente.dataNasc ?? '', Validators.required]
+    });
+    this.showLoad = false;
     this.verificaCliente();
+  }
+
+  carregaObjCliente(dados){
+    this.dadosCliente.nome = dados.nome;
+    this.dadosCliente.dataNasc = dados.dataNasc;
+    this.dadosCliente.cpf = dados.cpf;
+    this.dadosCliente.tipoTelefone = dados.tipoTelefone;
+    this.dadosCliente.telefone = dados.telefone;
+    this.dadosCliente.sexo = dados.sexo;
+    this.dadosCliente.email = dados.email;
+    this.dadosCliente.senha = dados.senha;
+
+    this.carregaForm();      
   }
 
   verificaCliente(){
@@ -67,52 +103,24 @@ export class MinhaContaComponent implements OnInit {
     let index = this.dadosCliente.endereco.length;
     this.dadosCliente.endereco.push(new Endereco(index, 'Novo Endereço', 'Brasil'));
   }
-
-  onEnderecoDeleted(id: number) {
-    
-    let modal = this.dialog.open(ConfirmacaoDialog, {
-      data: {
-        title: 'Exclusão',
-        message: 'Deseja realmente excluir esse endereço?'        
-      }
-    });
-    
-    modal.afterClosed().subscribe( ret => {
-      if(ret){        
-        let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == id);
-        this.dadosCliente.endereco.splice(indexEnd, 1);
-      }
-    })   
-  }
-
-  onEnderecoAlterado(dados: Endereco) {
-    let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == dados.id); 
-    this.dadosCliente.endereco[indexEnd] = dados;
-
-    this.updateStorage();
-  }
-
+  
   /** PERFIL */
   onSubmitPerfil(){
-    if(this.perfilForm.valid){
-      this.dadosCliente.nome = this.perfilForm.get('nome').value;
-      this.dadosCliente.sexo = this.perfilForm.get('sexo').value;
-      this.dadosCliente.telefone = this.perfilForm.get('telefone').value;
-      this.dadosCliente.tipoTelefone = this.perfilForm.get('tipoTelefone').value;
-      this.dadosCliente.nascimento = this.perfilForm.get('nascimento').value;
-      
-      this.updateStorage();
+    if(this.perfilForm.valid){      
+      this.clienteService.updateCliente(this.clienteId, this.perfilForm.value).subscribe( result => {
+        this.showModalSucesso('Atenção', 'Cadastrado alterado com sucesso!');
+      })
     }
   }
 
-  /** SENHA */
-  onAlteraSenha(event){
-    if(event){
-      this.dadosCliente.senha = event.controls['senhaNova'].value;
-      
-      this.updateStorage();
-    }
-  }
+  showModalSucesso(title, message){
+    this.dialog.open(AvisoDialog,{
+      data: {
+        title: title,
+        message: message
+      }
+    });
+  }  
 
   /** CARTÃO */
   addCartao(){
@@ -135,19 +143,17 @@ export class MinhaContaComponent implements OnInit {
   onCartaoAlterado(cartaoAlterado){    
     let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);    
     this.dadosCliente.cartao[idxCartao] = cartaoAlterado;    
-    this.updateStorage();
-
-    this.dialog.open(AvisoDialog,{
-      data: {
-        title: 'Atenção',
-        message: 'Cartão cadastrado com sucesso!'
-      }
-    });
+    this.showModalSucesso('Atenção', 'Cartão alterado com sucesso!');
   }
 
   /** STORAGE */
-  updateStorage(){
+  updateStorage(){     
     this.storage.setItem('cliente', JSON.stringify(this.dadosCliente));
   }
 
+  /** ENDEREÇO */
+  onEnderecoDeleted(id: number) {    
+    let indexEnd = this.dadosCliente.endereco.findIndex(e => e.id == id);
+    this.dadosCliente.endereco.splice(indexEnd, 1);      
+  }
 }

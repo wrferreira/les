@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AvisoDialog } from 'src/app/shared/dialogs/aviso/aviso-dialog';
+import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 import { Endereco } from 'src/app/shared/models/endereco.model';
 import { listaPaises } from 'src/app/shared/models/paises.model';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
@@ -13,19 +16,25 @@ export class MeuEnderecoComponent implements OnInit {
 
   @Input('endereco') endereco: Endereco;
   @Output() deleteEvent = new EventEmitter();
-  @Output() alterarEvent = new EventEmitter();
+  //@Output() alterarEvent = new EventEmitter();
 
   public countryList: Array<String>;
-
   public meuEnderecoForm: FormGroup;
+  public storage;
+  public clienteId: number;
 
-  constructor(private formBuilder: FormBuilder, private clienteService: ClienteService) {
+  constructor(
+    private formBuilder: FormBuilder, 
+    private clienteService: ClienteService,
+    private dialog: MatDialog
+  ) {
     this.countryList = listaPaises;
-   }
+    this.storage = window.localStorage;
+  }
 
-  ngOnInit(): void {
-    console.log(this.endereco)
-
+  ngOnInit(): void {    
+    this.clienteId = JSON.parse(this.storage.getItem('clienteId'))[0];
+    
     this.meuEnderecoForm = this.formBuilder.group({
       id: [this.endereco.id],
       cep: [this.endereco.cep ?? '', [Validators.required]],
@@ -37,7 +46,8 @@ export class MeuEnderecoComponent implements OnInit {
       uf: [this.endereco.uf ?? '', Validators.required],
       pais: [this.endereco.pais ?? 'Brasil', Validators.required],
       descricaoEndereco: [this.endereco.descricaoEndereco ?? '', Validators.required],
-      tipoEndereco: [this.endereco.tipoEndereco ?? '', Validators.required]
+      tipoEndereco: [this.endereco.tipoEndereco ?? '', Validators.required],
+      clienteId: [this.clienteId]
     });
   }
 
@@ -62,10 +72,50 @@ export class MeuEnderecoComponent implements OnInit {
   }
 
   onDelete() {
-    this.deleteEvent.emit(this.endereco?.id);
+    if(this.meuEnderecoForm.get('cep').invalid){
+      this.emitDelete();
+    }else{
+
+      let modal = this.dialog.open(ConfirmacaoDialog, {
+        data: {
+          title: 'Exclusão',
+          message: 'Deseja realmente excluir esse endereço?'        
+        }
+      });
+      
+      modal.afterClosed().subscribe( ret => {
+        if(ret){        
+          this.clienteService.deleteEndereco(this.meuEnderecoForm.get('id').value).subscribe( result => {      
+            this.showModalSucesso('Atenção', 'Endereço excluído com sucesso!');
+            this.emitDelete();
+          });   
+        }
+      })
+    }
+  }
+
+  onUpdate() {
+    this.clienteService.updateEndereco(this.meuEnderecoForm.value, this.meuEnderecoForm.get('id').value).subscribe( result => {      
+      this.showModalSucesso('Atenção', 'Endereço alterado com sucesso!');
+    });
   }
 
   onSubmit() {
-    this.alterarEvent.emit(this.meuEnderecoForm.value);
+    this.clienteService.setEndereco(this.clienteId, this.meuEnderecoForm.value).subscribe( result => {      
+      this.showModalSucesso('Atenção', 'Endereço criado com sucesso!');
+    });
+  }
+
+  emitDelete(){
+    this.deleteEvent.emit(this.endereco?.id);
+  }
+
+  showModalSucesso(title, message){
+    this.dialog.open(AvisoDialog,{
+      data: {
+        title: title,
+        message: message
+      }
+    });
   }
 }

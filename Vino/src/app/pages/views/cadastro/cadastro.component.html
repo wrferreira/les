@@ -32,10 +32,18 @@
             </mat-step>
             <mat-step label="Dados Pessoais">
               <form [formGroup]="dadosForm">
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="nome" placeholder="Nome" [ngClass]="aplicaCssErro('nome','dadosForm')">
-                  <div class="invalid-feedback">
-                    Nome obrigatório.
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control" formControlName="nome" placeholder="Nome" [ngClass]="aplicaCssErro('nome','dadosForm')">
+                    <div class="invalid-feedback">
+                      Nome obrigatório.
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">                    
+                    <input type="text" class="form-control" formControlName="dataNasc" [dropSpecialCharacters]="false" placeholder="Data de nascimento" mask="00/00/0000" [ngClass]="aplicaCssErro('dataNasc','dadosForm')"/>    
+                    <div class="invalid-feedback">
+                      Data de nascimento inválida
+                    </div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -58,9 +66,9 @@
                   <div class="form-group col-md-6">
                     <select class="custom-select mr-sm-2" formControlName="tipoTelefone" [ngClass]="aplicaCssErro('tipoTelefone','dadosForm')">
                       <option value="0">Selecione</option>
-                      <option value="CA">Casa</option>
-                      <option value="CE">Celular</option>
-                      <option value="CO">Comercial</option>
+                      <option value="casa">Casa</option>
+                      <option value="celular">Celular</option>
+                      <option value="comercial">Comercial</option>
                     </select>
                     <div class="invalid-feedback">
                       Tipo obrigatório.
