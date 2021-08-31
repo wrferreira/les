@@ -83,8 +83,10 @@ export class MinhaContaComponent implements OnInit {
   }
 
   carregaObjCliente(dados){
+    let dataTratada = new RegExp(/\d{4}-\d{2}-\d{2}/).exec(dados.dataNasc)[0].split('-');
     this.dadosCliente.nome = dados.nome;
-    this.dadosCliente.dataNasc = dados.dataNasc;
+    // this.dadosCliente.dataNasc = dados.dataNasc;
+    this.dadosCliente.dataNasc = `${dataTratada[2]}/${dataTratada[1]}/${dataTratada[0]}`;
     this.dadosCliente.cpf = dados.cpf;
     this.dadosCliente.tipoTelefone = dados.tipoTelefone;
     this.dadosCliente.telefone = dados.telefone;
@@ -115,6 +117,7 @@ export class MinhaContaComponent implements OnInit {
   
   /** PERFIL */
   onSubmitPerfil(){
+    console.log(this.perfilForm.value);
     if(this.perfilForm.valid){      
       this.clienteService.updateCliente(this.clienteId, this.perfilForm.value).subscribe( result => {
         this.showModalSucesso('Atenção', 'Cadastrado alterado com sucesso!');

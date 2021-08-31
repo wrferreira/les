@@ -28,6 +28,12 @@ export class ClienteService {
     });
   }
 
+  login(email: string, senha: string) {
+    return this.http.post(this.baseUrl + `/auth/`, {
+      email,
+      senha
+    });
+  }
 
   //CLIENTE
   getCliente(clienteId: number){

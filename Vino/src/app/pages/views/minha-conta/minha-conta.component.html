@@ -22,7 +22,10 @@
                 <a class="nav-link" (click)="cardAtivo = 3">Método de Pagamento</a>
               </li>
               <li class="nav-item" [ngClass]="cardAtivo == 4 ? 'active' : ''">
-                <a class="nav-link" (click)="cardAtivo = 4">Configurações da Conta</a>
+                <a class="nav-link" (click)="cardAtivo = 4">Minhas Compras</a>
+              </li>
+              <li class="nav-item" [ngClass]="cardAtivo == 5 ? 'active' : ''">
+                <a class="nav-link" (click)="cardAtivo = 5">Configurações da Conta</a>
               </li>
             </ul>
           </div>
@@ -155,7 +158,17 @@
             </div>
           </div>  
         </section>
-        <section class="conteudo" id="configuracoes" *ngIf="cardAtivo == 4">
+        <section class="conteudo" id="compras" *ngIf="cardAtivo == 4">
+          <div class="card">
+            <div class="card-header">
+              <h1>Minhas Compras</h1>
+            </div>
+            <div class="card-body"> 
+              <app-minhas-compras></app-minhas-compras>
+            </div>
+          </div>  
+        </section>
+        <section class="conteudo" id="configuracoes" *ngIf="cardAtivo == 5">
           <div class="card">
             <div class="card-header">
               <h1>Configurações da Conta</h1>

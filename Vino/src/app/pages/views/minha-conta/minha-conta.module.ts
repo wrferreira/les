@@ -11,6 +11,11 @@ import { NgxMaskModule } from 'ngx-mask';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MinhasComprasComponent } from './minhas-compras/minhas-compras.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MeuEnderecoComponent, 
     MeuCartaoComponent, 
     AlterarSenhaComponent,
-    ConfirmacaoDialog
+    ConfirmacaoDialog,
+    MinhasComprasComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +33,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
+    MatInputModule,
     NgxMaskModule.forRoot(),
+    
   ]
 })
 export class MinhaContaModule { }
