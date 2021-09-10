@@ -54,7 +54,63 @@
       <p>Por:</p>
       <h3 class="valorPor font-weight-bold">{{produto.precoPor | currency: 'BRL'}}</h3>
     </div>
-    <a href="#" class="btn btn-dark">Comprar</a>
+    <button class="btn btn-primary" (click)="addCarrinho(produto)">Comprar</button>
   </div>
 </div>
 </section>
+
+<!-- MODAL - CARRINHO DE COMPRAS -->
+<div *ngIf="listaCompras.length">
+  <button class="btn btn-secondary btn-carrinho" (click)="showCarrinho(modalData)">+</button>
+</div>
+
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <p class="modal-title m-0" id="modal-basic-title"><span class="fas fa-shopping-cart mr-2"></span>Resumo</p>    
+  </div>
+  <div class="modal-body">
+    <div class="row m-1">
+      <div class="col-md-6 p-0">
+        <strong><p>Item</p></strong>
+      </div>
+      <div class="col-md-2">
+        <strong><p>Quant.</p></strong>
+      </div>
+      <div class="col-md-3" style="text-align: end;">
+        <strong><p>R$</p></strong>
+      </div>
+      <div class="col-md-1">
+        <p></p>
+      </div>
+    </div>
+    <div *ngFor="let item of listaCompras">      
+      <div class="row m-1">
+        <div class="col-md-6 p-0">
+          <p>{{ item.titulo }}</p>
+        </div>
+        <div class="col-md-2 d-flex p-0 car-qtd">
+          <button class="car-btn-qtd" (click)="updateQtd(item, -1)" [disabled]="item.qtd == 0"><i class="fas fa-chevron-left"></i></button>
+          <p>{{ item.qtd }}</p>
+          <button class="car-btn-qtd" (click)="updateQtd(item, 1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="col-md-3 p-0 car-preco">
+          <p>{{ item.qtd * item.precoPor | currency: 'BRL'}}</p>
+        </div>
+        <div class="col-md-1">
+          <button class="car-btn-qtd" (click)="removeCarrinho(item)"><i class="far fa-trash-alt"></i></button>
+        </div>
+      </div>
+    </div>    
+    <div class="row m-1 mt-4">
+      <div class="col-md-10 text-right">
+        <strong>Total</strong>
+      </div>
+      <div class="col-md-2 p-0 m-0 text-right">
+        {{ valorTotal | currency: 'BRL' }}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorTotal == 0)">IR PARA O PAGAMENTO</button>
+  </div>
+</ng-template>
