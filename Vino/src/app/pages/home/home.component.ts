@@ -34,11 +34,7 @@ export class HomeComponent implements OnInit {
 
   componentRemoved(event){
     console.log(event);
-    if(event.clienteComponent && event.cadastroForm?.valid){
-      this.logado = true;
-      this.dadosCliente = event.cliente;
-    }
-    if(event.loginForm) {
+    if(event.clienteComponent && event.cadastroForm?.valid || event.loginForm){
       this.carregarUsuario();
     }
   }

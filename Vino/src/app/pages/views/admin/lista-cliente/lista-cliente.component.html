@@ -23,29 +23,29 @@
       <!-- Name Column -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element" [ngClass]="element.inativado ? 'cinza': ''"> {{element.nome}} </td>
       </ng-container>
     
       <!-- Weight Column -->
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        <td mat-cell *matCellDef="let element" [ngClass]="element.inativado ? 'cinza': ''"> {{element.email}} </td>
       </ng-container>
     
       <!-- Symbol Column -->
       <ng-container matColumnDef="telefone">
         <th mat-header-cell *matHeaderCellDef> Telefone </th>
-        <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
+        <td mat-cell *matCellDef="let element" [ngClass]="element.inativado ? 'cinza': ''"> {{element.telefone}} </td>
       </ng-container>
 
       <ng-container matColumnDef="dataNasc">
         <th mat-header-cell *matHeaderCellDef> Nascimento </th>
-        <td mat-cell *matCellDef="let element"> {{element.dataNasc}} </td>
+        <td mat-cell *matCellDef="let element" [ngClass]="element.inativado ? 'cinza': ''"> {{element.dataNasc}} </td>
       </ng-container>
 
       <ng-container matColumnDef="inativado">
         <th mat-header-cell *matHeaderCellDef> Desativado </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" [ngClass]="element.inativado ? 'cinza': ''">
           <input type="checkbox" [id]="element?.id" data-toggle="toggle" [checked]="element?.inativado" (change)="onInativoChange($event)" data-onstyle="primary">
         </td>
       </ng-container>

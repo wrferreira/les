@@ -119,8 +119,8 @@ export class MinhaContaComponent implements OnInit {
   onSubmitPerfil(){
     console.log(this.perfilForm.value);
     if(this.perfilForm.valid){      
-      this.clienteService.updateCliente(this.clienteId, this.perfilForm.value).subscribe( result => {
-        this.showModalSucesso('Atenção', 'Cadastrado alterado com sucesso!');
+      this.clienteService.updateCliente(this.clienteId, this.perfilForm.value).subscribe( (result: any) => {
+        this.showModalSucesso('Info', 'Dados alterados com sucesso!');
       })
     }
   }
@@ -155,7 +155,7 @@ export class MinhaContaComponent implements OnInit {
   onCartaoAlterado(cartaoAlterado){    
     let idxCartao = this.dadosCliente.cartao.findIndex(c => c.id == cartaoAlterado.id);    
     this.dadosCliente.cartao[idxCartao] = cartaoAlterado;    
-    this.showModalSucesso('Atenção', 'Cartão alterado com sucesso!');
+    this.showModalSucesso('Info', 'Cartão alterado com sucesso!');
   }
 
   /** STORAGE */
