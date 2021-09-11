@@ -22,6 +22,9 @@
     <div class="carousel-item">
       <img class="d-block w-100" src="https://vivavinho.vteximg.com.br/arquivos/ids/161223/21_024_VV_Descorchados_Desktop.png?v=637612712878130000" alt="Third slide">
     </div>
+    <div>
+      <img class="d-block w-100" src="https://vivavinho.vteximg.com.br/arquivos/ids/161443/21_037_VV_SB_desktop (3).gif?v=637660525400400000" alt="Last slide">
+    </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -110,7 +113,8 @@
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer">    
     <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorTotal == 0)">IR PARA O PAGAMENTO</button>
+    <button type="button" class="btn btn-light car-btn-continuar" (click)="modal.close()">CONTINUAR COMPRANDO</button>
   </div>
 </ng-template>

@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: 'login', loadChildren: () => import('../views/login/login.module').then( m => m.LoginModule) },
       { path: 'minha-conta', loadChildren: () => import('../views/minha-conta/minha-conta.module').then( m => m.MinhaContaModule) },
       { path: 'admin', loadChildren: () => import('../views/admin/admin.module').then( m => m.AdminModule) },
-      { path: 'carrinho', loadChildren: () => import('../views/carrinho/carrinho-routing.module').then( m => m.CarrinhoRoutingModule) }
+      { path: 'carrinho', loadChildren: () => import('../views/carrinho/carrinho.module').then( m => m.CarrinhoModule) }
     ]
   }  
 ];
