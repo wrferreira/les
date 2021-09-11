@@ -102,4 +102,12 @@
     border: none;
     background: none;
 }
-
+.car-btn-continuar {
+    background: #fff;
+    color: #52012f;
+    border: 1px solid #52012f;
+}
+.car-btn-continuar:hover {
+    background: #52012f;
+    color: #fff;    
+}

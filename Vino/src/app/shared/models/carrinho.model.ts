@@ -1,15 +1,51 @@
 export class Carrinho {    
     id: number;
-    imagem: string;    
-    precoPor: number;
-    qtd: number;       
+    codigo: string;
     titulo: string;
+    imagem: string;    
+    precoDe: number;
+    precoPor: number;
+    quantidadeML: number;      
+    tempoGuarda: string;
+    classificacao: string;
+    tipo: string;
+    teorAlcolico: number;    
+    paisCodigo: string;
+    pais: string;
+    descricao: string;
+    qtd: number;         
 
-    constructor(id: number, imagem: string, precoPor: number, qtd: number, titulo: string) {
+    constructor(
+        id: number, 
+        codigo: string,
+        titulo: string, 
+        imagem: string, 
+        precoDe: number,
+        precoPor: number, 
+        quantidadeML: number, 
+        tempoGuarda: string,
+        classificacao: string,
+        tipo: string, 
+        teorAlcolico: number,
+        paisCodigo: string,
+        pais: string,
+        descricao: string, 
+        qtd: number, 
+        ) {
         this.id = id;        
-        this.imagem = imagem;
-        this.precoPor = precoPor;
-        this.qtd = qtd;
+        this.codigo = codigo;
         this.titulo = titulo;
+        this.imagem = imagem;
+        this.precoDe = precoDe;
+        this.precoPor = precoPor;
+        this.quantidadeML = quantidadeML;
+        this.tempoGuarda = tempoGuarda;
+        this.classificacao = classificacao;
+        this.tipo = tipo;
+        this.teorAlcolico = teorAlcolico;
+        this.paisCodigo = paisCodigo;
+        this.pais = pais;
+        this.descricao = descricao;
+        this.qtd = qtd;
     }
 }

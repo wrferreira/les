@@ -36,7 +36,8 @@ export class ProdutoComponent implements OnInit {
     if(existsItem){
       existsItem.qtd++;
     }else{
-      this.listaCompras.push(new Carrinho(item.id, item.imagem, item.precoPor, 1, item.titulo));
+      this.listaCompras.push(new Carrinho(item.id, item.codigo, item.titulo, item.imagem, item.precoDe, item.precoPor, item.quantidadeML,
+        item.tempoGuarda, item.classificacao, item.tipo, item.teorAlcolico, item.paisCodigo, item.pais, item.descricao, 1));
     }
 
     this.updateValorTotal();
@@ -45,6 +46,7 @@ export class ProdutoComponent implements OnInit {
 
   removeCarrinho(item){
     this.listaCompras.splice(this.listaCompras.findIndex(i => i.id === item.id), 1);
+    this.updateValorTotal();
     if(!this.listaCompras.length){
       this.modalService.dismissAll();
     }
