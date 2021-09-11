@@ -85,8 +85,8 @@ export class MeuEnderecoComponent implements OnInit {
       
       modal.afterClosed().subscribe( ret => {
         if(ret){        
-          this.clienteService.deleteEndereco(this.meuEnderecoForm.get('id').value).subscribe( result => {      
-            this.showModalSucesso('Atenção', 'Endereço excluído com sucesso!');
+          this.clienteService.deleteEndereco(this.meuEnderecoForm.get('id').value).subscribe( (result:any) => {     
+            this.showModalSucesso('Info', `${result.message}`);
             this.emitDelete();
           });   
         }
@@ -95,14 +95,14 @@ export class MeuEnderecoComponent implements OnInit {
   }
 
   onUpdate() {
-    this.clienteService.updateEndereco(this.meuEnderecoForm.value, this.meuEnderecoForm.get('id').value).subscribe( result => {      
-      this.showModalSucesso('Atenção', 'Endereço alterado com sucesso!');
+    this.clienteService.updateEndereco(this.meuEnderecoForm.value, this.meuEnderecoForm.get('id').value).subscribe( (result: any) => {      
+      this.showModalSucesso('Info', result.message);
     });
   }
 
   onSubmit() {
     this.clienteService.setEndereco(this.clienteId, this.meuEnderecoForm.value).subscribe( result => {      
-      this.showModalSucesso('Atenção', 'Endereço criado com sucesso!');
+      this.showModalSucesso('Info', 'Endereço criado com sucesso!');
     });
   }
 

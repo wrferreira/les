@@ -34,7 +34,10 @@
     padding-bottom: 20px;
 }
 .nav-link {
+    font-size: 14pt;
     cursor: pointer;
+}.nav-link:active {
+    font-weight: bold;
 }
 .loader-ctn {
     position: absolute;
