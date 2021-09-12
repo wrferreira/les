@@ -9,17 +9,17 @@
         <div class="card" style="width: 100%;">
             <div class="card-body">
                 <h3 class="card-title mb-2"><strong>Endereço Principal</strong></h3>              
-                <div *ngIf="endereco">
-                    <h5 class="card-text mb-0">Rua São João, 35</h5>
-                    <h5 class="card-text mb-0">Centro</h5>              
-                    <h5 class="card-text mb-3">CEP 01001-000 - São Paulo - SP</h5>                              
+                <div *ngIf="hasEndereco">
+                    <h5 class="card-text mb-0">{{ formEndereco.get('logradouro').value }}</h5>
+                    <h5 class="card-text mb-0">{{ formEndereco.get('bairro').value }}</h5>
+                    <h5 class="card-text mb-3">{{ 'CEP ' + formEndereco.get('cep').value + ' - ' + formEndereco.get('cidade').value + ' - ' + formEndereco.get('uf').value }}</h5>
                     <div>
-                        <button class="btn btn-dark btn-sm mr-2" (click)="showModal(modalEndereco)">Editar</button>
-                        <button class="btn btn-dark btn-sm" (click)="showModal(modalEndereco)">Selecionar outro</button>
+                        <button class="btn btn-dark btn-sm mr-2" (click)="showModalEndereco(true)">Editar</button>
+                        <button class="btn btn-dark btn-sm" (click)="showModalTroca(modalTrocaEndereco)">Selecionar outro</button>
                     </div>
                 </div>
-                <div *ngIf="!endereco">
-                    <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModal(modalEndereco)">Cadastrar</button>
+                <div *ngIf="!hasEndereco">
+                    <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModalEndereco(false)">Cadastrar</button>
                 </div>
             </div>
         </div>
@@ -37,16 +37,16 @@
           <div class="card" style="width: 100%;">
               <div class="card-body">
                   <h3 class="card-title mb-2"><strong>Cartão Principal</strong></h3>              
-                  <div *ngIf="cartao">
+                  <div *ngIf="hasCartao">
                       <h5 class="card-text mb-0">João da Silva</h5>
                       <h5 class="card-text mb-0">5404 **** **** 3120</h5>              
                       <h5 class="card-text mb-3">MasterCard</h5>
                       <div>
                           <button class="btn btn-dark btn-sm mr-2" (click)="showModal(modalCartao)">Editar</button>
-                          <button class="btn btn-dark btn-sm" (click)="showModal(modalCartao)">Selecionar outro</button>
+                          <button class="btn btn-dark btn-sm" (click)="showModal(modalCartao)">Novo Cartão</button>
                       </div>
                   </div>
-                  <div *ngIf="!cartao">
+                  <div *ngIf="!hasCartao">
                       <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModal(modalCartao)">Cadastrar</button>
                   </div>
               </div>
@@ -55,11 +55,70 @@
 </div>
 
 <!-- MODAL ENDEREÇO -->
-<ng-template #modalEndereco let-modal>
+<!-- <ng-template #modalEndereco let-modal class="modal-endereco">
     <div class="modal-header">
-        <p class="modal-title m-0" id="modal-basic-title">
-            <span class="fas fa-shopping-cart mr-2"></span>Endereço
-        </p>    
+        <div class="d-flex align-items-center">
+            <mat-icon class="mr-2">location_on</mat-icon>
+            <p class="modal-title p-0 m-0"><strong>Endereço</strong></p>
+        </div>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="formEndereco">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>CEP</label>
+                <input type="text" class="form-control form-control-sm" formControlName="cep" [dropSpecialCharacters]="false" mask="00000-000" placeholder="CEP">
+              </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Logradouro</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="logradouro" placeholder="Logradouro">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Número</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="numero" placeholder="Número">                      
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Complemento</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="Complemento" placeholder="Complemento">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label>Bairro</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="bairro" placeholder="Bairro">                      
+                </div> 
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label>Cidade</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="cidade" placeholder="Cidade">
+                </div>                
+                <div class="form-group col-md-4">
+                    <label>UF</label>
+                    <input type="text" class="form-control form-control-sm" formControlName="uf" placeholder="UF">                      
+                </div>                       
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark btn-sm" (click)="setEndereco()">SALVAR</button>
+    </div>
+</ng-template> -->
+
+
+<!-- MODAL CARTÃO -->
+<ng-template #modalCartao let-modal class="modal-cartao">
+    <div class="modal-header d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <mat-icon class="mr-2">credit_card</mat-icon>
+            <p class="modal-title p-0 m-0"><strong>Cartão</strong></p>
+        </div>
     </div>
     <div class="modal-body">
         <label for="exampleInputEmail1">Rua</label>
@@ -72,19 +131,32 @@
 </ng-template>
 
 
-<!-- MODAL CARTÃO -->
-<ng-template #modalCartao let-modal>
+<!-- MODAL TROCA -->
+<ng-template #modalTrocaEndereco let-modal class="modal-troca">
     <div class="modal-header">
-        <p class="modal-title m-0" id="modal-basic-title">
-            <span class="fas fa-shopping-cart mr-2"></span>Cartão
-        </p>    
+        <div class="d-flex align-items-center">
+            <mat-icon class="mr-2">location_on</mat-icon>
+            <p class="modal-title p-0 m-0"><strong>Endereço</strong></p>
+        </div>
     </div>
     <div class="modal-body">
-        <label for="exampleInputEmail1">Rua</label>
-        <input type="email" class="form-control" id="exampleInputEmail1">
+        <div *ngFor="let endereco of enderecos">            
+            <div class="card mt-1" style="width: 100%;">
+                <div class="card-body">                  
+                    <h3 class="card-title mb-2"><strong>Endereço de {{ endereco.tipoEndereco }}</strong></h3>                    
+                    <div class="d-flex align-items-center ">
+                        <input class="mr-3" type="radio" value="{{ endereco.id }}" [(ngModel)]="carrinho.enderecoEntrega">
+                        <div>
+                            <h5 class="card-text mb-0">{{ endereco.logradouro }}</h5>
+                            <h5 class="card-text mb-0">{{ endereco.bairro }}</h5>
+                            <h5 class="card-text mb-0">{{ 'CEP ' + endereco.cep + ' - ' + endereco.cidade + ' - ' + endereco.uf }}</h5>                            
+                        </div>                        
+                    </div>
+                </div>
+            </div>            
+        </div>
     </div>
-    <div class="modal-footer">    
-        <button type="button" class="btn btn-danger">IR PARA O PAGAMENTO</button>
-        <button type="button" class="btn btn-light car-btn-continuar" (click)="modal.close()">CONTINUAR COMPRANDO</button>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-dark btn-sm" (click)="showModalEndereco(modalEndereco)">Novo Endereço</button>        
     </div>
 </ng-template>

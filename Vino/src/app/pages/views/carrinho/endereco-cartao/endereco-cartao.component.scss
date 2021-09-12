@@ -17,12 +17,10 @@
     background:#1c1f23;
 }
 
-// ::ng-deep #modalCartao {
-//     margin-right: 1.75rem !important;
-//     max-width: 500px !important;
-// }
+::ng-deep .modal-cartao > .modal-dialog {    
+    max-width: 400px !important;
+}
 
-// ::ng-deep #modalEndereco {
-//     margin-right: 1.75rem !important;
-//     max-width: 400px !important;
-// }
+::ng-deep .modal-endereco > .modal-dialog {    
+    max-width: 600px !important;
+}
