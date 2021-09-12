@@ -19,23 +19,22 @@ export class EnderecoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.endereco)
     this.loadEndereco();
   }
 
   loadEndereco(){
     this.formEndereco = this.formBuilder.group({
-      id: [this.endereco.id ?? ''],
-      cep: [this.endereco.cep ?? '', [Validators.required]],
-      numero: [this.endereco.numero ?? '', Validators.required],
-      logradouro: [this.endereco.logradouro ?? '', Validators.required],
-      complemento: [this.endereco.complemento ?? ''],
-      bairro: [this.endereco.bairro ?? '', Validators.required],
-      cidade: [this.endereco.cidade ?? '', Validators.required],
-      uf: [this.endereco.uf ?? '', Validators.required],
+      id: [this.endereco.id],
+      cep: [this.endereco.cep, [Validators.required]],
+      numero: [this.endereco.numero, Validators.required],
+      logradouro: [this.endereco.logradouro, Validators.required],
+      complemento: [this.endereco.complemento],
+      bairro: [this.endereco.bairro, Validators.required],
+      cidade: [this.endereco.cidade, Validators.required],
+      uf: [this.endereco.uf, Validators.required],
       pais: ['Brasil', Validators.required],
-      descricaoEndereco: [this.endereco.descricaoEndereco ?? '', Validators.required],
-      tipoEndereco: [this.endereco.tipoEndereco ?? '', Validators.required]
+      descricaoEndereco: [this.endereco.descricaoEndereco, Validators.required],
+      tipoEndereco: [this.endereco.tipoEndereco, Validators.required]
     });
   }  
 

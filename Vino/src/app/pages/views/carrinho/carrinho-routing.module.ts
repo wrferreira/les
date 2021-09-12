@@ -8,7 +8,7 @@ import { EnderecoCartaoComponent } from './endereco-cartao/endereco-cartao.compo
 const routes: Routes = [
   { path: '', component: CarrinhoDashComponent },
   { path: 'identificacao', component: IdentificacaoComponent },
-  { path: 'pagamento', component: EnderecoCartaoComponent }
+  { path: 'pagamento', component: EnderecoCartaoComponent },  
 ];
 
 @NgModule({

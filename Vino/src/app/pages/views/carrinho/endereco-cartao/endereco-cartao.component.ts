@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cartao } from 'src/app/shared/models/cartao.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
+import { CarrinhoService } from '../carrinho.service';
+import { CartaoComponent } from '../dialogs/cartao/cartao.component';
 import { EnderecoComponent } from '../dialogs/endereco/endereco.component';
 
 @Component({
@@ -11,18 +13,13 @@ import { EnderecoComponent } from '../dialogs/endereco/endereco.component';
   styleUrls: ['./endereco-cartao.component.scss']
 })
 export class EnderecoCartaoComponent implements OnInit {
-
-  public hasEndereco = true;
-  public hasCartao = true;
   
   public formEndereco: FormGroup;
-  public formCartao: FormGroup;
+  public formCartao: FormGroup;   
   
-  public cartao: Cartao;
-  public endereco: Endereco;
-  public endereco2: Endereco;
-  public enderecos: Endereco[] = [];
-  
+  public enderecoTroca;
+  public cartaoTroca;
+
   public carrinho = {
     valorTotal: 0,
     valorCompras: 0,
@@ -32,87 +29,133 @@ export class EnderecoCartaoComponent implements OnInit {
     infoCupom: '',
     cupom: '',
     listaCompras: [],
-    enderecos: []
+    enderecos: [],
+    enderecoEntrega: new Endereco(),
+    cartoes: [],
+    cartaoPagamento: new Cartao()
   }
 
-  constructor(    
+  constructor(
     private modalService: NgbModal,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private carrinhoService: CarrinhoService
   ) { }
 
   ngOnInit(): void {
     this.getCliente();
-    this.loadEndereco();
+    this.loadEndereco();    
+    this.loadCarrinho();
+  }
+
+  loadCarrinho(){
+    this.carrinhoService.getLista().subscribe( ret => {
+      this.carrinho = ret;
+    });
   }
 
   getCliente(){
-    if(this.hasEndereco){
-      this.endereco = new Endereco(12, "Casa", "Brasil", "Rua São Jose", "01001000", "444", "Casa azul", "Centro", "São Paulo", "SP", "entrega", 22);
-      this.endereco2 = new Endereco(15, "Apartamento", "Brasil", "Rua Criciuma", "07500000", "45644", "Casa de praia", "Jaguari", "Cruzeiro", "SP", "cobranca", 7);
-      this.enderecos.push(this.endereco)
-      this.enderecos.push(this.endereco2)
-    }else{
-      this.endereco = new Endereco();
+    /**
+     * Carrega Cliente do BD
+     */
+    console.log('get cliente')
+    if(this.carrinho.enderecos.length){
+      this.carrinho.enderecos.push(new Endereco(1, "Casa", "Brasil", "Rua São Jose", "01001000", "444", "Casa azul", "Centro", "São Paulo", "SP", "entrega", 22))
+      this.carrinho.enderecos.push(new Endereco(2, "Apartamento", "Brasil", "Rua Criciuma", "07500000", "45644", "Casa de praia", "Jaguari", "Cruzeiro", "SP", "cobranca", 7))      
+      this.setEnderecoEntrega();
+    }else{      
+      this.carrinho.enderecoEntrega = new Endereco();
     }
   }
 
+  setEnderecoEntrega(){    
+    if(this.carrinho.enderecoEntrega.id == undefined){
+      let entrega = this.carrinho.enderecos.filter(end => end.tipoEndereco == 'entrega')[0];
+      this.carrinho.enderecoEntrega = entrega ? entrega : this.carrinho.enderecos[0];
+    }
+  }
+
+  setCartaoPagamento(){    
+    if(this.carrinho.cartaoPagamento.id == undefined){      
+      this.carrinho.cartaoPagamento = this.carrinho.cartoes[0];
+    }
+  }
+  
   loadEndereco(){
     this.formEndereco = this.formBuilder.group({
-      id: [this.endereco.id ?? ''],
-      cep: [this.endereco.cep ?? '', [Validators.required]],
-      numero: [this.endereco.numero ?? '', Validators.required],
-      logradouro: [this.endereco.logradouro ?? '', Validators.required],
-      complemento: [this.endereco.complemento ?? ''],
-      bairro: [this.endereco.bairro ?? '', Validators.required],
-      cidade: [this.endereco.cidade ?? '', Validators.required],
-      uf: [this.endereco.uf ?? '', Validators.required],
+      id: [this.carrinho.enderecoEntrega.id ?? ''],
+      cep: [this.carrinho.enderecoEntrega.cep ?? '', [Validators.required]],
+      numero: [this.carrinho.enderecoEntrega.numero ?? '', Validators.required],
+      logradouro: [this.carrinho.enderecoEntrega.logradouro ?? '', Validators.required],
+      complemento: [this.carrinho.enderecoEntrega.complemento ?? ''],
+      bairro: [this.carrinho.enderecoEntrega.bairro ?? '', Validators.required],
+      cidade: [this.carrinho.enderecoEntrega.cidade ?? '', Validators.required],
+      uf: [this.carrinho.enderecoEntrega.uf ?? '', Validators.required],
       pais: ['Brasil', Validators.required],
-      descricaoEndereco: [this.endereco.descricaoEndereco ?? '', Validators.required],
-      tipoEndereco: [this.endereco.tipoEndereco ?? '', Validators.required]
+      descricaoEndereco: [this.carrinho.enderecoEntrega.descricaoEndereco ?? '', Validators.required],
+      tipoEndereco: [this.carrinho.enderecoEntrega.tipoEndereco ?? '', Validators.required]
     });
   }
 
   loadCartao(){
     this.formCartao = this.formBuilder.group({
-      id: [this.cartao.id ?? ''],
-      bandeira: [this.cartao.bandeira ?? '', Validators.required],
-      titular: [this.cartao.titular ?? '', Validators.required],
-      numero: [this.cartao.numero ?? '', Validators.required],
-      cvv: [this.cartao.cvv ?? '', Validators.required],
-      dataValidade: [this.cartao.dataValidade ?? '', Validators.required]
+      id: [this.carrinho.cartaoPagamento.id ?? ''],
+      bandeira: [this.carrinho.cartaoPagamento.bandeira ?? '', Validators.required],
+      titular: [this.carrinho.cartaoPagamento.titular ?? '', Validators.required],
+      numero: [this.carrinho.cartaoPagamento.numero ?? '', Validators.required],
+      cvv: [this.carrinho.cartaoPagamento.cvv ?? '', Validators.required],
+      dataValidade: [this.carrinho.cartaoPagamento.dataValidade ?? '', Validators.required]
     });
   }
 
-  showModalEndereco(tipo: boolean){
+  showModalEndereco(tipo: boolean){    
     let modalRef = this.modalService.open(EnderecoComponent);
-    modalRef.componentInstance.endereco = tipo ? this.endereco : new Endereco();
+    modalRef.componentInstance.endereco = tipo ? this.carrinho.enderecoEntrega : new Endereco();
 
     modalRef.result.then(result => {
-      console.log(result);
-      this.enderecos.push(result)
+      if(tipo){
+        this.carrinho.enderecoEntrega = result;
+        this.carrinho.enderecos[this.carrinho.enderecos.findIndex( e => e.id == result.id)] = result;
+      }else{
+        result.id = this.carrinho.enderecos.length + 1;
+        this.carrinho.enderecos.push(result)
+        this.setEnderecoEntrega();
+      }
+    });
+  }
+
+  showModalCartao(tipo: boolean){
+    let modalRef = this.modalService.open(CartaoComponent);
+    modalRef.componentInstance.cartao = tipo ? this.carrinho.cartaoPagamento : new Cartao();
+
+    modalRef.result.then(result => {
+      if(tipo){
+        this.carrinho.cartaoPagamento = result;
+        this.carrinho.cartoes[this.carrinho.cartoes.findIndex( c => c.id == result.id)] = result;
+      }else{
+        result.id = this.carrinho.cartoes.length + 1;
+        this.carrinho.cartoes.push(result)
+        this.setCartaoPagamento();
+      }
     });
   }
 
   showModalTroca(modal){
     this.modalService.open(modal);
   }
-  
-  setEndereco(){
+
+  setTrocaEndereco(){
     this.modalService.dismissAll();
-    this.hasEndereco = true;
-    
-    /**
-     * TODO: Salvar endereço
-    */
+    let idx = this.carrinho.enderecos.findIndex( e => e.id == this.enderecoTroca);
+    this.carrinho.enderecoEntrega = this.carrinho.enderecos[idx];    
   }
 
-  setCartao(){
+  setTrocaCartao(){
     this.modalService.dismissAll();
-    this.hasCartao = true;
-    
-    /**
-     * TODO: Salvar cartao
-    */
+    let idx = this.carrinho.cartoes.findIndex( c => c.id == this.cartaoTroca);
+    this.carrinho.cartaoPagamento = this.carrinho.cartoes[idx];
   }
 
+  setCarrinho(){
+    this.carrinhoService.setLista(this.carrinho);
+  }
 }

@@ -9,7 +9,7 @@
         <div class="form-row">
             <div class="form-group col-md-12">
             <label>CEP</label>
-            <input type="text" class="form-control form-control-sm" formControlName="cep" placeholder="CEP">
+            <input type="text" class="form-control form-control-sm" formControlName="cep" placeholder="CEP" mask="00000-000" [dropSpecialCharacters]="false">
             </div>
         </div>
         <div class="form-row">

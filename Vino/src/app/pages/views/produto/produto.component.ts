@@ -4,6 +4,8 @@ import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { Carrinho } from 'src/app/shared/models/carrinho.model';
 import { Router } from '@angular/router';
 import { CarrinhoService } from '../carrinho/carrinho.service';
+import { Endereco } from 'src/app/shared/models/endereco.model';
+import { Cartao } from 'src/app/shared/models/cartao.model';
 
 @Component({
   selector: 'app-produto',
@@ -13,9 +15,7 @@ import { CarrinhoService } from '../carrinho/carrinho.service';
 export class ProdutoComponent implements OnInit {
 
   public produtos = listaProdutos;
-  public closeModal: string;
-  //public listaCompras: Carrinho[] = [];
-  //public valorCompras: number;
+  public closeModal: string;  
   public carrinho = {
     valorTotal: 0,
     valorCompras: 0,
@@ -23,7 +23,12 @@ export class ProdutoComponent implements OnInit {
     cupomDesconto: 0,
     listaFrete: [],
     infoCupom: '',
-    listaCompras: []
+    cupom: '',
+    listaCompras: [],
+    enderecos: [],
+    enderecoEntrega: new Endereco(),
+    cartoes: [],
+    cartaoPagamento: new Cartao()
   }
   
   constructor(

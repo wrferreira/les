@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-carrinho-dash',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarrinhoDashComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('stepper') private myStepper: MatHorizontalStepper;
+  public h_step;
+  public load: boolean;
+
+  constructor() {
+    //this.load = true;
+  }
 
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.h_step = this.myStepper
+  }
 }
