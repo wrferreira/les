@@ -1,0 +1,28 @@
+.title{
+    margin: 3% 0 3% 15%;
+}
+.barra {
+    display: flex;
+    width: 2px;
+    background-color: rgb(242, 243, 244);
+    margin: 0px 32px;
+    padding: 0;
+}
+.btn-pre-cadastro {
+    color: #1c1f23;
+    background: #fff;
+}
+.btn-pre-cadastro:hover {
+    color: #fff;
+    background:#1c1f23;
+}
+
+// ::ng-deep #modalCartao {
+//     margin-right: 1.75rem !important;
+//     max-width: 500px !important;
+// }
+
+// ::ng-deep #modalEndereco {
+//     margin-right: 1.75rem !important;
+//     max-width: 400px !important;
+// }

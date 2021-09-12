@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CarrinhoComponent } from './dash/carrinho.component';
+import { CarrinhoComponent } from './itens-carrinho/carrinho.component';
+import { IdentificacaoComponent } from './identificacao/identificacao.component';
+import { CarrinhoDashComponent } from './dash/carrinho-dash.component';
 
 const routes: Routes = [
-  { path: '', component: CarrinhoComponent }
+  { path: '', component: CarrinhoDashComponent },
+  { path: 'identificacao', component: IdentificacaoComponent }
 ];
 
 @NgModule({

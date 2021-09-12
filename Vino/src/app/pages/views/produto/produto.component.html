@@ -63,11 +63,11 @@
 </section>
 
 <!-- MODAL - CARRINHO DE COMPRAS -->
-<div *ngIf="listaCompras.length">
+<div *ngIf="carrinho?.listaCompras.length">
   <button class="btn btn-secondary btn-carrinho" (click)="showCarrinho(modalData)">+</button>
 </div>
 
-<ng-template #modalData let-modal>
+<ng-template #modalData let-modal class="modal-carrinho">
   <div class="modal-header">
     <p class="modal-title m-0" id="modal-basic-title"><span class="fas fa-shopping-cart mr-2"></span>Resumo</p>    
   </div>
@@ -86,7 +86,7 @@
         <p></p>
       </div>
     </div>
-    <div *ngFor="let item of listaCompras">      
+    <div *ngFor="let item of carrinho.listaCompras">      
       <div class="row m-1">
         <div class="col-md-6 p-0">
           <p>{{ item.titulo }}</p>
@@ -109,12 +109,12 @@
         <strong>Total</strong>
       </div>
       <div class="col-md-2 p-0 m-0 text-right">
-        {{ valorTotal | currency: 'BRL' }}
+        {{ carrinho.valorCompras | currency: 'BRL' }}
       </div>
     </div>
   </div>
   <div class="modal-footer">    
-    <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorTotal == 0)">IR PARA O PAGAMENTO</button>
+    <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorCompras == 0)">IR PARA O PAGAMENTO</button>
     <button type="button" class="btn btn-light car-btn-continuar" (click)="modal.close()">CONTINUAR COMPRANDO</button>
   </div>
 </ng-template>
