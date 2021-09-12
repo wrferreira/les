@@ -6,9 +6,13 @@ import { ListaClienteComponent } from './lista-cliente/lista-cliente.component';
 import {MatTableModule} from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { CuponsComponent } from './cupons/cupons.component';
+import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 @NgModule({
-  declarations: [AdminComponent, ListaClienteComponent],
+  declarations: [AdminComponent, ListaClienteComponent, DashboardComponent, CuponsComponent, ConfiguracoesComponent, PedidosComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

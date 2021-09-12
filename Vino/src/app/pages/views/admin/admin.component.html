@@ -2,30 +2,31 @@
     <nav class="card sidebar">
         <ul class="list-unstyled components mb-5">
             <li class="">
-              <a href="#"><span class="fa fa-home mr-3"></span>Dashboard</a>
+              <a routerLink="/home/admin/"><span class="fa fa-home mr-3"></span>Dashboard</a>
             </li>
-            <li class="active">
-                <a href="#"><span class="fa fa-user mr-3"></span>Clientes</a>
-            </li>
-            <li>
-              <a href="#"><span class="fa fa-box mr-3"></span>Pedidos</a>
+            <li class="active2">
+                <a routerLink="clientes"><span class="fa fa-user mr-3"></span>Clientes</a>
             </li>
             <li>
-              <a href="#"><span class="fa fa-gift mr-3"></span>Cupons</a>
+              <a routerLink="pedidos"><span class="fa fa-box mr-3"></span>Pedidos</a>
             </li>
             <li>
-              <a href="#"><span class="fa fa-tasks mr-3"></span>Tarefas</a>
+              <a routerLink="cupons"><span class="fa fa-gift mr-3"></span>Cupons</a>
             </li>
+            <!-- <li>
+              <a routerLink="/home/admin/"><span class="fa fa-tasks mr-3"></span>Tarefas</a>
+            </li> -->
             <li>
-              <a href="#"><span class="fa fa-cog mr-3"></span>Configur...</a>
+              <a routerLink="configuracoes"><span class="fa fa-cog mr-3"></span>Configur...</a>
             </li>
           </ul>
     </nav>
     <div class="card conteudo">
-        <div class="card-header"><h2>Clientes</h2>
+        <router-outlet></router-outlet>
+        <!-- <div class="card-header"><h2>Clientes</h2>
         </div>
         <div class="card-body">
-            <app-lista-cliente></app-lista-cliente>
-        </div>
+          <router-outlet></router-outlet>
+        </div> -->
     </div>
 </div>
