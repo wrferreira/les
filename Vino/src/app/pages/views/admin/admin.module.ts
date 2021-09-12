@@ -10,15 +10,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CuponsComponent } from './cupons/cupons.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListarProdutoComponent } from './pedidos/listar-produto/listar-produto.component';
+import { CadastrarCupomComponent } from './cupons/cadastrar-cupom/cadastrar-cupom.component';
 
 @NgModule({
-  declarations: [AdminComponent, ListaClienteComponent, DashboardComponent, CuponsComponent, ConfiguracoesComponent, PedidosComponent],
+  declarations: [AdminComponent, ListaClienteComponent, DashboardComponent, CuponsComponent, ConfiguracoesComponent, PedidosComponent, ListarProdutoComponent, CadastrarCupomComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NgbModule
   ]
 })
 export class AdminModule { }

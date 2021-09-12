@@ -1,5 +1,5 @@
-import { Produto } from "src/app/pages/views/minha-conta/minhas-compras/minhas-compras.component";
 import { Cliente } from "./cliente.model";
+import { Produto } from "./produtos.model";
 
 export enum StatusPedido {
     EM_PROCESSAMENTO,

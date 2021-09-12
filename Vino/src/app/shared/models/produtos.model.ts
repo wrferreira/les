@@ -1,4 +1,4 @@
-export let listaProdutos =[
+export let listaProdutos: Array<Produto> =[
     {
       id: 1,
       codigo: '38783781',
@@ -7,7 +7,7 @@ export let listaProdutos =[
       precoDe: 32.90,
       precoPor: 21.51,
       quantidadeML: 750,
-      tempoGuarda: '3 anos',
+      tempoGuarda: 3,
       classificacao: 'Meio seco',
       tipo: 'Tinto',
       teorAlcolico: 12.50,
@@ -55,7 +55,7 @@ export let listaProdutos =[
       precoDe: 32.90,
       precoPor: 21.51,
       quantidadeML: 750,
-      tempoGuarda: '3 anos',
+      tempoGuarda: 5,
       classificacao: 'Meio seco',
       tipo: 'Tinto',
       teorAlcolico: 12.50,
@@ -103,7 +103,7 @@ export let listaProdutos =[
       precoDe: 32.90,
       precoPor: 21.51,
       quantidadeML: 750,
-      tempoGuarda: '3 anos',
+      tempoGuarda: 3,
       classificacao: 'Meio seco',
       tipo: 'Tinto',
       teorAlcolico: 12.50,
@@ -151,7 +151,7 @@ export let listaProdutos =[
       precoDe: 32.90,
       precoPor: 21.51,
       quantidadeML: 750,
-      tempoGuarda: '3 anos',
+      tempoGuarda: 3,
       classificacao: 'Meio seco',
       tipo: 'Tinto',
       teorAlcolico: 12.50,
@@ -192,3 +192,20 @@ export let listaProdutos =[
       descricao: 'Fonte da Serrana é um vinho Português viniculado na região de Alentejo, local onde é realizado o assemblage das uvas Aragonês e Trincadeira que dão forma e cor para este exemplar. Possui uma cor vermelha e brilhante com tons violáceos, acompanhada de um aroma de frutas vermelhas, flores e especiarias. Enquanto o seu paladar entrega taninos que são delicados e macios. Harmoniza perfeitamente com carnes vermelhas assadas.'
     },
   ];
+
+  export class Produto {
+      id?: number; 
+      codigo?: string; 
+      titulo?: string; 
+      imagem?: string; 
+      precoDe?: number;
+      precoPor?: number;
+      quantidadeML?: number; 
+      tempoGuarda?: number; 
+      classificacao?: string; 
+      tipo?: string;
+      teorAlcolico?: number; 
+      paisCodigo?: string; 
+      pais?: string; 
+      descricao?: string; 
+  }
