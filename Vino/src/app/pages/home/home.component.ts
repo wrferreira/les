@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { ClienteService } from 'src/app/shared/services/cliente.service';
+import { CarrinhoService } from '../views/carrinho/carrinho.service';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +15,24 @@ export class HomeComponent implements OnInit {
   public logado = false;
   storage: Storage;
 
-  constructor(private clienteService: ClienteService) {
+  constructor(
+    private clienteService: ClienteService,
+    private carrinhoService: CarrinhoService
+  ) {
     this.storage = window.localStorage;
   }
   
   ngOnInit(): void {
     this.carregarUsuario();
+    this.getAutenticado();
+  }
+
+  getAutenticado(){
+    this.carrinhoService.getAutenticado().subscribe( ret => {
+      if(ret){
+        this.carregarUsuario();
+      }
+    })
   }
 
   carregarUsuario() {
@@ -33,7 +46,6 @@ export class HomeComponent implements OnInit {
   }
 
   componentRemoved(event){
-    //console.log(event);
     if(event.clienteComponent && event.cadastroForm?.valid || event.loginForm){
       this.carregarUsuario();
     }

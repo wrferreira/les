@@ -60,6 +60,7 @@ export class IdentificacaoComponent implements OnInit {
         if(res.result) {
           this.storage.setItem('clienteId', JSON.stringify([...res.result.toString()]))
           this.carrinho.clienteId = res.result;
+          this.carrinhoService.setAutenticado(true);
           this.carrinhoService.setLista(this.carrinho);
           this.step.next();
         } else {
