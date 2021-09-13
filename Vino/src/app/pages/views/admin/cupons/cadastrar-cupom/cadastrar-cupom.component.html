@@ -2,11 +2,22 @@
     <p class="modal-title m-0" id="modal-basic-title"><span class="fas fa-tags mr-2"></span>Cadastrar Novo Cupom:</p>    
   </div>
   <div class="modal-body">
-    <form>
-        <input class="form-control" placeholder="Código do Cupom"/> 
-        <input class="form-control" placeholder="Valor"/> 
-        <input class="form-control" placeholder="Tipo de Cupom"/> 
-        <input type="checkbox" data-toggle="toggle" data-onstyle="primary"/>Ativo
+    <form class="px-4">
+        <div class="row mb-4">
+          <input class="form-control" placeholder="Código do Cupom"/> 
+        </div>
+        <div class="row mb-4">
+          <input class="form-control" placeholder="Valor"/> 
+        </div>
+        <div class="row mb-4">
+          <input class="form-control" placeholder="Tipo de Cupom"/> 
+        </div>
+        <div class="row mb-4">
+          <div class="d-flex justify-content-start align-items-start">
+            <input type="checkbox" id="ativarCupom" data-toggle="toggle" data-onstyle="primary" checked/>
+            <label class="ml-2" for="ativarCupom">Ativo</label>
+          </div>
+        </div>
     </form>
-    <button class="btn btn-dark">Cadastrar</button>
+    <button class="ml-4 btn btn-dark">Cadastrar</button>
   </div>

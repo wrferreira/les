@@ -8,13 +8,21 @@ import { CarrinhoService } from '../carrinho.service';
 })
 export class PagamentoComponent implements OnInit {
 
+  public carrinho;
+
   constructor(
     private carrinhoService: CarrinhoService
   ) { }
 
+ 
+
   ngOnInit(): void {
     this.carrinhoService.getLista().subscribe( ret => {
-      console.log(ret)
+      this.carrinho = ret;
     })
+  }
+
+  onSubmitPedido() {
+
   }
 }

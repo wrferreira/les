@@ -66,6 +66,7 @@ export class CarrinhoComponent implements OnInit {
 
   updateValorTotal(){
     let total = ((this.carrinho.valorCompras + parseFloat(this.carrinho.valorFrete.toString())) - this.carrinho.cupomDesconto);
+    this.carrinho.valorTotal = total > 0 ? total : 0;
     return total > 0 ? total : 0;
   }
 
