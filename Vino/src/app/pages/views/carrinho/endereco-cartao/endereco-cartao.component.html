@@ -41,7 +41,7 @@
                       <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.titular }}</h5>
                       <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.numero }}</h5>
                       <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.dataValidade }}</h5>
-                      <h5 class="card-text mb-3">MasterCard</h5>
+                      <h5 class="card-text mb-3">{{ getCardFlag(carrinho.cartaoPagamento.numero) | uppercase }}</h5>
                       <div>
                           <button class="btn btn-dark btn-sm mr-2" (click)="showModalCartao(true)">Editar</button>
                           <button class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalTroca(modalTrocaCartao)">Selecionar outro</button>
@@ -92,7 +92,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaEndereco()">Selecionar</button>
-        <button type="button" class="btn btn-dark btn-sm" (click)="showModalEndereco(false)">Novo Endereço</button>        
+        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalEndereco(false)">Novo Endereço</button>        
     </div>
 </ng-template>
 
@@ -110,7 +110,10 @@
             <label [for]="cartao.id">
             <div class="card mt-1" style="width: 100%;">
                 <div class="card-body">                  
-                    <h3 class="card-title mb-2"><strong>Cartão {{ cartao.bandeira }}</strong></h3>
+                    <h3 class="card-title mb-2">
+                        <img [src]="'/assets/credit_card/' + cartao.bandeira + '.svg'"  width="30px"/>
+                        <strong>{{ cartao.bandeira | uppercase }}</strong>
+                    </h3>
                     <div class="d-flex align-items-center ">
                         <input class="mr-3" type="radio" [id]="cartao.id" value="{{ cartao.id }}" [(ngModel)]="cartaoTroca">
                         <div>
@@ -126,7 +129,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaCartao()">Selecionar</button>
-        <button type="button" class="btn btn-dark btn-sm" (click)="showModalCartao(false)">Novo Endereço</button>        
+        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalCartao(false)">Novo Endereço</button>        
     </div>
 </ng-template>
 

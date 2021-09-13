@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cartao } from 'src/app/shared/models/cartao.model';
 import { Endereco } from 'src/app/shared/models/endereco.model';
+import { ClienteService } from 'src/app/shared/services/cliente.service';
 import { CarrinhoService } from '../carrinho.service';
 import { CartaoComponent } from '../dialogs/cartao/cartao.component';
 import { EnderecoComponent } from '../dialogs/endereco/endereco.component';
@@ -16,7 +17,7 @@ export class EnderecoCartaoComponent implements OnInit {
   
   public formEndereco: FormGroup;
   public formCartao: FormGroup;   
-  
+    
   public enderecoTroca;
   public cartaoTroca;
 
@@ -32,39 +33,56 @@ export class EnderecoCartaoComponent implements OnInit {
     enderecos: [],
     enderecoEntrega: new Endereco(),
     cartoes: [],
-    cartaoPagamento: new Cartao()
+    cartaoPagamento: new Cartao(),
+    clienteId: null
   }
 
   constructor(
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
-    private carrinhoService: CarrinhoService
-  ) { }
+    private carrinhoService: CarrinhoService,
+    private cliente: ClienteService,
+  ) {}
 
   ngOnInit(): void {
-    this.getCliente();
-    this.loadEndereco();    
-    this.loadCarrinho();
+    this.loadCarrinho();    
+    this.loadFormEndereco();
+    this.loadFormCartao();
   }
 
   loadCarrinho(){
-    this.carrinhoService.getLista().subscribe( ret => {
-      this.carrinho = ret;
+    this.carrinhoService.getLista().subscribe(ret => {
+      if(ret){
+        this.carrinho = ret;
+        if(this.carrinho.clienteId){
+          this.getCliente();
+          this.getCartao();
+        }
+      }
     });
   }
 
   getCliente(){
-    /**
-     * Carrega Cliente do BD
-     */
-    console.log('get cliente')
-    if(this.carrinho.enderecos.length){
-      this.carrinho.enderecos.push(new Endereco(1, "Casa", "Brasil", "Rua São Jose", "01001000", "444", "Casa azul", "Centro", "São Paulo", "SP", "entrega", 22))
-      this.carrinho.enderecos.push(new Endereco(2, "Apartamento", "Brasil", "Rua Criciuma", "07500000", "45644", "Casa de praia", "Jaguari", "Cruzeiro", "SP", "cobranca", 7))      
-      this.setEnderecoEntrega();
-    }else{      
-      this.carrinho.enderecoEntrega = new Endereco();
-    }
+    this.cliente.getEndereco(this.carrinho.clienteId).subscribe( (ret:any) => {
+      if(ret.status == 1){
+        this.carrinho.enderecos = ret.endereco;
+        this.setEnderecoEntrega();
+      }else{
+        this.carrinho.enderecoEntrega = new Endereco();
+      }
+    });
+  }
+
+  getCartao(){
+    this.cliente.getCartao(this.carrinho.clienteId).subscribe( (ret:any) => {      
+      if(ret.status == 1){
+        this.carrinho.cartoes = ret.cartao;
+        this.carrinho.cartoes.forEach(c => c.bandeira = this.getCardFlag(c.numero));
+        this.setCartaoPagamento();
+      }else{
+        this.carrinho.cartaoPagamento = new Cartao();
+      }
+    });
   }
 
   setEnderecoEntrega(){    
@@ -80,7 +98,7 @@ export class EnderecoCartaoComponent implements OnInit {
     }
   }
   
-  loadEndereco(){
+  loadFormEndereco(){
     this.formEndereco = this.formBuilder.group({
       id: [this.carrinho.enderecoEntrega.id ?? ''],
       cep: [this.carrinho.enderecoEntrega.cep ?? '', [Validators.required]],
@@ -96,7 +114,7 @@ export class EnderecoCartaoComponent implements OnInit {
     });
   }
 
-  loadCartao(){
+  loadFormCartao(){
     this.formCartao = this.formBuilder.group({
       id: [this.carrinho.cartaoPagamento.id ?? ''],
       bandeira: [this.carrinho.cartaoPagamento.bandeira ?? '', Validators.required],
@@ -157,5 +175,29 @@ export class EnderecoCartaoComponent implements OnInit {
 
   setCarrinho(){
     this.carrinhoService.setLista(this.carrinho);
+  }
+
+  getCardFlag(cardnumber){    
+    cardnumber.replace(/[^0-9]+/g, '');
+
+    let cards = {
+        visa      : /^4[0-9]{12}(?:[0-9]{3})/,
+        mastercard : /^5[1-5][0-9]{14}/,
+        diners    : /^3(?:0[0-5]|[68][0-9])[0-9]{11}/,
+        amex      : /^3[47][0-9]{13}/,
+        discover  : /^6(?:011|5[0-9]{2})[0-9]{12}/,
+        hipercard  : /^(606282\d{10}(\d{3})?)|(3841\d{15})/,
+        elo        : /^((((636368)|(438935)|(504175)|(451416)|(636297))\d{0,10})|((5067)|(4576)|(4011))\d{0,12})/,
+        jcb        : /^(?:2131|1800|35\d{3})\d{11}/,       
+        aura      : /^(5078\d{2})(\d{2})(\d{11})$/     
+    };
+
+    for (var flag in cards) {
+        if(cards[flag].test(cardnumber)) {
+            return flag;
+        }
+    }
+
+    return false;
   }
 }

@@ -30,7 +30,8 @@ export class IdentificacaoComponent implements OnInit {
     enderecos: [],
     enderecoEntrega: new Endereco(),
     cartoes: [],
-    cartaoPagamento: new Cartao()
+    cartaoPagamento: new Cartao(),
+    clienteId: 0
   }
 
   constructor(
@@ -58,9 +59,11 @@ export class IdentificacaoComponent implements OnInit {
       this.cliente.login(this.loginForm.get('email').value, this.loginForm.get('senha').value).subscribe((res: any) => {
         if(res.result) {
           this.storage.setItem('clienteId', JSON.stringify([...res.result.toString()]))
+          this.carrinho.clienteId = res.result;
           this.carrinhoService.setLista(this.carrinho);
-          this.step.next();          
+          this.step.next();
         } else {
+          console.log("erro login")
           console.log(res.message);
         }
         this.showLoad = false;
