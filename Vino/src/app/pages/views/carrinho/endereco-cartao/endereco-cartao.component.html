@@ -73,19 +73,21 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let endereco of carrinho.enderecos">
-            <div class="card mt-1" style="width: 100%;">
-                <div class="card-body">                  
-                    <h3 class="card-title mb-2"><strong>Endereço de {{ endereco.tipoEndereco }}</strong></h3>
-                    <div class="d-flex align-items-center ">
-                        <input class="mr-3" type="radio" value="{{ endereco.id }}" [(ngModel)]="enderecoTroca">
-                        <div>
-                            <h5 class="card-text mb-0">{{ endereco.logradouro + ', ' + endereco.numero }}</h5>
-                            <h5 class="card-text mb-0">{{ endereco.bairro }}</h5>
-                            <h5 class="card-text mb-0">{{ 'CEP ' + endereco.cep + ' - ' + endereco.cidade + ' - ' + endereco.uf }}</h5>                            
-                        </div>                        
+            <label [for]="endereco.logradouro">
+                <div class="card mt-1" style="width: 100%;">
+                    <div class="card-body">                  
+                        <h3 class="card-title mb-2"><strong>Endereço de {{ endereco.tipoEndereco }}</strong></h3>
+                        <div class="d-flex align-items-center ">
+                            <input class="mr-3" [id]="endereco.logradouro" type="radio" value="{{ endereco.id }}" [(ngModel)]="enderecoTroca">
+                            <div>
+                                <h5 class="card-text mb-0">{{ endereco.logradouro + ', ' + endereco.numero }}</h5>
+                                <h5 class="card-text mb-0">{{ endereco.bairro }}</h5>
+                                <h5 class="card-text mb-0">{{ 'CEP ' + endereco.cep + ' - ' + endereco.cidade + ' - ' + endereco.uf }}</h5>                            
+                            </div>                        
+                        </div>
                     </div>
-                </div>
-            </div>            
+                </div>            
+            </label>
         </div>
     </div>
     <div class="modal-footer">
@@ -105,11 +107,12 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let cartao of carrinho.cartoes">
+            <label [for]="cartao.id">
             <div class="card mt-1" style="width: 100%;">
                 <div class="card-body">                  
                     <h3 class="card-title mb-2"><strong>Cartão {{ cartao.bandeira }}</strong></h3>
                     <div class="d-flex align-items-center ">
-                        <input class="mr-3" type="radio" value="{{ cartao.id }}" [(ngModel)]="cartaoTroca">
+                        <input class="mr-3" type="radio" [id]="cartao.id" value="{{ cartao.id }}" [(ngModel)]="cartaoTroca">
                         <div>
                             <h5 class="card-text mb-0">{{ cartao.titular }}</h5>
                             <h5 class="card-text mb-0">{{ cartao.numero }}</h5>
@@ -117,7 +120,8 @@
                         </div>                        
                     </div>
                 </div>
-            </div>            
+            </div>
+            </label>       
         </div>
     </div>
     <div class="modal-footer">
