@@ -12,6 +12,7 @@ export class MinhasComprasComponent implements OnInit, AfterViewInit {
   
   public itensCompra = [];
   public compraSelecionada: Compra;
+  public itemSelecionado: Produto;
 
   constructor(
     private modalService: NgbModal,
@@ -31,38 +32,42 @@ export class MinhasComprasComponent implements OnInit, AfterViewInit {
 
   showDetalheCompra(content, idCompra){    
     this.itensCompra = ELEMENT_DATA.filter( compra => compra.numeroPedido == idCompra);
-    console.log(this.itensCompra)
     this.modalService.open(content, {
       windowClass: 'modal-produtos'
     })
   }
 
-  setTrocaProduto(idItem){
-    console.log(idItem)
-    let item = ELEMENT_DATA.filter( c => c.id === idItem)[0].status = "Troca Solicitada";
-
-
-  }
-
-  cancelarCompra(content, idPedido){    
+  showModalCancelaCompra(content, idPedido){
     this.compraSelecionada = ELEMENT_DATA_COMPRA.filter( c => c.numeroPedido === idPedido)[0];
-    console.log(this.compraSelecionada)
 
     this.modalService.open(content, {
       windowClass: 'modal-compra'
     });
   }
 
-  setCancelarCompra(){
-    console.log('cancelar')
-    ELEMENT_DATA_COMPRA.filter(compra => compra.id == this.compraSelecionada.id)[0].status = "Cancelamento Solicitado"
+  showModalTrocaProduto(content, idItem){
+    this.itemSelecionado = ELEMENT_DATA.filter( c => c.id === idItem)[0];
+    console.log(this.itemSelecionado)
 
+    this.modalService.open(content, {
+      windowClass: 'modal-troca'
+    });
+  }
+
+  setTrocaProduto(){    
+    ELEMENT_DATA.filter( c => c.id === this.itemSelecionado.id)[0].status = "Troca Solicitada";
+    console.log(this.modalService.activeInstances);
+  }
+
+  setCancelarCompra(){
+    ELEMENT_DATA_COMPRA.filter(compra => compra.id == this.compraSelecionada.id)[0].status = "Cancelamento Solicitado"
     this.modalService.dismissAll();
     /**
      * SET compraSelecionada como cancelada.
      */
   }
 }
+
 
 export interface Compra {
   id: number;

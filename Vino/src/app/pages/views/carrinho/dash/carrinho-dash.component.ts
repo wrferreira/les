@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
+import { CarrinhoService } from '../carrinho.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-carrinho-dash',
   templateUrl: './carrinho-dash.component.html',
   styleUrls: ['./carrinho-dash.component.scss']
@@ -9,17 +11,15 @@ import { MatHorizontalStepper, MatStepper } from '@angular/material/stepper';
 export class CarrinhoDashComponent implements OnInit {
 
   @ViewChild('stepper') private myStepper: MatHorizontalStepper;
-  public h_step;
-  public load: boolean;
 
-  constructor() {
-    //this.load = true;
-  }
+  constructor(
+    private carrinhoService: CarrinhoService
+  ) {}
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit() {
-    this.h_step = this.myStepper
+    this.carrinhoService.setControlStepper(this.myStepper)
   }
 }

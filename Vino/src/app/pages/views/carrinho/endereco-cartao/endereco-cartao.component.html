@@ -67,14 +67,14 @@
             <div class="mt-2">                
                 <div class="form-group">
                     <label>Método de Pagamento</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="metodo" value="credito" checked [(ngModel)]="pagamento.metodo">
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input" type="radio" name="metodo" value="credito" checked [(ngModel)]="pagamento.metodo" (change)="setQtdParcelas()">
                         <label class="form-check-label" for="exampleRadios1">
                         Crédito
                         </label>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="metodo" value="debito" [(ngModel)]="pagamento.metodo">
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input" type="radio" name="metodo" value="debito"  [(ngModel)]="pagamento.metodo" (change)="setQtdParcelas()">
                         <label class="form-check-label" for="exampleRadios2">
                         Débito
                         </label>
@@ -83,13 +83,8 @@
                 <div class="form-group">
                     <label>Parcelas</label>
                     <select class="custom-select mr-sm-2" [(ngModel)]="pagamento.qtdParcelas">
-                        <option value="0">Selecione</option>
-                        <option value="1">1x</option>
-                        <option value="2">2x</option>
-                        <option value="3">3x</option>
-                        <option value="4">4x</option>
-                        <option value="5">5x</option>
-                        <option value="6">6x</option>
+                        <option value="0" selected>Selecione</option>
+                        <option value="{{parc}}" *ngFor="let parc of pagamento.totalParcelas">{{ parc + 'x' }}</option>
                     </select>
                 </div>
                 <div class="row">
@@ -129,7 +124,7 @@
             </div>
             <div class="btn-avancar mt-5">
                 <button type="button" class="btn btn-dark btn-sm" matStepperNext (click)="setCarrinho()"
-                    [disabled]="carrinho.enderecoEntrega.id == undefined || carrinho.cartaoPagamento.id == undefined">
+                    [disabled]="carrinho.enderecoEntrega.id == undefined || carrinho.cartaoPagamento.id == undefined || pagamento.qtdParcelas == 0">
                     CONFIRMAR PAGAMENTO
                 </button>
             </div>

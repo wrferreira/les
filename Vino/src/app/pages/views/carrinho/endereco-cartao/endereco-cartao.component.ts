@@ -25,9 +25,10 @@ export class EnderecoCartaoComponent implements OnInit {
   public cartaoTroca;
 
   public pagamento = {
-    metodo: '',
-    qtdParcelas: null,
-    valorParcela: 0
+    metodo: 'credito',
+    qtdParcelas: 0,
+    valorParcela: 0,
+    totalParcelas: [1,2,3,4,5,6]
   }
 
   public carrinho:any = {
@@ -223,5 +224,9 @@ export class EnderecoCartaoComponent implements OnInit {
   getValorTotalPagamento(){
     this.pagamento.valorParcela = (this.carrinho.valorTotal / this.pagamento.qtdParcelas);    
     return this.pagamento.valorParcela;
+  }
+
+  setQtdParcelas(){
+    this.pagamento.totalParcelas = this.pagamento.metodo == 'credito' ? [1,2,3,4,5,6] : [1]
   }
 }

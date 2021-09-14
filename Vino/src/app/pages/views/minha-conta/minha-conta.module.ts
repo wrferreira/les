@@ -16,8 +16,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatIconModule} from '@angular/material/icon';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatPaginatorModule,
     MatInputModule,
     MatIconModule,
+    MatTooltipModule,
     NgxMaskModule.forRoot()    
   ]
 })

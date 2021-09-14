@@ -13,7 +13,7 @@ import { CarrinhoService } from '../carrinho.service';
 })
 export class IdentificacaoComponent implements OnInit {
   
-  @Input() step: MatHorizontalStepper;
+  public step: MatHorizontalStepper;
 
   public loginForm: FormGroup;
   public storage;
@@ -47,15 +47,28 @@ export class IdentificacaoComponent implements OnInit {
   
   ngOnInit(): void {
     this.storage = window.localStorage;
+    this.getControlStepper();
+    this.loadDadosCarrinho();
+    this.loadFormLogin();
+  }
 
+  loadFormLogin(){
     this.loginForm = this.formBuilder.group({
       'email': ['', [Validators.required, Validators.email]],
       'senha': ['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
     });
+  }
 
+  loadDadosCarrinho(){
     this.carrinhoService.getLista().subscribe( ret => {
       this.carrinho = ret;
     });
+  }
+
+  getControlStepper(){
+    this.carrinhoService.getControlStepper().subscribe( ret => {
+      this.step = ret;
+    })
   }
 
   onSubmit() {

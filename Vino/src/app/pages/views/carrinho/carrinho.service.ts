@@ -8,6 +8,8 @@ export class CarrinhoService {
 
   public listaCompras = new BehaviorSubject<any>('');
   public autenticado = new BehaviorSubject<any>('');
+  public controlStepper = new BehaviorSubject<any>('');
+
   constructor() { }
 
   getLista(){
@@ -22,5 +24,12 @@ export class CarrinhoService {
   }
   getAutenticado(){
     return this.autenticado.asObservable();
+  }
+
+  setControlStepper(stepper: any){
+    this.controlStepper.next(stepper);
+  }
+  getControlStepper(){
+    return this.controlStepper.asObservable();
   }
 }
