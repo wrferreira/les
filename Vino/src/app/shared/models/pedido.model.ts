@@ -16,6 +16,21 @@ export enum StatusPedido {
     CANCELAMENTO_REJEITADO,
 }
 
+export let StatusPedidoNome = {
+    0: 'Em Processamento',
+    1: 'Pagamento Realizado',
+    2: 'Em Transporte',
+    3: 'Troca Solicitada',
+    4: 'Troca Aceita',
+    5: 'Troca Autorizada',
+    6: 'Troca Efetuada',
+    7: 'Troca Rejeitada',
+    8: 'Cancelamento Aceito',
+    9: 'Cancelamento Efetuado',
+    10: 'Cancelamento Solicitado',
+    11: 'Cancelamento Rejeitado'
+};
+
 export class Pedido {
     valorTotal?: number;
     valorFrete?: number;

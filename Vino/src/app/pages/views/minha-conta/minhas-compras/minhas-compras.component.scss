@@ -2,6 +2,6 @@ table {
   width: 100%;
 }
 
-::ng-deep .modal-produtos .modal-dialog {    
+::ng-deep.modal-produtos > .modal-dialog {    
   max-width: 800px !important;
 }

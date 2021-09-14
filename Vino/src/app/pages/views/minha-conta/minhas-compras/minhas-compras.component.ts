@@ -31,7 +31,9 @@ export class MinhasComprasComponent implements OnInit, AfterViewInit {
   showDetalheCompra(content, idCompra){    
     this.itensCompra = ELEMENT_DATA.filter( compra => compra.numeroPedido == idCompra);
     console.log(this.itensCompra)
-    this.modalService.open(content)
+    this.modalService.open(content, {
+      windowClass: 'modal-produtos'
+    })
   }
 
   setTrocaProduto(){

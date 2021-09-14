@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Cliente } from 'src/app/shared/models/cliente.model';
-import { Pedido, StatusPedido } from 'src/app/shared/models/pedido.model';
+import { Pedido, StatusPedido, StatusPedidoNome } from 'src/app/shared/models/pedido.model';
 import { listaProdutos, Produto } from 'src/app/shared/models/produtos.model';
 import { ListarProdutoComponent } from './listar-produto/listar-produto.component';
 
@@ -39,15 +39,15 @@ export class PedidosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getStatusNome(status: number) {
-    return StatusPedido[status].toString();    
-  }
-
   getListaStatus() {
     const StringIsNumber = value => isNaN(Number(value)) === false;
     return Object.keys(StatusPedido)
         .filter(StringIsNumber)
         .map(key => StatusPedido[key]);
+  }
+
+  getStatusNome(status: number) {
+    return StatusPedidoNome[status];
   }
 
   getNomeProdutos(produtosLista: Array<Produto>) {

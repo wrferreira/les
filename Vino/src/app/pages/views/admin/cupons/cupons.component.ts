@@ -11,25 +11,19 @@ import { CadastrarCupomComponent } from './cadastrar-cupom/cadastrar-cupom.compo
 })
 export class CuponsComponent implements OnInit {
 
+  
   public listaCupons: Array<Cupom> = [];
+  public storage: Storage;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal) { 
+    this.storage = window.localStorage;
+  }
 
   displayedColumns: string[] = ['id', 'codigo', 'valorDesconto', 'tipoCupom', 'ativo', 'excluir'];
   dataSource: MatTableDataSource<Cupom>;
 
   ngOnInit(): void {
-    this.listaCupons.push(
-      {
-        id: 1,
-        codigo: "VINO2021",
-        tipoCupom: 'Primeira Compra',
-        ativo: true,
-        valorDesconto: 20.0
-      }
-    );
-
-    this.dataSource = new MatTableDataSource(this.listaCupons);
+    this.carregarListaCupons();
   }
 
   applyFilter(event: Event) {
@@ -37,9 +31,36 @@ export class CuponsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  deletarCupom(id: number) {
+    let index = this.listaCupons.findIndex(c => c.id === id);
+    if(index > -1){
+      this.listaCupons.splice(index, 1);
+      this.gravarListaCupons();
+      this.carregarListaCupons();
+    }
+  }
 
-  showCadastroModal() {
+
+  carregarListaCupons() {
+    this.listaCupons = JSON.parse(this.storage.getItem('cuponsCadastrados')) as Array<Cupom> ?? [];
+    this.dataSource = new MatTableDataSource(this.listaCupons);
+  }
+
+  gravarListaCupons() {
+    this.storage.setItem('cuponsCadastrados', JSON.stringify(this.listaCupons));
+  }
+
+
+  async showCadastroModal(cupom?: any) {
     const modalRef = this.modalService.open(CadastrarCupomComponent);
+    modalRef.componentInstance.cupom = cupom;
+    let cupomResult = await modalRef.result;
+    if(!cupom) {
+      cupomResult.id = this.listaCupons.length + 1;
+    }
+    this.listaCupons.push(await cupomResult);
+    this.gravarListaCupons();
+    this.carregarListaCupons();
     // modalRef.componentInstance.produtosLista = produtosLista;
     // console.log(modalRef.componentInstance);
   }
