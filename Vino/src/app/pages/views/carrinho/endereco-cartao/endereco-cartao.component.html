@@ -143,7 +143,7 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let endereco of carrinho.enderecos">
-            <label [for]="endereco.logradouro" style="width: 100%;">
+            <label [for]="endereco.logradouro" style="width: 100%;" id="{{  'endereco_' + endereco.id }}">
                 <div class="card mt-1" style="width: 100%;">
                     <div class="card-body">                  
                         <h3 class="card-title mb-2"><strong>Endereço de {{ endereco.tipoEndereco }}</strong></h3>
@@ -161,8 +161,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaEndereco()">Selecionar</button>
-        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalEndereco(false)">Novo Endereço</button>        
+        <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaEndereco()" id="endereco-seleciona">Selecionar</button>
+        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalEndereco(false)" id="endereco-cria-novo">Novo Endereço</button>        
     </div>
 </ng-template>
 
@@ -177,7 +177,7 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let cartao of carrinho.cartoes">
-            <label [for]="cartao.id" style="width: 100%;">
+            <label [for]="cartao.id" style="width: 100%;" id="{{  'cartao_' + cartao.id }}">
             <div class="card mt-1" style="width: 100%;">
                 <div class="card-body">                  
                     <h3 class="card-title mb-2">
@@ -198,8 +198,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaCartao()">Selecionar</button>
-        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalCartao(false)">Novo Endereço</button>        
+        <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaCartao()" id="cartao-seleciona">Selecionar</button>
+        <button type="button" class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalCartao(false)" id="cartao-novo">Novo Cartão</button>        
     </div>
 </ng-template>
 

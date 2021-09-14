@@ -68,7 +68,7 @@
       <p>Por:</p>
       <h3 class="valorPor font-weight-bold">{{produto.precoPor | currency: 'BRL'}}</h3>
     </div>
-    <button class="btn btn-primary" (click)="addCarrinho(produto)">Comprar</button>
+    <button type="button" class="btn btn-primary" (click)="addCarrinho(produto)" id="{{ 'btn-produto' + produto.id }}">Comprar</button>
   </div>
 </div>
 </section>
@@ -103,9 +103,9 @@
           <p>{{ item.titulo }}</p>
         </div>
         <div class="col-md-2 d-flex p-0 car-qtd">
-          <button class="car-btn-qtd" (click)="updateQtd(item, -1)" [disabled]="item.qtd == 0"><i class="fas fa-chevron-left"></i></button>
+          <button class="car-btn-qtd" (click)="updateQtd(item, -1)" [disabled]="item.qtd == 0" id="{{ 'subtQtd_' + item.id }}"><i class="fas fa-chevron-left"></i></button>
           <p>{{ item.qtd }}</p>
-          <button class="car-btn-qtd" (click)="updateQtd(item, 1)"><i class="fas fa-chevron-right"></i></button>
+          <button class="car-btn-qtd" (click)="updateQtd(item, 1)" id="{{ 'addQtd_' + item.id }}"><i class="fas fa-chevron-right"></i></button>
         </div>
         <div class="col-md-3 p-0 car-preco">
           <p>{{ item.qtd * item.precoPor | currency: 'BRL'}}</p>
@@ -125,7 +125,8 @@
     </div>
   </div>
   <div class="modal-footer">    
-    <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorCompras == 0)">IR PARA O PAGAMENTO</button>
-    <button type="button" class="btn btn-light car-btn-continuar" (click)="modal.close()">CONTINUAR COMPRANDO</button>
+    <button type="button" class="btn btn-danger" (click)="goParaPagamento()" [disabled]="(valorCompras == 0)" id="btn-carrinho-ir-para-pagamento">IR PARA O PAGAMENTO</button>
+    <button type="button" class="btn btn-light car-btn-continuar" (click)="modal.close()" id="btn-carrinho-continuar-comprando">CONTINUAR COMPRANDO</button>
   </div>
 </ng-template>
+
