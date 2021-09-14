@@ -148,7 +148,7 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let endereco of carrinho.enderecos">
-            <label [for]="endereco.logradouro">
+            <label [for]="endereco.logradouro" style="width: 100%;">
                 <div class="card mt-1" style="width: 100%;">
                     <div class="card-body">                  
                         <h3 class="card-title mb-2"><strong>Endereço de {{ endereco.tipoEndereco }}</strong></h3>
@@ -182,7 +182,7 @@
     </div>
     <div class="modal-body">        
         <div *ngFor="let cartao of carrinho.cartoes">
-            <label [for]="cartao.id">
+            <label [for]="cartao.id" style="width: 100%;">
             <div class="card mt-1" style="width: 100%;">
                 <div class="card-body">                  
                     <h3 class="card-title mb-2">
