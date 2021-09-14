@@ -14,7 +14,7 @@ export class Carrinho {
     pais: string;
     descricao: string;
     qtd: number;         
-
+    status: number;
     constructor(
         id: number, 
         codigo: string,
@@ -30,7 +30,8 @@ export class Carrinho {
         paisCodigo: string,
         pais: string,
         descricao: string, 
-        qtd: number, 
+        qtd: number,
+        status: number
         ) {
         this.id = id;        
         this.codigo = codigo;
@@ -47,5 +48,6 @@ export class Carrinho {
         this.pais = pais;
         this.descricao = descricao;
         this.qtd = qtd;
+        this.status = status;
     }
 }

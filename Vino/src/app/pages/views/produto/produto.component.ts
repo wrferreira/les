@@ -60,7 +60,7 @@ export class ProdutoComponent implements OnInit {
       existsItem.qtd++;
     }else{
       this.carrinho.listaCompras.push(new Carrinho(item.id, item.codigo, item.titulo, item.imagem, item.precoDe, item.precoPor, item.quantidadeML,
-        item.tempoGuarda, item.classificacao, item.tipo, item.teorAlcolico, item.paisCodigo, item.pais, item.descricao, 1));
+        item.tempoGuarda, item.classificacao, item.tipo, item.teorAlcolico, item.paisCodigo, item.pais, item.descricao, 1, 0));
     }
 
     this.updateValorTotal();

@@ -12,7 +12,9 @@ export class PagamentoComponent implements OnInit {
 
   constructor(
     private carrinhoService: CarrinhoService
-  ) { }
+  ) {
+    
+  }
 
  
 
