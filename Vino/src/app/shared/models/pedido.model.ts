@@ -1,4 +1,6 @@
+import { Cartao } from "./cartao.model";
 import { Cliente } from "./cliente.model";
+import { Endereco } from "./endereco.model";
 import { Produto } from "./produtos.model";
 
 export enum StatusPedido {
@@ -32,13 +34,20 @@ export let StatusPedidoNome = {
 };
 
 export class Pedido {
+    id?: number;
     valorTotal?: number;
     valorFrete?: number;
-    id?: number;
     status?: StatusPedido;
     cliente?: Cliente;
-    // cupom?: Cupom;
-    // pagamento?: Pagamento;
     dataPedido?: Date;
-    produtos?: Array<Produto>;
+    listaCompras?: Array<Produto>;
+    cartaoPagamento: Cartao;
+    cupom: any;
+    cupomDesconto: 0;
+    enderecoEntrega: Endereco;
+    enderecos: Endereco[];
+    infoCupom: string;
+    listaFrete: [];
+    numeroPedido: number;
+    valorCompras: number;
 }

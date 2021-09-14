@@ -41,10 +41,20 @@
     <img src="https://vivavinho.vteximg.com.br/arquivos/ids/161086/barra-cinza.png?v=637563369336300000">
   </a>
 </div>
+  <div class="col-md-12 mt-4 mb-4 d-flex justify-content-center">
+      <div class="row" style="width: 500px;">
+        <div class="form-group" style="position: relative;">
+          <input class="form-control" type="text" (input)="pesquisarProdutos($event.target.value)" placeholder="Consulte nossos produtos...">
+          <!-- <span class="fas fa-search" style="position: absolute"></span> -->
+        </div>
+      </div>
+  </div>
 <section class="productList">
-  <h1>Nossos Produtos</h1>
-<div class="container">
-  <div *ngFor="let produto of produtos" class="card">
+  <h1 *ngIf="!produtosFiltrados">Nossos Produtos</h1>
+  <h1 *ngIf="produtosFiltrados">Resultados da Pesquisa: </h1>
+  <h3 *ngIf="produtosFiltrados?.length == 0">Nenhum resultado encontrado.</h3>
+  <div class="container">
+  <div *ngFor="let produto of getListaProdutos()" class="card">
     <div class="produtoImagem">
       <img [src]="produto.imagem">
     </div>
