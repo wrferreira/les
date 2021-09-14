@@ -12,10 +12,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmacaoDialog } from 'src/app/shared/dialogs/confirm/confirmacao-dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MinhasComprasComponent } from './minhas-compras/minhas-compras.component';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @NgModule({
   declarations: [
@@ -37,8 +39,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatFormFieldModule,
     MatPaginatorModule,
     MatInputModule,
-    NgxMaskModule.forRoot(),
-    
+    MatIconModule,
+    NgxMaskModule.forRoot()    
   ]
 })
 export class MinhaContaModule { }
