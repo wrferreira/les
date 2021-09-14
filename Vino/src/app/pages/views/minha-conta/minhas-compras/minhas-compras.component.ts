@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class MinhasComprasComponent implements OnInit, AfterViewInit {
   
   public itensCompra = [];
+  public compraSelecionada: Compra;
 
   constructor(
     private modalService: NgbModal,
@@ -36,8 +37,30 @@ export class MinhasComprasComponent implements OnInit, AfterViewInit {
     })
   }
 
-  setTrocaProduto(){
+  setTrocaProduto(idItem){
+    console.log(idItem)
+    let item = ELEMENT_DATA.filter( c => c.id === idItem)[0].status = "Troca Solicitada";
+
+
+  }
+
+  cancelarCompra(content, idPedido){    
+    this.compraSelecionada = ELEMENT_DATA_COMPRA.filter( c => c.numeroPedido === idPedido)[0];
+    console.log(this.compraSelecionada)
+
+    this.modalService.open(content, {
+      windowClass: 'modal-compra'
+    });
+  }
+
+  setCancelarCompra(){
+    console.log('cancelar')
+    ELEMENT_DATA_COMPRA.filter(compra => compra.id == this.compraSelecionada.id)[0].status = "Cancelamento Solicitado"
+
     this.modalService.dismissAll();
+    /**
+     * SET compraSelecionada como cancelada.
+     */
   }
 }
 
@@ -62,13 +85,13 @@ export interface Produto {
 }
 
 const ELEMENT_DATA_COMPRA: Compra[] = [
-  {id: 1, numeroPedido: '03498642', status: 'concluído',   valorTotal: 292.0, data: "31/08/2021", metodoPagamento: "Cartão de Crédito", cupom: 30},
-  {id: 2, numeroPedido: '04323932', status: 'em trânsito', valorTotal: 89.99, data: "10/09/2021", metodoPagamento: "Boleto bancário",   cupom: 25},
+  {id: 1, numeroPedido: '03498642', status: 'CONCLUÍDO',   valorTotal: 292.0, data: "31/08/2021", metodoPagamento: "Cartão de Crédito", cupom: 30},
+  {id: 2, numeroPedido: '04323932', status: 'EM TRANSITO', valorTotal: 89.99, data: "10/09/2021", metodoPagamento: "Boleto bancário",   cupom: 25},
 ];
 
 const ELEMENT_DATA: Produto[] = [
-  {id: 1, numeroPedido:'03498642',  nome: 'Cruz Del Sur Malbec', status: 'concluído', preco: 100.0, qtd: 2, data: "31/08/2021"},
-  {id: 2, numeroPedido:'03498642',  nome: 'El Bravo',            status: 'em processamento', preco: 42.0, qtd: 1, data: "31/08/2021"},
-  {id: 3, numeroPedido:'03498642',  nome: 'Fonte Serrana',       status: 'em trânsito', preco: 150.0, qtd: 1, data: "31/08/2021"},
-  {id: 4, numeroPedido:'04323932',  nome: 'Sangue de Boi',       status: 'concluído', preco: 89.99, qtd: 2, data: "31/08/2021"},
+  {id: 1, numeroPedido:'03498642',  nome: 'Cruz Del Sur Malbec', status: 'CONCLUÍDO', preco: 100.0, qtd: 2, data: "31/08/2021"},
+  {id: 2, numeroPedido:'03498642',  nome: 'El Bravo',            status: 'EM PROCESSAMENTO', preco: 42.0, qtd: 1, data: "31/08/2021"},
+  {id: 3, numeroPedido:'03498642',  nome: 'Fonte Serrana',       status: 'EM TRANSITO', preco: 150.0, qtd: 1, data: "31/08/2021"},
+  {id: 4, numeroPedido:'04323932',  nome: 'Sangue de Boi',       status: 'CONCLUÍDO', preco: 89.99, qtd: 2, data: "31/08/2021"},
 ];

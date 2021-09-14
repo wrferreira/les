@@ -35,6 +35,7 @@
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let element"> 
           <button class="btn btn-dark btn-sm mr-2" (click)="showDetalheCompra(modalTrocaProduto,element.numeroPedido)"><i class="fas fa-receipt mr-1"></i>Detalhes</button>
+          <button class="btn btn-dark btn-sm mr-2" (click)="cancelarCompra(modalCancelaPedido, element.numeroPedido)"><i class="fas fa-trash mr-1"></i>Cancelar</button>
         </td>
       </ng-container>
 
@@ -58,7 +59,7 @@
   <div class="modal-header">
       <div class="d-flex align-items-center">
           <mat-icon class="mr-2">assignment</mat-icon>
-          <p class="modal-title p-0 m-0"><strong>{{ 'Produto: ' + itensCompra[0].numeroPedido }}</strong></p>
+          <p class="modal-title p-0 m-0"><strong>{{ 'Pedido: #' + itensCompra[0].numeroPedido }}</strong></p>
       </div>
   </div>
   <div class="modal-body">
@@ -83,13 +84,30 @@
             <td>{{ itens.preco }}</td>
             <td>{{ itens.qtd }}</td>
             <td>{{ itens.data }}</td>
-            <td>{{ 'troca' }}</td>
+            <td>
+              <button class="btn btn-dark btn-sm mr-2" (click)="setTrocaProduto(itens.id)"><i class="fas fa-exchange-alt"></i></button>
+            </td>
           </tr>                  
         </tbody>
       </table>
     </div>      
+  </div>  
+</ng-template>  
+
+
+<!-- MODAL CANCELAR PEDIDO -->
+<ng-template #modalCancelaPedido let-modal class="modal-cancela">
+  <div class="modal-header">
+    <div class="d-flex align-items-center">
+        <mat-icon class="mr-2">assignment</mat-icon>
+        <p class="modal-title p-0 m-0"><strong>{{ 'Pedido: #' }}</strong></p>
+    </div>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'Deseja realmente cancelar o pedido nrº '}} <strong>{{'#' + compraSelecionada.numeroPedido}}</strong> {{ '?' }}</p>
   </div>
   <div class="modal-footer">
-      <button type="button" class="btn btn-dark btn-sm" (click)="setTrocaProduto()">Selecionar</button>      
+    <button type="button" class="btn btn-danger btn-sm" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-dark btn-sm" (click)="setCancelarCompra()">Confirmar</button>
   </div>
-</ng-template>  
+</ng-template>
