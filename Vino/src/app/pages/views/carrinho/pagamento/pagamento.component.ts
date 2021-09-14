@@ -16,11 +16,10 @@ export class PagamentoComponent implements OnInit {
     
   }
 
- 
-
   ngOnInit(): void {
     this.carrinhoService.getLista().subscribe( ret => {
       this.carrinho = ret;
+      console.log(ret)
     })
   }
 

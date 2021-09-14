@@ -31,7 +31,12 @@ export class IdentificacaoComponent implements OnInit {
     enderecoEntrega: new Endereco(),
     cartoes: [],
     cartaoPagamento: new Cartao(),
-    clienteId: 0
+    pagamento: {
+      metodo: '',
+      qtdParcelas: null,
+      valorParcela: 0
+    },
+    clienteId: null
   }
 
   constructor(

@@ -1,64 +1,139 @@
-<div class="container" style="width: 800px;">
-    <div class="row">
-      <div class="col-md-12 d-flex align-items-center">
-        <mat-icon class="mr-2">location_on</mat-icon>
-        <h2 class="p-0 m-0">Selecione o endereço</h2>
-      </div>
-    </div>    
-    <div class="row d-flex justify-content-center">
-        <div class="card" style="width: 100%;">
-            <div class="card-body">
-                <h3 class="card-title mb-2"><strong>Endereço Principal</strong></h3>              
-                <div *ngIf="carrinho.enderecos.length">
-                    <h5 class="card-text mb-0">{{ carrinho.enderecoEntrega.logradouro + ', ' + carrinho.enderecoEntrega.numero }}</h5>
-                    <h5 class="card-text mb-0">{{ carrinho.enderecoEntrega.bairro }}</h5>
-                    <h5 class="card-text mb-3">{{ 'CEP ' + carrinho.enderecoEntrega.cep + ' - ' + carrinho.enderecoEntrega.cidade + ' - ' + carrinho.enderecoEntrega.uf }}</h5>
-                    <div>
-                        <button class="btn btn-dark btn-sm mr-2" (click)="showModalEndereco(true)">Editar</button>
-                        <button class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalTroca(modalTrocaEndereco)">Selecionar outro</button>
+<div class="container">
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12 d-flex align-items-center">
+                <mat-icon class="mr-2">location_on</mat-icon>
+                <h2 class="p-0 m-0">Selecione o endereço</h2>
+                </div>
+            </div>    
+            <div class="row d-flex justify-content-center">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <h3 class="card-title mb-2"><strong>Endereço Principal</strong></h3>              
+                        <div *ngIf="carrinho.enderecos.length">
+                            <h5 class="card-text mb-0">{{ carrinho.enderecoEntrega.logradouro + ', ' + carrinho.enderecoEntrega.numero }}</h5>
+                            <h5 class="card-text mb-0">{{ carrinho.enderecoEntrega.bairro }}</h5>
+                            <h5 class="card-text mb-3">{{ 'CEP ' + carrinho.enderecoEntrega.cep + ' - ' + carrinho.enderecoEntrega.cidade + ' - ' + carrinho.enderecoEntrega.uf }}</h5>
+                            <div>
+                                <button class="btn btn-dark btn-sm mr-2" (click)="showModalEndereco(true)">Editar</button>
+                                <button class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalTroca(modalTrocaEndereco)">Selecionar outro</button>
+                            </div>
+                        </div>
+                        <div *ngIf="!carrinho.enderecos.length">
+                            <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModalEndereco(false)">Cadastrar</button>
+                        </div>
                     </div>
                 </div>
-                <div *ngIf="!carrinho.enderecos.length">
-                    <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModalEndereco(false)">Cadastrar</button>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-md-12 d-flex align-items-center">
+                <mat-icon class="mr-2">credit_card</mat-icon>
+                <h2 class="p-0 m-0">Pagamento</h2>
+                </div>
+            </div>    
+            <div class="row d-flex justify-content-center">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <h3 class="card-title mb-2"><strong>Cartão Principal</strong></h3>              
+                        <div *ngIf="carrinho.cartoes.length">
+                            <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.titular }}</h5>
+                            <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.numero }}</h5>
+                            <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.dataValidade }}</h5>
+                            <h5 class="card-text mb-3">{{ getCardFlag(carrinho.cartaoPagamento.numero) | uppercase }}</h5>
+                            <div>
+                                <button class="btn btn-dark btn-sm mr-2" (click)="showModalCartao(true)">Editar</button>
+                                <button class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalTroca(modalTrocaCartao)">Selecionar outro</button>
+                            </div>
+                        </div>
+                        <div *ngIf="!carrinho.cartoes.length">
+                            <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModalCartao(false)">Cadastrar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="barra"></div>
 
-    <div class="row mt-5">
-        <div class="col-md-12 d-flex align-items-center">
-          <mat-icon class="mr-2">credit_card</mat-icon>
-          <h2 class="p-0 m-0">Pagamento</h2>
-        </div>
-      </div>    
-      <div class="row d-flex justify-content-center">
-          <div class="card" style="width: 100%;">
-              <div class="card-body">
-                  <h3 class="card-title mb-2"><strong>Cartão Principal</strong></h3>              
-                  <div *ngIf="carrinho.cartoes.length">
-                      <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.titular }}</h5>
-                      <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.numero }}</h5>
-                      <h5 class="card-text mb-0">{{ carrinho.cartaoPagamento.dataValidade }}</h5>
-                      <h5 class="card-text mb-3">{{ getCardFlag(carrinho.cartaoPagamento.numero) | uppercase }}</h5>
-                      <div>
-                          <button class="btn btn-dark btn-sm mr-2" (click)="showModalCartao(true)">Editar</button>
-                          <button class="btn btn-dark btn-sm btn-pre-cadastro" (click)="showModalTroca(modalTrocaCartao)">Selecionar outro</button>
-                      </div>
-                  </div>
-                  <div *ngIf="!carrinho.cartoes.length">
-                      <button class="btn btn-dark btn-sm mr-2 mt-3" (click)="showModalCartao(false)">Cadastrar</button>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <div class="barra"></div>
 
-      <div class="btn-avancar">
-        <button type="button" class="btn btn-dark btn-sm" matStepperNext (click)="setCarrinho()"
-            [disabled]="carrinho.enderecoEntrega.id == undefined || carrinho.cartaoPagamento.id == undefined">
-            CONFIRMAR PAGAMENTO
-        </button>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12 d-flex align-items-center">
+                <mat-icon class="mr-2">monetization_on</mat-icon>
+                <h2 class="p-0 m-0">Forma de Pagamento</h2>
+                </div>
+            </div>    
+            <div class="mt-2">                
+                <div class="form-group">
+                    <label>Método de Pagamento</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metodo" value="credito" checked [(ngModel)]="pagamento.metodo">
+                        <label class="form-check-label" for="exampleRadios1">
+                        Crédito
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="metodo" value="debito" [(ngModel)]="pagamento.metodo">
+                        <label class="form-check-label" for="exampleRadios2">
+                        Débito
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Parcelas</label>
+                    <select class="custom-select mr-sm-2" [(ngModel)]="pagamento.qtdParcelas">
+                        <option value="0">Selecione</option>
+                        <option value="1">1x</option>
+                        <option value="2">2x</option>
+                        <option value="3">3x</option>
+                        <option value="4">4x</option>
+                        <option value="5">5x</option>
+                        <option value="6">6x</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <p>Subtotal: </p>
+                        <p>{{ carrinho.valorCompras | currency: 'BRL' }}</p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="carrinho.valorFrete != 0">
+                    <div class="d-flex justify-content-between">
+                        <p>Frete</p>
+                        <p>{{ carrinho.valorFrete | currency: 'BRL' }}</p>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <p>Desconto</p>
+                        <p>{{ '-' + carrinho.cupomDesconto | currency: 'BRL' }}</p>
+                    </div> 
+                </div>
+                <div class="row" *ngIf="pagamento.qtdParcelas != 0">
+                    <div class="d-flex justify-content-between">
+                        <p>Parcela</p>
+                        <strong>
+                            <p>{{ pagamento.qtdParcelas + 'x de' }} {{ getValorTotalPagamento() | currency: 'BRL' }}</p>
+                        </strong>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-between">
+                        <strong><p>Total</p></strong>
+                        <strong>                                 
+                            <p>{{ carrinho.valorTotal | currency: 'BRL' }}</p>
+                        </strong>
+                    </div> 
+                </div>
+            </div>
+            <div class="btn-avancar mt-5">
+                <button type="button" class="btn btn-dark btn-sm" matStepperNext (click)="setCarrinho()"
+                    [disabled]="carrinho.enderecoEntrega.id == undefined || carrinho.cartaoPagamento.id == undefined">
+                    CONFIRMAR PAGAMENTO
+                </button>
+            </div>
+        </div>       
     </div>
 </div>
 

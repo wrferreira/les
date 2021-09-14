@@ -13,15 +13,24 @@ import { EnderecoComponent } from '../dialogs/endereco/endereco.component';
   templateUrl: './endereco-cartao.component.html',
   styleUrls: ['./endereco-cartao.component.scss']
 })
+
+
 export class EnderecoCartaoComponent implements OnInit {
   
   public formEndereco: FormGroup;
   public formCartao: FormGroup;   
+  public formMetodoPag: FormGroup;   
     
   public enderecoTroca;
   public cartaoTroca;
 
-  public carrinho = {
+  public pagamento = {
+    metodo: '',
+    qtdParcelas: null,
+    valorParcela: 0
+  }
+
+  public carrinho:any = {
     valorTotal: 0,
     valorCompras: 0,
     valorFrete: 0,
@@ -33,7 +42,7 @@ export class EnderecoCartaoComponent implements OnInit {
     enderecos: [],
     enderecoEntrega: new Endereco(),
     cartoes: [],
-    cartaoPagamento: new Cartao(),
+    cartaoPagamento: new Cartao(),    
     clienteId: null
   }
 
@@ -48,6 +57,7 @@ export class EnderecoCartaoComponent implements OnInit {
     this.loadCarrinho();    
     this.loadFormEndereco();
     this.loadFormCartao();
+    this.loadFormMetodoPag();
   }
 
   loadCarrinho(){
@@ -113,7 +123,7 @@ export class EnderecoCartaoComponent implements OnInit {
       tipoEndereco: [this.carrinho.enderecoEntrega.tipoEndereco ?? '', Validators.required]
     });
   }
-
+  
   loadFormCartao(){
     this.formCartao = this.formBuilder.group({
       id: [this.carrinho.cartaoPagamento.id ?? ''],
@@ -122,6 +132,14 @@ export class EnderecoCartaoComponent implements OnInit {
       numero: [this.carrinho.cartaoPagamento.numero ?? '', Validators.required],
       cvv: [this.carrinho.cartaoPagamento.cvv ?? '', Validators.required],
       dataValidade: [this.carrinho.cartaoPagamento.dataValidade ?? '', Validators.required]
+    });
+  }
+
+  loadFormMetodoPag(){    
+    this.formMetodoPag = this.formBuilder.group({
+      qtdParcelas: [this.pagamento.qtdParcelas ?? ''],
+      valorParcela: [this.pagamento.valorParcela ?? ''],
+      metodo: [this.pagamento.metodo ?? '']
     });
   }
 
@@ -174,6 +192,7 @@ export class EnderecoCartaoComponent implements OnInit {
   }
 
   setCarrinho(){
+    this.carrinho.pagamento = this.pagamento;
     this.carrinhoService.setLista(this.carrinho);
   }
 
@@ -199,5 +218,10 @@ export class EnderecoCartaoComponent implements OnInit {
     }
 
     return false;
+  }
+
+  getValorTotalPagamento(){
+    this.pagamento.valorParcela = (this.carrinho.valorTotal / this.pagamento.qtdParcelas);    
+    return this.pagamento.valorParcela;
   }
 }

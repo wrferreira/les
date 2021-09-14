@@ -25,7 +25,13 @@ export class CarrinhoComponent implements OnInit {
     enderecos: [],
     enderecoEntrega: new Endereco(),
     cartoes: [],
-    cartaoPagamento: new Cartao()
+    cartaoPagamento: new Cartao(),
+    pagamento: {
+      metodo: '',
+      qtdParcelas: null,
+      valorParcela: 0
+    },
+    clienteId: null
   }
   
   public setCupom: boolean;
