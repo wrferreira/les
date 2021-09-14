@@ -14,9 +14,10 @@ import { CarrinhoDashComponent } from './dash/carrinho-dash.component';
 import { EnderecoCartaoComponent } from './endereco-cartao/endereco-cartao.component';
 import { EnderecoComponent } from './dialogs/endereco/endereco.component';
 import { CartaoComponent } from './dialogs/cartao/cartao.component';
+import { ResultadoComponent } from './pagamento/resultado/resultado.component';
 
 @NgModule({
-  declarations: [CarrinhoComponent, IdentificacaoComponent, PagamentoComponent, CarrinhoDashComponent, EnderecoCartaoComponent, EnderecoComponent, CartaoComponent],
+  declarations: [CarrinhoComponent, IdentificacaoComponent, PagamentoComponent, CarrinhoDashComponent, EnderecoCartaoComponent, EnderecoComponent, CartaoComponent, ResultadoComponent],
   imports: [
     CommonModule,
     CarrinhoRoutingModule,

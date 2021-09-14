@@ -15,6 +15,7 @@ import { Cartao } from 'src/app/shared/models/cartao.model';
 export class ProdutoComponent implements OnInit {
 
   public produtos = listaProdutos;
+  public produtosFiltrados;
   public closeModal: string;  
   public carrinho = {
     valorTotal: 0,
@@ -88,5 +89,22 @@ export class ProdutoComponent implements OnInit {
     this.modalService.dismissAll();
     this.carrinhoService.setLista(this.carrinho);
     this.router.navigate(['home/carrinho']);    
+  }
+
+  getListaProdutos() {
+    return this.produtosFiltrados ?? this.produtos;
+  }
+  
+  pesquisarProdutos(valor: string) {
+    if(valor !== '') {
+      valor = valor.toLowerCase();
+      let nome = this.produtos.filter(p => p.titulo.toLowerCase().includes(valor));
+      let pais = this.produtos.filter(p => p.pais.toLowerCase().includes(valor));
+      let classificacao = this.produtos.filter(p => p.classificacao.toLowerCase().includes(valor));
+      console.log(nome);
+      this.produtosFiltrados = [...nome, ...pais, ...classificacao];
+    } else {
+      this.produtosFiltrados = undefined;
+    }
   }
 }

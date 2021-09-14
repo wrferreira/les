@@ -11,13 +11,13 @@ import { CuponsComponent } from './cupons/cupons.component';
 import { ConfiguracoesComponent } from './configuracoes/configuracoes.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ListarProdutoComponent } from './pedidos/listar-produto/listar-produto.component';
+import { DetalhesPedidoComponent } from './pedidos/detalhes-pedido/detalhes-pedido.component';
 import { CadastrarCupomComponent } from './cupons/cadastrar-cupom/cadastrar-cupom.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
-  declarations: [AdminComponent, ListaClienteComponent, DashboardComponent, CuponsComponent, ConfiguracoesComponent, PedidosComponent, ListarProdutoComponent, CadastrarCupomComponent],
+  declarations: [AdminComponent, ListaClienteComponent, DashboardComponent, CuponsComponent, ConfiguracoesComponent, PedidosComponent, DetalhesPedidoComponent, CadastrarCupomComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
